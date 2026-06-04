@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>管理后台 · 观影记录</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="grain"></div>
+  <div class="glow glow-a"></div>
+  <div class="glow glow-b"></div>
+
+  <!-- 首次设置 -->
+  <div class="auth-screen" id="setupScreen">
+    <div class="auth-card">
+      <div class="auth-icon">🔧</div>
+      <h2>首次设置</h2>
+      <p class="auth-desc">设置管理密码和 GitHub Token，之后你就能在网页上编辑并发布片单</p>
+      <form id="setupForm">
+        <label class="field field-full">
+          <span>管理密码 <em>*</em></span>
+          <input type="password" id="setupPassword" required minlength="4" placeholder="至少 4 位，仅你知道">
+        </label>
+        <label class="field field-full">
+          <span>确认密码 <em>*</em></span>
+          <input type="password" id="setupPasswordConfirm" required minlength="4">
+        </label>
+        <label class="field field-full">
+          <span>GitHub Token <em>*</em></span>
+          <input type="password" id="setupToken" required placeholder="用于发布更新到网站">
+        </label>
+        <label class="field field-full">
+          <span>仓库名</span>
+          <input type="text" id="setupRepo" value="fangsuzhe/fangsuzhe.github.io" placeholder="用户名/仓库名">
+        </label>
+        <details class="help-box">
+          <summary>如何获取 GitHub Token？</summary>
+          <ol>
+            <li>打开 GitHub → Settings → Developer settings → Personal access tokens</li>
+            <li>Generate new token (classic)</li>
+            <li>勾选 <code>repo</code> 权限</li>
+            <li>复制 Token 粘贴到上方（只存在你的浏览器里）</li>
+          </ol>
+        </details>
+        <button type="submit" class="btn btn-primary btn-full">完成设置</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 登录 -->
+  <div class="auth-screen hidden" id="loginScreen">
+    <div class="auth-card">
+      <div class="auth-icon">🔐</div>
+      <h2>管理后台</h2>
+      <p class="auth-desc">输入密码进入编辑模式</p>
+      <form id="loginForm">
+        <label class="field field-full">
+          <span>管理密码</span>
+          <input type="password" id="loginPassword" required autofocus>
+        </label>
+        <button type="submit" class="btn btn-primary btn-full">进入</button>
+      </form>
+      <p class="auth-foot"><a href="index.html">← 返回公开主页</a></p>
+    </div>
+  </div>
+
+  <!-- 管理界面 -->
+  <div id="adminApp" class="hidden">
+    <header class="header">
+      <div class="header-inner">
+        <div class="brand">
+          <span class="brand-icon">🎬</span>
+          <div>
+            <h1>管理后台</h1>
+            <p class="subtitle">编辑后记得发布更新</p>
+          </div>
+        </div>
+        <div class="header-actions">
+          <button class="btn btn-primary" id="btnPublish">发布更新</button>
+          <button class="btn btn-primary" id="btnAdd">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+            添加电影
+          </button>
+          <button class="btn btn-ghost" id="btnSettings">设置</button>
+          <button class="btn btn-ghost" id="btnLogout">退出</button>
+        </div>
+      </div>
+      <p class="publish-status" id="publishStatus"></p>
+    </header>
+
+    <main class="main">
+      <section class="stats">
+        <div class="stat-card">
+          <span class="stat-num" id="statTotal">0</span>
+          <span class="stat-label">已看影片</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num" id="statAvg">—</span>
+          <span class="stat-label">平均评分</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num" id="statBest">—</span>
+          <span class="stat-label">最高评分</span>
+        </div>
+      </section>
+
+      <section class="toolbar">
+        <div class="search-wrap">
+          <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input type="search" id="searchInput" placeholder="搜索…" autocomplete="off">
+        </div>
+        <div class="toolbar-actions">
+          <select id="sortSelect" class="select">
+            <option value="date-desc">最近添加</option>
+            <option value="rating-desc">评分从高到低</option>
+            <option value="rating-asc">评分从低到高</option>
+            <option value="title-asc">片名 A→Z</option>
+            <option value="watch-desc">观影日期</option>
+          </select>
+          <button class="btn btn-ghost" id="btnExport">导出</button>
+          <button class="btn btn-ghost" id="btnImport">导入</button>
+          <input type="file" id="importFile" accept=".json" hidden>
+        </div>
+      </section>
+
+      <section class="movie-grid" id="movieGrid"></section>
+
+      <div class="empty-state" id="emptyState">
+        <div class="empty-icon">🎞️</div>
+        <h2>还没有记录</h2>
+        <p>添加电影后，点「发布更新」让访客看到</p>
+        <button class="btn btn-primary" id="btnAddEmpty">添加第一部电影</button>
+      </div>
+    </main>
+  </div>
+
+  <!-- 添加/编辑弹窗 -->
+  <dialog class="modal" id="movieModal">
+    <form id="movieForm" method="dialog">
+      <div class="modal-header">
+        <h2 id="modalTitle">添加电影</h2>
+        <button type="button" class="btn-close" id="btnCloseModal" aria-label="关闭">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-row">
+          <label class="field field-full">
+            <span>片名 <em>*</em></span>
+            <input type="text" id="inputTitle" required placeholder="例如：肖申克的救赎" maxlength="120">
+          </label>
+        </div>
+        <div class="form-row two-col">
+          <label class="field">
+            <span>导演</span>
+            <input type="text" id="inputDirector" placeholder="弗兰克·德拉邦特" maxlength="80">
+          </label>
+          <label class="field">
+            <span>年份</span>
+            <input type="number" id="inputYear" placeholder="1994" min="1888" max="2099">
+          </label>
+        </div>
+        <div class="form-row two-col">
+          <label class="field">
+            <span>观影日期</span>
+            <input type="date" id="inputWatchDate">
+          </label>
+          <label class="field">
+            <span>类型 / 标签</span>
+            <input type="text" id="inputGenre" placeholder="剧情, 犯罪" maxlength="80">
+          </label>
+        </div>
+        <label class="field field-full">
+          <span>海报链接（可选）</span>
+          <input type="url" id="inputPoster" placeholder="https://…">
+        </label>
+        <div class="rating-field">
+          <div class="rating-header">
+            <span>我的评分 <em>*</em></span>
+            <span class="rating-display" id="ratingDisplay">8.0</span>
+          </div>
+          <input type="range" id="inputRating" min="0" max="100" value="80" step="5">
+          <div class="rating-scale">
+            <span>0</span><span>5</span><span>10</span>
+          </div>
+        </div>
+        <label class="field field-full">
+          <span>短评</span>
+          <textarea id="inputReview" rows="3" placeholder="写几句感受…" maxlength="500"></textarea>
+        </label>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger hidden" id="btnDelete">删除</button>
+        <div class="modal-footer-right">
+          <button type="button" class="btn btn-ghost" id="btnCancel">取消</button>
+          <button type="submit" class="btn btn-primary">保存</button>
+        </div>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog class="modal modal-detail" id="detailModal">
+    <button type="button" class="btn-close detail-close" id="btnCloseDetail" aria-label="关闭">&times;</button>
+    <div class="detail-content" id="detailContent"></div>
+  </dialog>
+
+  <!-- 设置弹窗 -->
+  <dialog class="modal" id="settingsModal">
+    <form id="settingsForm" method="dialog">
+      <div class="modal-header">
+        <h2>设置</h2>
+        <button type="button" class="btn-close" id="btnCloseSettings" aria-label="关闭">&times;</button>
+      </div>
+      <div class="modal-body">
+        <label class="field field-full">
+          <span>GitHub Token</span>
+          <input type="password" id="settingsToken" required>
+        </label>
+        <label class="field field-full">
+          <span>仓库名</span>
+          <input type="text" id="settingsRepo" placeholder="用户名/仓库名">
+        </label>
+        <hr class="divider">
+        <p class="field-hint">修改密码（留空则不修改）</p>
+        <label class="field field-full">
+          <span>原密码</span>
+          <input type="password" id="settingsOldPwd">
+        </label>
+        <label class="field field-full">
+          <span>新密码</span>
+          <input type="password" id="settingsNewPwd" minlength="4">
+        </label>
+      </div>
+      <div class="modal-footer">
+        <div class="modal-footer-right" style="margin-left:auto">
+          <button type="button" class="btn btn-ghost" id="btnCloseSettings2" onclick="document.getElementById('settingsModal').close()">取消</button>
+          <button type="submit" class="btn btn-primary">保存设置</button>
+        </div>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="js/shared.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
