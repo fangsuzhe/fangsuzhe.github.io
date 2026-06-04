@@ -226,7 +226,7 @@ const MovieShared = (() => {
         ${metaParts.length ? `<p class="detail-meta">${escapeHtml(metaParts.join(' · '))}</p>` : ''}
         <div class="detail-rating">★ ${m.rating} <span style="font-size:0.85rem;font-weight:400;opacity:0.7">/ 10</span></div>
         ${m.genre ? `<div class="card-tags" style="margin-bottom:1rem">${renderTags(m.genre)}</div>` : ''}
-        ${m.review ? `<p class="detail-review">${escapeHtml(m.review)}</p>` : '<p class="detail-review" style="opacity:0.5">暂无短评</p>'}
+        ${m.review ? `<p class="detail-review">${escapeHtml(m.review)}</p>` : ''}
         ${showEdit ? `<div class="detail-actions"><button class="btn btn-ghost" id="detailEdit">编辑</button></div>` : ''}
       </div>`;
 

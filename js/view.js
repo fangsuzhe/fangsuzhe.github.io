@@ -7,7 +7,7 @@ const {
 
 let movies = [];
 let activeTier = 'all';
-let siteConfig = { title: '我的观影记录', subtitle: '记录每一帧光影' };
+let siteConfig = { title: '观影片单', subtitle: '' };
 
 const FILTER_LABELS = [
   { id: 'all', label: '全部' },
@@ -23,7 +23,6 @@ const els = {
   ratingFilters: $('#ratingFilters'),
   detailModal: $('#detailModal'),
   statTotal: $('#statTotal'),
-  statAvg: $('#statAvg'),
   statPerfect: $('#statPerfect'),
   catalogTitle: $('#catalogTitle'),
   catalogCount: $('#catalogCount'),
@@ -46,7 +45,11 @@ async function loadPublicData() {
     siteConfig = await siteRes.json();
     document.title = siteConfig.title || document.title;
     if (els.pageTitle) els.pageTitle.textContent = siteConfig.title;
-    if (els.pageSubtitle) els.pageSubtitle.textContent = siteConfig.subtitle || '';
+    if (els.pageSubtitle) {
+      const sub = siteConfig.subtitle || '';
+      els.pageSubtitle.textContent = sub;
+      els.pageSubtitle.classList.toggle('hidden', !sub);
+    }
   }
 }
 
@@ -78,7 +81,6 @@ function render() {
   const stats = calcStats(movies);
 
   els.statTotal.textContent = stats.total;
-  els.statAvg.textContent = stats.avg;
   els.statPerfect.textContent = countByTier(movies)['10'] || 0;
 
   const tierMeta = FILTER_LABELS.find((f) => f.id === activeTier);
