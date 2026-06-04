@@ -39,7 +39,9 @@ async function loadPublicData() {
   ]);
 
   if (!moviesRes.ok) throw new Error('无法加载片单数据');
-  movies = await moviesRes.json();
+  const data = await moviesRes.json();
+  if (!Array.isArray(data)) throw new Error('片单数据格式错误');
+  movies = data;
 
   if (siteRes.ok) {
     siteConfig = await siteRes.json();
@@ -54,6 +56,7 @@ async function loadPublicData() {
 }
 
 function renderFilterChips() {
+  if (!els.ratingFilters) return;
   const counts = countByTier(movies);
   els.ratingFilters.innerHTML = FILTER_LABELS.map(({ id, label }) => {
     const count = counts[id] ?? 0;
@@ -75,30 +78,37 @@ function renderFilterChips() {
 }
 
 function render() {
-  const query = els.search.value;
-  const sort = els.sort.value;
-  const list = filterAndSort(movies, query, sort, activeTier);
-  const stats = calcStats(movies);
+  try {
+    const query = els.search?.value ?? '';
+    const sort = els.sort?.value ?? 'rating-desc';
+    const list = filterAndSort(movies, query, sort, activeTier);
+    const stats = calcStats(movies);
 
-  els.statTotal.textContent = stats.total;
-  els.statPerfect.textContent = countByTier(movies)['10'] || 0;
+    if (els.statTotal) els.statTotal.textContent = stats.total;
+    if (els.statPerfect) els.statPerfect.textContent = countByTier(movies)['10'] || 0;
 
-  const tierMeta = FILTER_LABELS.find((f) => f.id === activeTier);
-  els.catalogTitle.textContent = tierMeta?.label || '全部影片';
-  els.catalogCount.textContent = list.length ? `共 ${list.length} 部` : '';
+    const tierMeta = FILTER_LABELS.find((f) => f.id === activeTier);
+    if (els.catalogTitle) els.catalogTitle.textContent = tierMeta?.label || '全部影片';
+    if (els.catalogCount) els.catalogCount.textContent = list.length ? `共 ${list.length} 部` : '';
 
-  const showGrouped = activeTier === 'all' && !query.trim() && sort === 'rating-desc';
+    const showGrouped = activeTier === 'all' && !query.trim() && sort === 'rating-desc';
 
-  if (list.length === 0) {
-    els.movieList.innerHTML = '';
-    els.empty.classList.add('visible');
-  } else {
-    els.empty.classList.remove('visible');
-    if (showGrouped) {
-      renderGrouped(list, els.movieList, openDetail);
+    if (list.length === 0) {
+      if (els.movieList) els.movieList.innerHTML = '';
+      els.empty?.classList.add('visible');
     } else {
-      els.movieList.innerHTML = '<div class="movie-grid" id="flatGrid"></div>';
-      renderGrid(list, $('#flatGrid'), openDetail);
+      els.empty?.classList.remove('visible');
+      if (showGrouped) {
+        renderGrouped(list, els.movieList, openDetail);
+      } else {
+        els.movieList.innerHTML = '<div class="movie-grid" id="flatGrid"></div>';
+        renderGrid(list, $('#flatGrid'), openDetail);
+      }
+    }
+  } catch (err) {
+    console.error('render failed:', err);
+    if (els.movieList) {
+      els.movieList.innerHTML = `<p style="color:var(--danger);padding:1rem">页面渲染出错：${err.message}。请强制刷新（Ctrl+F5）后再试。</p>`;
     }
   }
 }
@@ -125,10 +135,10 @@ async function init() {
   }
 }
 
-els.search.addEventListener('input', render);
-els.sort.addEventListener('change', render);
-$('#btnCloseDetail').addEventListener('click', () => els.detailModal.close());
-els.detailModal.addEventListener('click', (e) => {
+els.search?.addEventListener('input', render);
+els.sort?.addEventListener('change', render);
+$('#btnCloseDetail')?.addEventListener('click', () => els.detailModal?.close());
+els.detailModal?.addEventListener('click', (e) => {
   if (e.target === els.detailModal) els.detailModal.close();
 });
 

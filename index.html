@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=2">
 </head>
 <body>
   <div class="grain"></div>
@@ -97,7 +97,9 @@
     <div class="detail-content" id="detailContent"></div>
   </dialog>
 
-  <script src="js/shared.js"></script>
-  <script src="js/view.js"></script>
+  <script src="js/shared.js?v=2"></script>
+  <script src="js/view.js?v=2"></script>
+  <!-- 兼容浏览器缓存的旧版 view.js -->
+  <span id="statAvg" hidden aria-hidden="true"></span>
 </body>
 </html>
