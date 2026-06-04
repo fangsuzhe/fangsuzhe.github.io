@@ -57,11 +57,17 @@ const MovieShared = (() => {
   }
 
   const RATING_TIERS = [
-    { id: '10',  label: '10 分 · 神作',     min: 10,   max: 10.01 },
-    { id: '9',   label: '9 分档',           min: 9,    max: 10 },
-    { id: '8',   label: '8 分档',           min: 8,    max: 9 },
-    { id: '7',   label: '7 分档',           min: 7,    max: 8 },
-    { id: 'low', label: '6 分及以下',       min: 0,    max: 7 },
+    { id: '10', label: '10 · 击碎我的' },
+    { id: '9',  label: '9 · 极致的' },
+    { id: '8',  label: '8 分' },
+    { id: '7',  label: '7 分' },
+    { id: '6',  label: '6 分' },
+    { id: '5',  label: '5 分' },
+    { id: '4',  label: '4 分' },
+    { id: '3',  label: '3 分' },
+    { id: '2',  label: '2 分' },
+    { id: '1',  label: '1 分' },
+    { id: '0',  label: '0 分' },
   ];
 
   function getScore(movie) {
@@ -71,11 +77,10 @@ const MovieShared = (() => {
   function matchRatingTier(movie, tierId) {
     if (!tierId || tierId === 'all') return true;
     const s = getScore(movie);
-    const tier = RATING_TIERS.find((t) => t.id === tierId);
-    if (!tier) return true;
     if (tierId === '10') return s >= 10;
-    if (tierId === 'low') return s < 7;
-    return s >= tier.min && s < tier.max;
+    const n = parseInt(tierId, 10);
+    if (!Number.isNaN(n)) return s >= n && s < n + 1;
+    return true;
   }
 
   function countByTier(movies) {
@@ -137,14 +142,31 @@ const MovieShared = (() => {
   function renderMovieCard(m, i = 0) {
     const meta = [m.year, m.director].filter(Boolean).join(' · ');
     const score = getScore(m);
+    const hasPoster = m.poster && m.poster.trim();
+
+    if (hasPoster) {
+      return `
+        <article class="movie-card" data-id="${m.id}" style="animation-delay:${Math.min(i * 0.05, 0.5)}s">
+          <div class="poster-wrap">
+            ${posterHtml(m.poster)}
+            <span class="rating-badge rating-badge--${tierClass(score)}" style="color:${ratingColor(m.rating)}">${m.rating}</span>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">${escapeHtml(m.title)}</h3>
+            ${meta ? `<p class="card-meta">${escapeHtml(meta)}</p>` : ''}
+            ${m.review ? `<p class="card-review">${escapeHtml(m.review)}</p>` : ''}
+            ${m.genre ? `<div class="card-tags">${renderTags(m.genre)}</div>` : ''}
+          </div>
+        </article>`;
+    }
+
     return `
-      <article class="movie-card" data-id="${m.id}" style="animation-delay:${Math.min(i * 0.05, 0.5)}s">
-        <div class="poster-wrap">
-          ${posterHtml(m.poster)}
-          <span class="rating-badge rating-badge--${tierClass(score)}" style="color:${ratingColor(m.rating)}">${m.rating}</span>
-        </div>
+      <article class="movie-card movie-card--text" data-id="${m.id}" style="animation-delay:${Math.min(i * 0.05, 0.5)}s">
         <div class="card-body">
-          <h3 class="card-title">${escapeHtml(m.title)}</h3>
+          <div class="card-head">
+            <h3 class="card-title">${escapeHtml(m.title)}</h3>
+            <span class="rating-pill rating-pill--${tierClass(score)}" style="color:${ratingColor(m.rating)}">${m.rating}</span>
+          </div>
           ${meta ? `<p class="card-meta">${escapeHtml(meta)}</p>` : ''}
           ${m.review ? `<p class="card-review">${escapeHtml(m.review)}</p>` : ''}
           ${m.genre ? `<div class="card-tags">${renderTags(m.genre)}</div>` : ''}
@@ -153,11 +175,9 @@ const MovieShared = (() => {
   }
 
   function tierClass(score) {
-    if (score >= 10) return 'perfect';
-    if (score >= 9) return 'great';
-    if (score >= 8) return 'good';
-    if (score >= 7) return 'ok';
-    return 'low';
+    const s = parseFloat(score) || 0;
+    if (s >= 10) return '10';
+    return String(Math.floor(s));
   }
 
   function bindCardClicks(container, onCardClick) {
@@ -199,9 +219,9 @@ const MovieShared = (() => {
 
     detailContentEl.innerHTML = `
       ${m.poster
-        ? `<img class="detail-poster" src="${escapeAttr(m.poster)}" alt="" onerror="this.outerHTML='<div class=\\'detail-poster-placeholder\\'>🎬</div>'">`
-        : `<div class="detail-poster-placeholder">🎬</div>`}
-      <div class="detail-inner">
+        ? `<img class="detail-poster" src="${escapeAttr(m.poster)}" alt="" onerror="this.remove()">`
+        : ''}
+      <div class="detail-inner${m.poster ? '' : ' detail-inner--no-poster'}">
         <h2>${escapeHtml(m.title)}</h2>
         ${metaParts.length ? `<p class="detail-meta">${escapeHtml(metaParts.join(' · '))}</p>` : ''}
         <div class="detail-rating">★ ${m.rating} <span style="font-size:0.85rem;font-weight:400;opacity:0.7">/ 10</span></div>
