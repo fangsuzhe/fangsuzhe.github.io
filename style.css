@@ -1440,6 +1440,19 @@ body {
   max-width: 640px;
 }
 
+.pick-card--clickable {
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, transform 0.15s;
+}
+
+.pick-card--clickable:hover,
+.pick-card--clickable:focus-visible {
+  border-color: rgba(232, 192, 104, 0.28);
+  background: var(--bg-card-hover);
+  transform: translateY(-2px);
+  outline: none;
+}
+
 .pick-card {
   background: var(--bg-glass);
   border: 1px solid var(--border);

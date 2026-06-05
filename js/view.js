@@ -17,9 +17,10 @@ const DEFAULT_SPACE_SECTIONS = [
   { id: 'best', label: '最' },
 ];
 
-const CONTENT_SPACES = ['drama', 'anime', 'text'];
+const CONTENT_SPACES = ['drama', 'anime', 'text', 'music'];
 
 let movies = [];
+let spaceItemIndex = new Map();
 let activeTier = 'all';
 let siteConfig = {
   title: '个人空间',
@@ -35,12 +36,14 @@ let activeSubTabs = {
   drama: 'records',
   anime: 'records',
   text: 'records',
+  music: 'records',
 };
 
 const spaceTierState = {
   drama: 'all',
   anime: 'all',
   text: 'all',
+  music: 'all',
 };
 
 const FILTER_LABELS = [
@@ -75,6 +78,18 @@ function getTabConfig(tabId) {
 
 function getSpaceConfig(spaceId) {
   return siteConfig.spaces?.[spaceId] || {};
+}
+
+function buildSpaceItemIndex() {
+  spaceItemIndex = new Map();
+  CONTENT_SPACES.forEach((spaceId) => {
+    const space = getSpaceConfig(spaceId);
+    [...(space.items || []), ...(space.best || [])].forEach((item) => {
+      if (item?.id && !spaceItemIndex.has(item.id)) {
+        spaceItemIndex.set(item.id, item);
+      }
+    });
+  });
 }
 
 function getSections(tabId) {
@@ -121,6 +136,7 @@ async function loadPublicData() {
       movieTab.sections = DEFAULT_MOVIE_SECTIONS;
     }
     if (!siteConfig.spaces) siteConfig.spaces = {};
+    buildSpaceItemIndex();
     document.title = siteConfig.title || document.title;
     if (els.pageTitle) els.pageTitle.textContent = siteConfig.title;
     if (els.pageSubtitle) {
@@ -256,10 +272,18 @@ function renderContentSpaces() {
         spaceTierState[spaceId] = tierId;
         renderContentSpaces();
       },
+      onItemClick: openSpaceDetail,
     });
 
-    renderSpacePicksPage($(`#${spaceId}_best`), 'best', space.best, kicker);
+    renderSpacePicksPage($(`#${spaceId}_best`), 'best', space.best, kicker, openSpaceDetail);
   });
+}
+
+function openSpaceDetail(id) {
+  const item = spaceItemIndex.get(id);
+  if (!item) return;
+  renderDetail(item, $('#detailContent'), { showEdit: false });
+  els.detailModal.showModal();
 }
 
 function renderPlaceholderSpaces() {

@@ -219,6 +219,9 @@ const MovieShared = (() => {
     const metaParts = [];
     if (m.year) metaParts.push(m.year);
     if (m.director) metaParts.push(m.director);
+    if (m.author) metaParts.push(m.author);
+    if (m.artist) metaParts.push(m.artist);
+    if (m.creator) metaParts.push(m.creator);
     if (m.watchDate) metaParts.push('观看于 ' + formatDate(m.watchDate));
 
     detailContentEl.innerHTML = `
@@ -386,10 +389,11 @@ const MovieShared = (() => {
   };
 
   function renderSpaceItemCard(item, i = 0) {
-    const meta = [item.year, item.author, item.creator, item.director].filter(Boolean).join(' · ');
+    const meta = [item.year, item.author, item.artist, item.creator, item.director].filter(Boolean).join(' · ');
     const score = getScore(item);
+    const idAttr = item.id ? ` data-space-item="${escapeAttr(item.id)}"` : '';
     return `
-      <article class="movie-card movie-card--text" style="animation-delay:${Math.min(i * 0.04, 0.48)}s">
+      <article class="movie-card movie-card--text"${idAttr}${item.id ? ' tabindex="0" role="button"' : ''} style="animation-delay:${Math.min(i * 0.04, 0.48)}s">
         <div class="card-accent" aria-hidden="true" data-tier="${tierClass(score)}"></div>
         <div class="card-body">
           <div class="card-head">
@@ -410,6 +414,7 @@ const MovieShared = (() => {
       statLabel = '已记录',
       activeTier = 'all',
       onTierChange,
+      onItemClick,
     } = options;
 
     const FILTER_LABELS = [
@@ -501,12 +506,28 @@ const MovieShared = (() => {
         btn.addEventListener('click', () => onTierChange(btn.dataset.tier));
       });
     }
+
+    bindSpaceItemClicks(container, onItemClick);
+  }
+
+  function bindSpaceItemClicks(container, onItemClick) {
+    if (!container || typeof onItemClick !== 'function') return;
+    container.querySelectorAll('[data-space-item]').forEach((card) => {
+      card.addEventListener('click', () => onItemClick(card.dataset.spaceItem));
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onItemClick(card.dataset.spaceItem);
+        }
+      });
+    });
   }
 
   function renderPickCard(item, featured = false) {
-    const meta = [item.author, item.creator, item.year, item.note].filter(Boolean).join(' · ');
+    const meta = [item.author, item.artist, item.creator, item.year, item.note].filter(Boolean).join(' · ');
+    const idAttr = item.id ? ` data-space-item="${escapeAttr(item.id)}"` : '';
     return `
-      <article class="pick-card${featured ? ' pick-card--featured' : ''}">
+      <article class="pick-card pick-card--clickable${featured ? ' pick-card--featured' : ''}"${idAttr} tabindex="0" role="button">
         <div class="pick-card-head">
           <h3 class="pick-card-title">${escapeHtml(item.title || '')}</h3>
           ${item.rating ? `<span class="pick-card-rating">${escapeHtml(item.rating)}</span>` : ''}
@@ -516,7 +537,7 @@ const MovieShared = (() => {
       </article>`;
   }
 
-  function renderSpacePicksPage(container, sectionId, items, spaceKicker) {
+  function renderSpacePicksPage(container, sectionId, items, spaceKicker, onItemClick) {
     if (!container) return;
     const meta = PICK_SECTION_META[sectionId] || { title: sectionId, kicker: '' };
     const list = Array.isArray(items) ? items : [];
@@ -532,6 +553,8 @@ const MovieShared = (() => {
           ? list.map((item) => renderPickCard(item, featured)).join('')
           : '<p class="taste-empty">暂无</p>'}
       </div>`;
+
+    bindSpaceItemClicks(container, onItemClick);
   }
 
   return {
@@ -540,7 +563,7 @@ const MovieShared = (() => {
     RATING_TIERS, getScore, matchRatingTier, countByTier, groupByTier,
     filterAndSort, calcStats, renderGrid, renderGrouped, renderDetail,
     renderTastePanel, renderBestPanel, renderSpacePlaceholder,
-    renderSpacePicksPage, renderSpaceRecordsPanel,
+    renderSpacePicksPage, renderSpaceRecordsPanel, bindSpaceItemClicks,
     linesToList, listToLines, sha256,
   };
 })();

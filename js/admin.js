@@ -31,7 +31,7 @@ let siteConfig = {
     { id: 'drama', label: '剧空间' },
     { id: 'anime', label: '动漫空间' },
     { id: 'text', label: '文字空间' },
-    { id: 'music', label: '音乐空间', kicker: 'Music Space', icon: '🎵', message: '音乐收藏筹备中' },
+    { id: 'music', label: '音乐空间' },
   ],
   spaces: {
     drama: {
@@ -39,16 +39,21 @@ let siteConfig = {
       statLabel: '已看剧集',
       defaultSubTab: 'records',
       sections: [{ id: 'records', label: '记录' }, { id: 'best', label: '最' }],
-      items: [{ title: '风骚律师', rating: '10.0' }],
-      best: [{ title: '风骚律师', rating: '10.0' }],
+      items: [
+        { id: 'd_bcs', title: '风骚律师', rating: '10.0' },
+        { id: 'd_breaking_bad', title: '绝命毒师', rating: '10.0' },
+        { id: 'd_friends', title: '老友记', rating: '10.0' },
+        { id: 'd_longmen', title: '龙门镖局', rating: '9.0' },
+      ],
+      best: [{ id: 'd_bcs', title: '风骚律师', rating: '10.0' }],
     },
     anime: {
       kicker: 'Anime Space',
       statLabel: '已看作品',
       defaultSubTab: 'records',
       sections: [{ id: 'records', label: '记录' }, { id: 'best', label: '最' }],
-      items: [{ title: '炎拳', rating: '10.0' }],
-      best: [{ title: '炎拳', rating: '10.0' }],
+      items: [{ id: 'a_chainsaw', title: '炎拳', rating: '10.0' }],
+      best: [{ id: 'a_chainsaw', title: '炎拳', rating: '10.0' }],
     },
     text: {
       kicker: 'Text Space',
@@ -56,11 +61,19 @@ let siteConfig = {
       defaultSubTab: 'records',
       sections: [{ id: 'records', label: '记录' }, { id: 'best', label: '最' }],
       items: [
-        { title: '万寿寺', author: '王小波', rating: '10.0' },
-        { title: '蛙', author: '莫言', rating: '10.0' },
-        { title: '檀香刑', author: '莫言', rating: '10.0' },
+        { id: 't_wanshou', title: '万寿寺', author: '王小波', rating: '10.0' },
+        { id: 't_frog', title: '蛙', author: '莫言', rating: '10.0' },
+        { id: 't_sandalwood', title: '檀香刑', author: '莫言', rating: '10.0' },
       ],
-      best: [{ title: '万寿寺', author: '王小波', rating: '10.0' }],
+      best: [{ id: 't_wanshou', title: '万寿寺', author: '王小波', rating: '10.0' }],
+    },
+    music: {
+      kicker: 'Music Space',
+      statLabel: '已听作品',
+      defaultSubTab: 'records',
+      sections: [{ id: 'records', label: '记录' }, { id: 'best', label: '最' }],
+      items: [{ id: 'mu_fishmans', title: 'fishmans', artist: 'fishmans', rating: '10.0' }],
+      best: [{ id: 'mu_fishmans', title: 'fishmans', artist: 'fishmans', rating: '10.0' }],
     },
   },
   best: {
