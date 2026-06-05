@@ -55,7 +55,27 @@ const SiteCursor = (() => {
         raf = 0;
       });
     }
-    setVariant(detectVariant(document.elementFromPoint(x, y)));
+    const hit = document.elementFromPoint(x, y);
+    if (hit?.closest('.site-cursor')) return;
+    setVariant(detectVariant(hit));
+  }
+
+  function mountCursor() {
+    if (!el) return;
+    const openDialog = document.querySelector('dialog[open]');
+    if (openDialog) {
+      openDialog.appendChild(el);
+      el.classList.add('site-cursor--in-dialog');
+    } else {
+      document.body.appendChild(el);
+      el.classList.remove('site-cursor--in-dialog');
+    }
+  }
+
+  function bindDialogLayer() {
+    document.querySelectorAll('dialog').forEach((dialog) => {
+      dialog.addEventListener('toggle', mountCursor);
+    });
   }
 
   function buildLayer(name, src, ext = 'webp') {
@@ -101,6 +121,7 @@ const SiteCursor = (() => {
     document.documentElement.classList.add('custom-cursor');
     enabled = true;
 
+    bindDialogLayer();
     window.addEventListener('mousemove', onMove, { passive: true });
     window.addEventListener('mouseover', onMove, { passive: true });
     document.addEventListener('mouseleave', () => {

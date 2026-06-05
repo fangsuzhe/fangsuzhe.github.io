@@ -120,10 +120,6 @@
     "volume": 0.35,
     "loop": true
   },
-  "headerImage": {
-    "webp": "images/posters/top.webp",
-    "fallback": "images/posters/top.png"
-  },
   "cursor": {
     "enabled": true,
     "basePath": "images/cursors/chiaki",
