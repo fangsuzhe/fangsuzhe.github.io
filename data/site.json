@@ -27,12 +27,13 @@
   "spaces": {
     "drama": {
       "kicker": "Drama Space",
-      "defaultSubTab": "perfect",
+      "statLabel": "已看剧集",
+      "defaultSubTab": "records",
       "sections": [
-        { "id": "perfect", "label": "十分" },
+        { "id": "records", "label": "记录" },
         { "id": "best", "label": "最" }
       ],
-      "perfect": [
+      "items": [
         { "title": "风骚律师", "rating": "10.0" }
       ],
       "best": [
@@ -41,12 +42,13 @@
     },
     "anime": {
       "kicker": "Anime Space",
-      "defaultSubTab": "perfect",
+      "statLabel": "已看作品",
+      "defaultSubTab": "records",
       "sections": [
-        { "id": "perfect", "label": "十分" },
+        { "id": "records", "label": "记录" },
         { "id": "best", "label": "最" }
       ],
-      "perfect": [
+      "items": [
         { "title": "炎拳", "rating": "10.0" }
       ],
       "best": [
@@ -55,12 +57,13 @@
     },
     "text": {
       "kicker": "Text Space",
-      "defaultSubTab": "perfect",
+      "statLabel": "已读作品",
+      "defaultSubTab": "records",
       "sections": [
-        { "id": "perfect", "label": "十分" },
+        { "id": "records", "label": "记录" },
         { "id": "best", "label": "最" }
       ],
-      "perfect": [
+      "items": [
         { "title": "万寿寺", "author": "王小波", "rating": "10.0" },
         { "title": "蛙", "author": "莫言", "rating": "10.0" },
         { "title": "檀香刑", "author": "莫言", "rating": "10.0" }

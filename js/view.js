@@ -3,7 +3,7 @@
 const {
   $, RATING_TIERS, filterAndSort, calcStats, countByTier,
   renderGrid, renderGrouped, renderDetail, renderTastePanel, renderBestPanel,
-  renderSpacePlaceholder, renderSpacePicksPage,
+  renderSpacePlaceholder, renderSpacePicksPage, renderSpaceRecordsPanel,
 } = MovieShared;
 
 const DEFAULT_MOVIE_SECTIONS = [
@@ -12,8 +12,8 @@ const DEFAULT_MOVIE_SECTIONS = [
   { id: 'taste', label: '观影口味' },
 ];
 
-const DEFAULT_PICK_SECTIONS = [
-  { id: 'perfect', label: '十分' },
+const DEFAULT_SPACE_SECTIONS = [
+  { id: 'records', label: '记录' },
   { id: 'best', label: '最' },
 ];
 
@@ -32,9 +32,15 @@ let siteConfig = {
 let activeTab = 'movies';
 let activeSubTabs = {
   movies: 'records',
-  drama: 'perfect',
-  anime: 'perfect',
-  text: 'perfect',
+  drama: 'records',
+  anime: 'records',
+  text: 'records',
+};
+
+const spaceTierState = {
+  drama: 'all',
+  anime: 'all',
+  text: 'all',
 };
 
 const FILTER_LABELS = [
@@ -78,12 +84,12 @@ function getSections(tabId) {
   }
   const space = getSpaceConfig(tabId);
   if (Array.isArray(space.sections) && space.sections.length) return space.sections;
-  return DEFAULT_PICK_SECTIONS;
+  return DEFAULT_SPACE_SECTIONS;
 }
 
 function getDefaultSubTab(tabId) {
   if (tabId === 'movies') return siteConfig.defaultSubTab || 'records';
-  return getSpaceConfig(tabId).defaultSubTab || 'perfect';
+  return getSpaceConfig(tabId).defaultSubTab || 'records';
 }
 
 function initActiveSubTabs() {
@@ -238,9 +244,20 @@ function renderBest() {
 function renderContentSpaces() {
   CONTENT_SPACES.forEach((spaceId) => {
     const space = getSpaceConfig(spaceId);
-    if (!space.perfect && !space.best) return;
+    const items = space.items || [];
     const kicker = space.kicker || '';
-    renderSpacePicksPage($(`#${spaceId}_perfect`), 'perfect', space.perfect, kicker);
+
+    renderSpaceRecordsPanel($(`#${spaceId}_records`), {
+      items,
+      kicker,
+      statLabel: space.statLabel || '已记录',
+      activeTier: spaceTierState[spaceId] || 'all',
+      onTierChange: (tierId) => {
+        spaceTierState[spaceId] = tierId;
+        renderContentSpaces();
+      },
+    });
+
     renderSpacePicksPage($(`#${spaceId}_best`), 'best', space.best, kicker);
   });
 }
@@ -330,7 +347,8 @@ async function init() {
 
     const params = new URLSearchParams(window.location.search);
     const tabFromUrl = params.get('tab');
-    const subFromUrl = params.get('sub');
+    let subFromUrl = params.get('sub');
+    if (subFromUrl === 'perfect') subFromUrl = 'records';
 
     if (tabFromUrl === 'taste') {
       activeTab = 'movies';

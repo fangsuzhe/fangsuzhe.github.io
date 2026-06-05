@@ -36,23 +36,26 @@ let siteConfig = {
   spaces: {
     drama: {
       kicker: 'Drama Space',
-      defaultSubTab: 'perfect',
-      sections: [{ id: 'perfect', label: '十分' }, { id: 'best', label: '最' }],
-      perfect: [{ title: '风骚律师', rating: '10.0' }],
+      statLabel: '已看剧集',
+      defaultSubTab: 'records',
+      sections: [{ id: 'records', label: '记录' }, { id: 'best', label: '最' }],
+      items: [{ title: '风骚律师', rating: '10.0' }],
       best: [{ title: '风骚律师', rating: '10.0' }],
     },
     anime: {
       kicker: 'Anime Space',
-      defaultSubTab: 'perfect',
-      sections: [{ id: 'perfect', label: '十分' }, { id: 'best', label: '最' }],
-      perfect: [{ title: '炎拳', rating: '10.0' }],
+      statLabel: '已看作品',
+      defaultSubTab: 'records',
+      sections: [{ id: 'records', label: '记录' }, { id: 'best', label: '最' }],
+      items: [{ title: '炎拳', rating: '10.0' }],
       best: [{ title: '炎拳', rating: '10.0' }],
     },
     text: {
       kicker: 'Text Space',
-      defaultSubTab: 'perfect',
-      sections: [{ id: 'perfect', label: '十分' }, { id: 'best', label: '最' }],
-      perfect: [
+      statLabel: '已读作品',
+      defaultSubTab: 'records',
+      sections: [{ id: 'records', label: '记录' }, { id: 'best', label: '最' }],
+      items: [
         { title: '万寿寺', author: '王小波', rating: '10.0' },
         { title: '蛙', author: '莫言', rating: '10.0' },
         { title: '檀香刑', author: '莫言', rating: '10.0' },

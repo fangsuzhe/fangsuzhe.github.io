@@ -382,9 +382,126 @@ const MovieShared = (() => {
   }
 
   const PICK_SECTION_META = {
-    perfect: { title: '十分', kicker: 'Perfect Ten' },
     best: { title: '最', kicker: 'The Best' },
   };
+
+  function renderSpaceItemCard(item, i = 0) {
+    const meta = [item.year, item.author, item.creator, item.director].filter(Boolean).join(' · ');
+    const score = getScore(item);
+    return `
+      <article class="movie-card movie-card--text" style="animation-delay:${Math.min(i * 0.04, 0.48)}s">
+        <div class="card-accent" aria-hidden="true" data-tier="${tierClass(score)}"></div>
+        <div class="card-body">
+          <div class="card-head">
+            <h3 class="card-title">${escapeHtml(item.title || '')}</h3>
+            <span class="rating-pill rating-pill--${tierClass(score)}" style="color:${ratingColor(item.rating)}">${escapeHtml(item.rating || '')}</span>
+          </div>
+          ${meta ? `<p class="card-meta">${escapeHtml(meta)}</p>` : ''}
+          ${item.bookmark ? `<p class="card-bookmark">${escapeHtml(item.bookmark)}</p>` : ''}
+        </div>
+      </article>`;
+  }
+
+  function renderSpaceRecordsPanel(container, options = {}) {
+    if (!container) return;
+    const {
+      items = [],
+      kicker = '',
+      statLabel = '已记录',
+      activeTier = 'all',
+      onTierChange,
+    } = options;
+
+    const FILTER_LABELS = [
+      { id: 'all', label: '全部' },
+      ...RATING_TIERS.map((t) => ({ id: t.id, label: t.label })),
+    ];
+
+    const counts = countByTier(items);
+    const tierMeta = FILTER_LABELS.find((f) => f.id === activeTier);
+    const filtered = activeTier === 'all'
+      ? [...items].sort((a, b) => getScore(b) - getScore(a))
+      : items.filter((item) => matchRatingTier(item, activeTier));
+    const showGrouped = activeTier === 'all';
+
+    const filterHtml = FILTER_LABELS.map(({ id, label }) => {
+      const count = counts[id] ?? 0;
+      const active = activeTier === id ? ' active' : '';
+      const empty = count === 0 && id !== 'all' ? ' disabled' : '';
+      return `<button type="button" class="filter-chip filter-chip--${id}${active}${empty}" data-tier="${id}" ${empty ? 'disabled' : ''}>
+        <span class="filter-chip-label">${label}</span>
+        <span class="filter-chip-count">${count}</span>
+      </button>`;
+    }).join('');
+
+    let listHtml = '';
+    if (!filtered.length) {
+      listHtml = `
+        <div class="empty-state visible">
+          <div class="empty-icon">📂</div>
+          <h2>没有符合条件的记录</h2>
+          <p>试试切换评分档位</p>
+        </div>`;
+    } else if (showGrouped) {
+      listHtml = groupByTier(items).map(({ tier, movies: list }) => `
+        <section class="rating-section" data-tier="${tier.id}">
+          <div class="section-header">
+            <div class="section-title-wrap">
+              <span class="section-dot section-dot--${tier.id}"></span>
+              <h2 class="section-title">${tier.label}</h2>
+            </div>
+            <span class="section-count">${list.length} 条</span>
+          </div>
+          <div class="movie-grid">
+            ${list.map((item, i) => renderSpaceItemCard(item, i)).join('')}
+          </div>
+        </section>
+      `).join('');
+    } else {
+      listHtml = `<div class="movie-grid">${filtered.map((item, i) => renderSpaceItemCard(item, i)).join('')}</div>`;
+    }
+
+    container.innerHTML = `
+      <section class="dashboard">
+        <div class="dash-stats stats stats--two">
+          <div class="stat-card">
+            <span class="stat-label">${escapeHtml(statLabel)}</span>
+            <span class="stat-num">${items.length}</span>
+          </div>
+          <div class="stat-card stat-card--highlight">
+            <span class="stat-label">击碎我的 · 10 分</span>
+            <span class="stat-num">${counts['10'] || 0}</span>
+          </div>
+        </div>
+        <section class="filter-panel dash-panel">
+          <div class="filter-panel-head">
+            <div>
+              <h2 class="panel-title">浏览与筛选</h2>
+              <p class="panel-desc">按评分档位浏览</p>
+            </div>
+          </div>
+          <div class="rating-filters-scroll">
+            <div class="rating-filters space-rating-filters">${filterHtml}</div>
+          </div>
+        </section>
+      </section>
+      <section class="catalog">
+        <div class="catalog-head">
+          <div>
+            <p class="catalog-kicker">${escapeHtml(kicker)}</p>
+            <h2 class="catalog-title">${escapeHtml(tierMeta?.label || '全部')}</h2>
+          </div>
+          <span class="catalog-count">${filtered.length ? `共 ${filtered.length} 条` : ''}</span>
+        </div>
+        <div class="space-records-list">${listHtml}</div>
+      </section>`;
+
+    if (typeof onTierChange === 'function') {
+      container.querySelectorAll('.space-rating-filters .filter-chip:not([disabled])').forEach((btn) => {
+        btn.addEventListener('click', () => onTierChange(btn.dataset.tier));
+      });
+    }
+  }
 
   function renderPickCard(item, featured = false) {
     const meta = [item.author, item.creator, item.year, item.note].filter(Boolean).join(' · ');
@@ -422,7 +539,8 @@ const MovieShared = (() => {
     escapeHtml, escapeAttr, renderTags, posterHtml,
     RATING_TIERS, getScore, matchRatingTier, countByTier, groupByTier,
     filterAndSort, calcStats, renderGrid, renderGrouped, renderDetail,
-    renderTastePanel, renderBestPanel, renderSpacePlaceholder, renderSpacePicksPage,
+    renderTastePanel, renderBestPanel, renderSpacePlaceholder,
+    renderSpacePicksPage, renderSpaceRecordsPanel,
     linesToList, listToLines, sha256,
   };
 })();

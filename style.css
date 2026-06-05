@@ -1495,6 +1495,19 @@ body {
   font-style: italic;
 }
 
+.space-records-page {
+  animation: fadeUp 0.45s ease both;
+}
+
+.space-records-list .empty-state {
+  display: none;
+  margin-top: 1rem;
+}
+
+.space-records-list .empty-state.visible {
+  display: block;
+}
+
 .field-hint-block {
   font-size: 0.78rem;
   color: var(--text-muted);
