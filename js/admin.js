@@ -3,16 +3,34 @@
 const {
   $, uid, ratingFromSlider, sliderFromRating,
   filterAndSort, calcStats, renderGrid, renderDetail, sha256,
+  linesToList, listToLines,
 } = MovieShared;
 
 const CONFIG_KEY = 'movie-admin-config';
 const SESSION_KEY = 'movie-admin-session';
 const DATA_PATH = 'data/movies.json';
+const SITE_PATH = 'data/site.json';
 const DEFAULT_REPO = 'fangsuzhe/fangsuzhe.github.io';
 
 let movies = [];
+let siteConfig = {
+  title: '个人空间',
+  subtitle: '记录 · 分享 · 留存',
+  defaultTab: 'movies',
+  tabs: [
+    { id: 'movies', label: '电影空间' },
+    { id: 'taste', label: '观影口味' },
+  ],
+  taste: {
+    intro: '',
+    favoriteDirectors: [],
+    favoriteStyles: [],
+    dislikes: [],
+  },
+};
 let editingId = null;
 let fileSha = null;
+let siteFileSha = null;
 let adminConfig = loadConfig();
 
 function loadConfig() {
@@ -124,32 +142,78 @@ async function handleLogin(e) {
 async function loadMoviesFromGitHub() {
   setStatus('正在加载…', 'info');
   try {
-    const repo = adminConfig.repo || DEFAULT_REPO;
-    const branch = adminConfig.branch || 'main';
-    const url = `https://api.github.com/repos/${repo}/contents/${DATA_PATH}?ref=${branch}`;
-
-    const res = await fetch(url, {
-      headers: { Authorization: `Bearer ${adminConfig.githubToken}`, Accept: 'application/vnd.github+json' },
-    });
-
-    if (!res.ok) throw new Error('加载失败，请检查 Token 和仓库名是否正确');
-
-    const data = await res.json();
-    fileSha = data.sha;
-    movies = JSON.parse(atob(data.content.replace(/\n/g, '')));
+    await Promise.all([loadMoviesFile(), loadSiteFile()]);
     setStatus(`已加载 ${movies.length} 部电影`, 'ok');
     render();
   } catch (err) {
     setStatus(err.message, 'error');
-    // 降级：从本地 JSON 加载
     try {
-      const local = await fetch(DATA_PATH);
-      if (local.ok) {
-        movies = await local.json();
-        render();
-      }
+      const [localMovies, localSite] = await Promise.all([
+        fetch(DATA_PATH),
+        fetch(SITE_PATH),
+      ]);
+      if (localMovies.ok) movies = await localMovies.json();
+      if (localSite.ok) siteConfig = { ...siteConfig, ...(await localSite.json()) };
+      render();
     } catch { /* ignore */ }
   }
+}
+
+async function loadMoviesFile() {
+  const repo = adminConfig.repo || DEFAULT_REPO;
+  const branch = adminConfig.branch || 'main';
+  const url = `https://api.github.com/repos/${repo}/contents/${DATA_PATH}?ref=${branch}`;
+
+  const res = await fetch(url, {
+    headers: { Authorization: `Bearer ${adminConfig.githubToken}`, Accept: 'application/vnd.github+json' },
+  });
+
+  if (!res.ok) throw new Error('加载失败，请检查 Token 和仓库名是否正确');
+
+  const data = await res.json();
+  fileSha = data.sha;
+  movies = JSON.parse(atob(data.content.replace(/\n/g, '')));
+}
+
+async function loadSiteFile() {
+  const repo = adminConfig.repo || DEFAULT_REPO;
+  const branch = adminConfig.branch || 'main';
+  const url = `https://api.github.com/repos/${repo}/contents/${SITE_PATH}?ref=${branch}`;
+
+  const res = await fetch(url, {
+    headers: { Authorization: `Bearer ${adminConfig.githubToken}`, Accept: 'application/vnd.github+json' },
+  });
+
+  if (!res.ok) return;
+
+  const data = await res.json();
+  siteFileSha = data.sha;
+  siteConfig = { ...siteConfig, ...JSON.parse(atob(data.content.replace(/\n/g, ''))) };
+}
+
+async function publishFile(path, payload, sha, message) {
+  const repo = adminConfig.repo || DEFAULT_REPO;
+  const branch = adminConfig.branch || 'main';
+  const body = {
+    message,
+    content: btoa(unescape(encodeURIComponent(JSON.stringify(payload, null, 2)))),
+    branch,
+  };
+  if (sha) body.sha = sha;
+
+  const res = await fetch(`https://api.github.com/repos/${repo}/contents/${path}`, {
+    method: 'PUT',
+    headers: {
+      Authorization: `Bearer ${adminConfig.githubToken}`,
+      Accept: 'application/vnd.github+json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
+
+  const result = await res.json();
+  if (!res.ok) throw new Error(result.message || '发布失败');
+  return result.content.sha;
 }
 
 async function publishToGitHub() {
@@ -159,31 +223,19 @@ async function publishToGitHub() {
   $('#btnPublish').disabled = true;
 
   try {
-    const repo = adminConfig.repo || DEFAULT_REPO;
-    const branch = adminConfig.branch || 'main';
-    const content = btoa(unescape(encodeURIComponent(JSON.stringify(movies, null, 2))));
-
-    const body = {
-      message: `更新观影记录 (${new Date().toLocaleString('zh-CN')})`,
-      content,
-      branch,
-    };
-    if (fileSha) body.sha = fileSha;
-
-    const res = await fetch(`https://api.github.com/repos/${repo}/contents/${DATA_PATH}`, {
-      method: 'PUT',
-      headers: {
-        Authorization: `Bearer ${adminConfig.githubToken}`,
-        Accept: 'application/vnd.github+json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(body),
-    });
-
-    const result = await res.json();
-    if (!res.ok) throw new Error(result.message || '发布失败');
-
-    fileSha = result.content.sha;
+    const stamp = new Date().toLocaleString('zh-CN');
+    fileSha = await publishFile(
+      DATA_PATH,
+      movies,
+      fileSha,
+      `更新观影记录 (${stamp})`
+    );
+    siteFileSha = await publishFile(
+      SITE_PATH,
+      siteConfig,
+      siteFileSha,
+      `更新站点配置 (${stamp})`
+    );
     setStatus('✓ 已发布！访客刷新主页即可看到更新（约 1 分钟内生效）', 'ok');
   } catch (err) {
     setStatus('发布失败：' + err.message, 'error');
@@ -327,6 +379,27 @@ function importData(file) {
   reader.readAsText(file);
 }
 
+function openTasteModal() {
+  const taste = siteConfig.taste || {};
+  $('#inputTasteIntro').value = taste.intro || '';
+  $('#inputFavoriteDirectors').value = listToLines(taste.favoriteDirectors);
+  $('#inputFavoriteStyles').value = listToLines(taste.favoriteStyles);
+  $('#inputDislikes').value = listToLines(taste.dislikes);
+  $('#tasteModal').showModal();
+}
+
+function saveTaste(e) {
+  e.preventDefault();
+  siteConfig.taste = {
+    intro: $('#inputTasteIntro').value.trim(),
+    favoriteDirectors: linesToList($('#inputFavoriteDirectors').value),
+    favoriteStyles: linesToList($('#inputFavoriteStyles').value),
+    dislikes: linesToList($('#inputDislikes').value),
+  };
+  $('#tasteModal').close();
+  setStatus('口味已保存到本地，记得点「发布更新」', 'ok');
+}
+
 function openSettings() {
   $('#settingsToken').value = adminConfig.githubToken || '';
   $('#settingsRepo').value = adminConfig.repo || DEFAULT_REPO;
@@ -380,12 +453,17 @@ els.importFile.addEventListener('change', (e) => {
   e.target.value = '';
 });
 $('#btnSettings').addEventListener('click', openSettings);
+$('#btnEditTaste').addEventListener('click', openTasteModal);
+$('#tasteForm').addEventListener('submit', saveTaste);
+$('#btnCloseTaste').addEventListener('click', () => $('#tasteModal').close());
+$('#btnCloseTaste2').addEventListener('click', () => $('#tasteModal').close());
 $('#btnLogout').addEventListener('click', logout);
 $('#settingsForm').addEventListener('submit', saveSettings);
 $('#btnCloseSettings').addEventListener('click', () => $('#settingsModal').close());
 
 els.modal.addEventListener('click', (e) => { if (e.target === els.modal) closeModal(); });
 els.detailModal.addEventListener('click', (e) => { if (e.target === els.detailModal) els.detailModal.close(); });
+$('#tasteModal')?.addEventListener('click', (e) => { if (e.target === $('#tasteModal')) $('#tasteModal').close(); });
 
 // Init
 if (!adminConfig.passwordHash) {

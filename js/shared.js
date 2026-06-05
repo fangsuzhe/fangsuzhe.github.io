@@ -253,10 +253,66 @@ const MovieShared = (() => {
     return Array.from(new Uint8Array(buf)).map((b) => b.toString(16).padStart(2, '0')).join('');
   }
 
+  function renderTastePanel(container, taste) {
+    if (!container) return;
+    const data = taste || {};
+    const intro = data.intro || '';
+    const favoriteDirectors = Array.isArray(data.favoriteDirectors) ? data.favoriteDirectors : [];
+    const favoriteStyles = Array.isArray(data.favoriteStyles) ? data.favoriteStyles : [];
+    const dislikes = Array.isArray(data.dislikes) ? data.dislikes : [];
+
+    const renderTags = (items, variant) => {
+      if (!items.length) return '<p class="taste-empty">暂无</p>';
+      return `<div class="taste-tags taste-tags--${variant}">${items.map((item) =>
+        `<span class="taste-tag">${escapeHtml(item)}</span>`
+      ).join('')}</div>`;
+    };
+
+    const renderList = (items, listClass) => {
+      if (!items.length) return '<p class="taste-empty">暂无</p>';
+      return `<ul class="taste-list ${listClass}">${items.map((item) =>
+        `<li>${escapeHtml(item)}</li>`
+      ).join('')}</ul>`;
+    };
+
+    container.innerHTML = `
+      <section class="taste-hero">
+        <p class="catalog-kicker">Taste Profile</p>
+        <h2 class="taste-title">观影口味</h2>
+        ${intro ? `<p class="taste-intro">${escapeHtml(intro)}</p>` : ''}
+      </section>
+      <div class="taste-grid">
+        <article class="taste-card taste-card--directors">
+          <h3 class="taste-card-title">喜欢的导演</h3>
+          ${renderTags(favoriteDirectors, 'gold')}
+        </article>
+        <article class="taste-card taste-card--styles">
+          <h3 class="taste-card-title">喜欢的风格</h3>
+          ${renderList(favoriteStyles, 'taste-list--styles')}
+        </article>
+        <article class="taste-card taste-card--dislikes">
+          <h3 class="taste-card-title">讨厌的东西</h3>
+          ${renderList(dislikes, 'taste-list--dislikes')}
+        </article>
+      </div>`;
+  }
+
+  function linesToList(text) {
+    return String(text || '')
+      .split('\n')
+      .map((s) => s.trim())
+      .filter(Boolean);
+  }
+
+  function listToLines(list) {
+    return (Array.isArray(list) ? list : []).join('\n');
+  }
+
   return {
     $, uid, ratingFromSlider, sliderFromRating, ratingColor, formatDate,
     escapeHtml, escapeAttr, renderTags, posterHtml,
     RATING_TIERS, getScore, matchRatingTier, countByTier, groupByTier,
-    filterAndSort, calcStats, renderGrid, renderGrouped, renderDetail, sha256,
+    filterAndSort, calcStats, renderGrid, renderGrouped, renderDetail,
+    renderTastePanel, linesToList, listToLines, sha256,
   };
 })();

@@ -2,7 +2,7 @@
 
 const {
   $, RATING_TIERS, filterAndSort, calcStats, countByTier,
-  renderGrid, renderGrouped, renderDetail,
+  renderGrid, renderGrouped, renderDetail, renderTastePanel,
 } = MovieShared;
 
 let movies = [];
@@ -37,6 +37,7 @@ const els = {
   pageSubtitle: $('#pageSubtitle'),
   siteTabs: $('#siteTabs'),
   tabPanelMovies: $('#tabPanelMovies'),
+  tasteContent: $('#tasteContent'),
 };
 
 async function loadPublicData() {
@@ -101,6 +102,11 @@ function switchTab(tabId, updateUrl = true) {
     else url.searchParams.set('tab', tabId);
     history.replaceState(null, '', url);
   }
+}
+
+function renderTaste() {
+  if (!els.tasteContent) return;
+  renderTastePanel(els.tasteContent, siteConfig.taste);
 }
 
 function renderFilterChips() {
@@ -172,6 +178,7 @@ async function init() {
   try {
     await loadPublicData();
     renderSiteTabs();
+    renderTaste();
 
     const tabFromUrl = new URLSearchParams(window.location.search).get('tab');
     if (tabFromUrl && siteConfig.tabs.some((t) => t.id === tabFromUrl)) {

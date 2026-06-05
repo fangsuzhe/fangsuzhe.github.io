@@ -1089,6 +1089,129 @@ body {
 
 .detail-actions { display: flex; gap: 0.5rem; }
 
+/* Taste profile */
+.taste-page {
+  animation: fadeUp 0.45s ease both;
+}
+
+.taste-hero {
+  margin-bottom: 1.75rem;
+}
+
+.taste-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.85rem, 4vw, 2.35rem);
+  font-weight: 700;
+  margin-bottom: 0.55rem;
+}
+
+.taste-intro {
+  max-width: 42rem;
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  line-height: 1.75;
+}
+
+.taste-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.taste-card {
+  background: var(--bg-glass);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.35rem 1.4rem;
+  backdrop-filter: blur(12px);
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+}
+
+.taste-card--directors {
+  border-color: rgba(232, 192, 104, 0.18);
+  background: linear-gradient(160deg, rgba(232, 192, 104, 0.07), var(--bg-glass));
+}
+
+.taste-card--dislikes {
+  border-color: rgba(240, 113, 120, 0.16);
+  background: linear-gradient(160deg, rgba(240, 113, 120, 0.06), var(--bg-glass));
+}
+
+.taste-card-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  padding-bottom: 0.65rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.taste-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.taste-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.42rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  line-height: 1.35;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.taste-tags--gold .taste-tag {
+  border-color: rgba(232, 192, 104, 0.28);
+  background: rgba(232, 192, 104, 0.1);
+  color: var(--text);
+}
+
+.taste-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.taste-list li {
+  position: relative;
+  padding-left: 1rem;
+  color: var(--text);
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
+.taste-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.taste-list--dislikes li::before {
+  background: var(--danger);
+}
+
+.taste-empty {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+}
+
+.field-hint-block {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-bottom: 0.35rem;
+}
+
 /* Loading */
 .loading-state {
   text-align: center;
@@ -1207,6 +1330,7 @@ body {
 @media (max-width: 768px) {
   .header-shell { padding: 1rem 1rem 0; }
   .dash-stats { grid-template-columns: 1fr; }
+  .taste-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 640px) {

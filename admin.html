@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=5">
+  <link rel="stylesheet" href="style.css?v=6">
 </head>
 <body>
   <div class="grain"></div>
@@ -87,6 +87,7 @@
             </svg>
             添加电影
           </button>
+          <button class="btn btn-ghost" id="btnEditTaste">编辑口味</button>
           <button class="btn btn-ghost" id="btnSettings">设置</button>
           <button class="btn btn-ghost" id="btnLogout">退出</button>
         </div>
@@ -214,6 +215,43 @@
       <button type="button" class="btn-close detail-close" id="btnCloseDetail" aria-label="关闭">&times;</button>
       <div class="detail-content" id="detailContent"></div>
     </div>
+  </dialog>
+
+  <!-- 观影口味 -->
+  <dialog class="modal" id="tasteModal">
+    <form id="tasteForm" method="dialog">
+      <div class="modal-header">
+        <h2>编辑观影口味</h2>
+        <button type="button" class="btn-close" id="btnCloseTaste" aria-label="关闭">&times;</button>
+      </div>
+      <div class="modal-body">
+        <label class="field field-full">
+          <span>简介（可选）</span>
+          <input type="text" id="inputTasteIntro" placeholder="一句总述…" maxlength="120">
+        </label>
+        <label class="field field-full">
+          <span>喜欢的导演</span>
+          <p class="field-hint-block">每行一位导演</p>
+          <textarea id="inputFavoriteDirectors" rows="5" placeholder="姜文&#10;北野武"></textarea>
+        </label>
+        <label class="field field-full">
+          <span>喜欢的风格</span>
+          <p class="field-hint-block">每行一条</p>
+          <textarea id="inputFavoriteStyles" rows="6" placeholder="纯感官、纯情绪…"></textarea>
+        </label>
+        <label class="field field-full">
+          <span>讨厌的东西</span>
+          <p class="field-hint-block">每行一条</p>
+          <textarea id="inputDislikes" rows="6" placeholder="说教感…"></textarea>
+        </label>
+      </div>
+      <div class="modal-footer">
+        <div class="modal-footer-right" style="margin-left:auto">
+          <button type="button" class="btn btn-ghost" id="btnCloseTaste2">取消</button>
+          <button type="submit" class="btn btn-primary">保存</button>
+        </div>
+      </div>
+    </form>
   </dialog>
 
   <!-- 设置弹窗 -->
