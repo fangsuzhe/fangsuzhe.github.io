@@ -22,7 +22,6 @@
   --shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
   --shadow-sm: 0 8px 24px rgba(0, 0, 0, 0.32);
   --max-width: 1120px;
-  --site-wallpaper: url('images/posters/1.png');
 }
 
 html { scroll-behavior: smooth; }
@@ -42,8 +41,18 @@ body {
   position: fixed;
   inset: 0;
   z-index: 0;
-  background: var(--site-wallpaper) center center / cover no-repeat;
-  background-attachment: fixed;
+  overflow: hidden;
+}
+
+.site-wallpaper img {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
 }
 
 .site-wallpaper-scrim {
@@ -1662,7 +1671,6 @@ body {
 
 /* Responsive */
 @media (max-width: 768px) {
-  .site-wallpaper { background-attachment: scroll; }
   .header-shell { padding: 1rem 1rem 0; }
   .dash-stats { grid-template-columns: 1fr; }
   .taste-grid { grid-template-columns: 1fr; }
