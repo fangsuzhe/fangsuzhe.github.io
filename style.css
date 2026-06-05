@@ -1704,4 +1704,56 @@ body {
   .header-actions { width: 100%; }
   .header-actions .btn { flex: 1; justify-content: center; }
   .catalog-head { flex-direction: column; align-items: flex-start; }
+  .bgm-toggle { right: 1rem; bottom: 1rem; }
+}
+
+/* Background music toggle */
+.bgm-toggle {
+  position: fixed;
+  right: 1.35rem;
+  bottom: 1.35rem;
+  z-index: 120;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.62rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 168, 83, 0.28);
+  background: rgba(12, 11, 15, 0.78);
+  backdrop-filter: blur(10px);
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background 0.2s, transform 0.2s;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.bgm-toggle:hover {
+  color: var(--accent);
+  border-color: rgba(212, 168, 83, 0.45);
+  background: rgba(20, 18, 24, 0.88);
+  transform: translateY(-2px);
+}
+
+.bgm-toggle.is-playing {
+  color: var(--accent);
+  border-color: rgba(212, 168, 83, 0.5);
+  background: rgba(212, 168, 83, 0.1);
+}
+
+.bgm-toggle-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bgm-toggle-icon--pause { display: none; }
+.bgm-toggle.is-playing .bgm-toggle-icon--play { display: none; }
+.bgm-toggle.is-playing .bgm-toggle-icon--pause { display: inline-flex; }
+
+.bgm-toggle-text {
+  font-weight: 500;
 }

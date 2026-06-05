@@ -113,5 +113,11 @@
     "movies": [
       { "id": "m_hana_bi" }
     ]
+  },
+  "bgm": {
+    "src": "audio/fishman.mp3",
+    "title": "fishmans",
+    "volume": 0.35,
+    "loop": true
   }
 }

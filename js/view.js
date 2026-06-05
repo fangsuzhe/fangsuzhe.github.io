@@ -387,6 +387,10 @@ async function init() {
 
     switchTab(activeTab, false);
 
+    if (siteConfig.bgm?.src && typeof SiteBgm !== 'undefined') {
+      SiteBgm.init(siteConfig.bgm);
+    }
+
     els.loading.classList.add('hidden');
     els.pageContent.classList.remove('hidden');
     renderFilterChips();
