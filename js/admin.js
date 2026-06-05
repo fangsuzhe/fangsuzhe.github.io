@@ -224,6 +224,7 @@ function openModal(id) {
     $('#inputWatchDate').value = m.watchDate || '';
     $('#inputGenre').value = m.genre || '';
     $('#inputPoster').value = m.poster || '';
+    $('#inputBookmark').value = m.bookmark || '';
     $('#inputReview').value = m.review || '';
     els.ratingSlider.value = sliderFromRating(m.rating);
   } else {
@@ -264,6 +265,7 @@ function handleSubmit(e) {
     genre: $('#inputGenre').value.trim(),
     poster: $('#inputPoster').value.trim(),
     rating: ratingFromSlider(els.ratingSlider.value),
+    bookmark: $('#inputBookmark').value.trim(),
     review: $('#inputReview').value.trim(),
   };
 
@@ -313,6 +315,7 @@ function importData(file) {
         genre: m.genre || '',
         poster: m.poster || '',
         rating: m.rating || '8.0',
+        bookmark: m.bookmark || '',
         review: m.review || '',
       }));
       render();

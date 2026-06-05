@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=4">
+  <link rel="stylesheet" href="style.css?v=5">
 </head>
 <body>
   <div class="grain"></div>
@@ -191,6 +191,10 @@
           </div>
         </div>
         <label class="field field-full">
+          <span>书签</span>
+          <textarea id="inputBookmark" rows="2" placeholder="一句印象深刻的话、私人标记…" maxlength="300"></textarea>
+        </label>
+        <label class="field field-full">
           <span>短评</span>
           <textarea id="inputReview" rows="3" placeholder="写几句感受…" maxlength="500"></textarea>
         </label>
@@ -206,8 +210,10 @@
   </dialog>
 
   <dialog class="modal modal-detail" id="detailModal">
-    <button type="button" class="btn-close detail-close" id="btnCloseDetail" aria-label="关闭">&times;</button>
-    <div class="detail-content" id="detailContent"></div>
+    <div class="modal-detail-box">
+      <button type="button" class="btn-close detail-close" id="btnCloseDetail" aria-label="关闭">&times;</button>
+      <div class="detail-content" id="detailContent"></div>
+    </div>
   </dialog>
 
   <!-- 设置弹窗 -->

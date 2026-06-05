@@ -102,7 +102,7 @@ const MovieShared = (() => {
 
     if (q) {
       list = list.filter((m) =>
-        [m.title, m.director, m.genre, m.review, m.year]
+        [m.title, m.director, m.genre, m.review, m.bookmark, m.year]
           .filter(Boolean)
           .some((f) => String(f).toLowerCase().includes(q))
       );
@@ -155,6 +155,7 @@ const MovieShared = (() => {
           <div class="card-body">
             <h3 class="card-title">${escapeHtml(m.title)}</h3>
             ${meta ? `<p class="card-meta">${escapeHtml(meta)}</p>` : ''}
+            ${m.bookmark ? `<p class="card-bookmark">${escapeHtml(m.bookmark)}</p>` : ''}
             ${m.review ? `<p class="card-review">${escapeHtml(m.review)}</p>` : ''}
             ${m.genre ? `<div class="card-tags">${renderTags(m.genre)}</div>` : ''}
           </div>
@@ -170,6 +171,7 @@ const MovieShared = (() => {
             <span class="rating-pill rating-pill--${tierClass(score)}" style="color:${ratingColor(m.rating)}">${m.rating}</span>
           </div>
           ${meta ? `<p class="card-meta">${escapeHtml(meta)}</p>` : ''}
+          ${m.bookmark ? `<p class="card-bookmark">${escapeHtml(m.bookmark)}</p>` : ''}
           ${m.review ? `<p class="card-review">${escapeHtml(m.review)}</p>` : ''}
           ${m.genre ? `<div class="card-tags">${renderTags(m.genre)}</div>` : ''}
         </div>
@@ -228,7 +230,16 @@ const MovieShared = (() => {
         ${metaParts.length ? `<p class="detail-meta">${escapeHtml(metaParts.join(' · '))}</p>` : ''}
         <div class="detail-rating">★ ${m.rating} <span style="font-size:0.85rem;font-weight:400;opacity:0.7">/ 10</span></div>
         ${m.genre ? `<div class="card-tags" style="margin-bottom:1rem">${renderTags(m.genre)}</div>` : ''}
-        ${m.review ? `<p class="detail-review">${escapeHtml(m.review)}</p>` : ''}
+        ${m.bookmark ? `
+          <div class="detail-bookmark">
+            <span class="detail-bookmark-label">书签</span>
+            <blockquote class="detail-bookmark-text">${escapeHtml(m.bookmark)}</blockquote>
+          </div>` : ''}
+        ${m.review ? `
+          <div class="detail-review-wrap">
+            <span class="detail-review-label">短评</span>
+            <p class="detail-review">${escapeHtml(m.review)}</p>
+          </div>` : ''}
         ${showEdit ? `<div class="detail-actions"><button class="btn btn-ghost" id="detailEdit">编辑</button></div>` : ''}
       </div>`;
 
