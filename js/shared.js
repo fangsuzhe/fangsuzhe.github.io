@@ -51,7 +51,8 @@ const MovieShared = (() => {
 
   function posterHtml(poster, cls = '') {
     if (poster) {
-      return `<img class="${cls}" src="${escapeAttr(poster)}" alt="" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\'poster-placeholder\\'>🎬</div>'">`;
+      const ref = poster.startsWith('http') ? ' referrerpolicy="no-referrer"' : '';
+      return `<img class="${cls}" src="${escapeAttr(poster)}" alt="" loading="lazy"${ref} onerror="this.parentElement.innerHTML='<div class=\\'poster-placeholder\\'>🎬</div>'">`;
     }
     return `<div class="poster-placeholder">🎬</div>`;
   }
@@ -219,7 +220,7 @@ const MovieShared = (() => {
 
     detailContentEl.innerHTML = `
       ${m.poster
-        ? `<img class="detail-poster" src="${escapeAttr(m.poster)}" alt="" onerror="this.remove()">`
+        ? `<img class="detail-poster" src="${escapeAttr(m.poster)}" alt=""${m.poster.startsWith('http') ? ' referrerpolicy="no-referrer"' : ''} onerror="this.remove()">`
         : ''}
       <div class="detail-inner${m.poster ? '' : ' detail-inner--no-poster'}">
         <h2>${escapeHtml(m.title)}</h2>
