@@ -3,6 +3,11 @@
 const MovieShared = (() => {
   const $ = (sel, root = document) => root.querySelector(sel);
 
+  function cdnUrl(path) {
+    if (typeof SiteAssets !== 'undefined') return SiteAssets.cdnUrl(path);
+    return path;
+  }
+
   function uid() {
     return Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
   }
@@ -51,8 +56,9 @@ const MovieShared = (() => {
 
   function posterHtml(poster, cls = '') {
     if (poster) {
-      const ref = poster.startsWith('http') ? ' referrerpolicy="no-referrer"' : '';
-      return `<img class="${cls}" src="${escapeAttr(poster)}" alt="" loading="lazy"${ref} onerror="this.parentElement.innerHTML='<div class=\\'poster-placeholder\\'>🎬</div>'">`;
+      const src = cdnUrl(poster);
+      const ref = /^https?:\/\//i.test(poster) ? ' referrerpolicy="no-referrer"' : '';
+      return `<img class="${cls}" src="${escapeAttr(src)}" alt="" loading="lazy" decoding="async"${ref} onerror="this.parentElement.innerHTML='<div class=\\'poster-placeholder\\'>🎬</div>'">`;
     }
     return `<div class="poster-placeholder">🎬</div>`;
   }
@@ -224,7 +230,7 @@ const MovieShared = (() => {
 
     detailContentEl.innerHTML = `
       ${m.poster
-        ? `<img class="detail-poster" src="${escapeAttr(m.poster)}" alt=""${m.poster.startsWith('http') ? ' referrerpolicy="no-referrer"' : ''} onerror="this.remove()">`
+        ? `<img class="detail-poster" src="${escapeAttr(cdnUrl(m.poster))}" alt=""${/^https?:\/\//i.test(m.poster) ? ' referrerpolicy="no-referrer"' : ''} loading="lazy" decoding="async" onerror="this.remove()">`
         : ''}
       <div class="detail-inner${m.poster ? '' : ' detail-inner--no-poster'}">
         <h2>${escapeHtml(m.title)}</h2>
