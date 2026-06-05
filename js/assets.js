@@ -35,5 +35,25 @@ const SiteAssets = (() => {
     img.src = url;
   }
 
-  return { REPO_CDN, cdnUrl, useCdn, preloadImage, bindWallpaper };
+  function bindHeaderBg(options = {}) {
+    const {
+      imgSelector = '#headerBg',
+      webpSelector = '#headerBgWebp',
+      webpPath = 'images/posters/top.webp',
+      fallbackPath = 'images/posters/top.png',
+    } = options;
+
+    const webp = document.querySelector(webpSelector);
+    const img = document.querySelector(imgSelector);
+    if (!img) return;
+
+    const webpUrl = cdnUrl(webpPath);
+    const fallbackUrl = cdnUrl(fallbackPath);
+
+    preloadImage(webpPath, 'image/webp');
+    if (webp) webp.srcset = webpUrl;
+    img.src = fallbackUrl;
+  }
+
+  return { REPO_CDN, cdnUrl, useCdn, preloadImage, bindWallpaper, bindHeaderBg };
 })();

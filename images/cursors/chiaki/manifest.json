@@ -1,0 +1,32 @@
+{
+  "hotspots": {
+    "default": { "x": 30, "y": 0 },
+    "pointer": { "x": 0, "y": 0 },
+    "text": { "x": 16, "y": 16 },
+    "not-allowed": { "x": 0, "y": 0 }
+  },
+  "variants": {
+    "default": {
+      "webp": "images/cursors/chiaki/default.webp",
+      "width": 64,
+      "height": 64,
+      "source": "pointer.ani"
+    },
+    "pointer": {
+      "webp": "images/cursors/chiaki/pointer.webp",
+      "width": 64,
+      "height": 64,
+      "source": "link.ani"
+    },
+    "text": {
+      "webp": "images/cursors/chiaki/text.webp",
+      "width": 64,
+      "height": 64,
+      "source": "text.ani"
+    },
+    "not-allowed": {
+      "png": "images/cursors/chiaki/not-allowed.png",
+      "source": "unavailable.cur"
+    }
+  }
+}

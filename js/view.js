@@ -391,6 +391,10 @@ async function init() {
       SiteBgm.init(siteConfig.bgm);
     }
 
+    if (siteConfig.cursor?.enabled && typeof SiteCursor !== 'undefined') {
+      SiteCursor.init(siteConfig.cursor);
+    }
+
     els.loading.classList.add('hidden');
     els.pageContent.classList.remove('hidden');
     renderFilterChips();

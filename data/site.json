@@ -119,5 +119,19 @@
     "title": "fishmans",
     "volume": 0.35,
     "loop": true
+  },
+  "headerImage": {
+    "webp": "images/posters/top.webp",
+    "fallback": "images/posters/top.png"
+  },
+  "cursor": {
+    "enabled": true,
+    "basePath": "images/cursors/chiaki",
+    "hotspots": {
+      "default": { "x": 30, "y": 0 },
+      "pointer": { "x": 0, "y": 0 },
+      "text": { "x": 16, "y": 16 },
+      "not-allowed": { "x": 0, "y": 0 }
+    }
   }
 }

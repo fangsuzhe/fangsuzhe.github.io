@@ -1,2 +1,5 @@
 # 音频压缩前的本地备份，勿提交
 audio/fishman.original.mp3
+
+# 本地转换工具（开发用）
+scripts/ani-convert-tool/
