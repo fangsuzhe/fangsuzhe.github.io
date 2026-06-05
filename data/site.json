@@ -1,4 +1,8 @@
 {
   "title": "观影片单",
-  "subtitle": ""
+  "subtitle": "",
+  "defaultTab": "movies",
+  "tabs": [
+    { "id": "movies", "label": "电影空间" }
+  ]
 }

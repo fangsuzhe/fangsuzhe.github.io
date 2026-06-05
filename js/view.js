@@ -7,7 +7,13 @@ const {
 
 let movies = [];
 let activeTier = 'all';
-let siteConfig = { title: '观影片单', subtitle: '' };
+let siteConfig = {
+  title: '观影片单',
+  subtitle: '',
+  defaultTab: 'movies',
+  tabs: [{ id: 'movies', label: '电影空间' }],
+};
+let activeTab = 'movies';
 
 const FILTER_LABELS = [
   { id: 'all', label: '全部' },
@@ -29,6 +35,8 @@ const els = {
   loading: $('#loadingState'),
   pageTitle: $('#pageTitle'),
   pageSubtitle: $('#pageSubtitle'),
+  siteTabs: $('#siteTabs'),
+  tabPanelMovies: $('#tabPanelMovies'),
 };
 
 async function loadPublicData() {
@@ -44,7 +52,10 @@ async function loadPublicData() {
   movies = data;
 
   if (siteRes.ok) {
-    siteConfig = await siteRes.json();
+    siteConfig = { ...siteConfig, ...(await siteRes.json()) };
+    if (!Array.isArray(siteConfig.tabs) || !siteConfig.tabs.length) {
+      siteConfig.tabs = [{ id: 'movies', label: '电影空间' }];
+    }
     document.title = siteConfig.title || document.title;
     if (els.pageTitle) els.pageTitle.textContent = siteConfig.title;
     if (els.pageSubtitle) {
@@ -52,6 +63,43 @@ async function loadPublicData() {
       els.pageSubtitle.textContent = sub;
       els.pageSubtitle.classList.toggle('hidden', !sub);
     }
+  }
+}
+
+function renderSiteTabs() {
+  if (!els.siteTabs) return;
+  const tabs = siteConfig.tabs;
+  activeTab = siteConfig.defaultTab || tabs[0]?.id || 'movies';
+  if (!tabs.some((t) => t.id === activeTab)) activeTab = tabs[0].id;
+
+  els.siteTabs.innerHTML = tabs.map(({ id, label }) =>
+    `<button type="button" class="site-tab${id === activeTab ? ' active' : ''}" data-tab="${id}">${label}</button>`
+  ).join('');
+
+  els.siteTabs.querySelectorAll('.site-tab').forEach((btn) => {
+    btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+  });
+
+  switchTab(activeTab, false);
+}
+
+function switchTab(tabId, updateUrl = true) {
+  if (!tabId) return;
+  activeTab = tabId;
+
+  els.siteTabs?.querySelectorAll('.site-tab').forEach((btn) => {
+    btn.classList.toggle('active', btn.dataset.tab === tabId);
+  });
+
+  document.querySelectorAll('.tab-panel').forEach((panel) => {
+    panel.classList.toggle('active', panel.dataset.tab === tabId);
+  });
+
+  if (updateUrl) {
+    const url = new URL(window.location.href);
+    if (tabId === (siteConfig.defaultTab || 'movies')) url.searchParams.delete('tab');
+    else url.searchParams.set('tab', tabId);
+    history.replaceState(null, '', url);
   }
 }
 
@@ -123,6 +171,13 @@ function openDetail(id) {
 async function init() {
   try {
     await loadPublicData();
+    renderSiteTabs();
+
+    const tabFromUrl = new URLSearchParams(window.location.search).get('tab');
+    if (tabFromUrl && siteConfig.tabs.some((t) => t.id === tabFromUrl)) {
+      switchTab(tabFromUrl, false);
+    }
+
     els.loading.classList.add('hidden');
     els.pageContent.classList.remove('hidden');
     renderFilterChips();

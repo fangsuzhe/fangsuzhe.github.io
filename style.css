@@ -102,6 +102,56 @@ body {
   letter-spacing: 0.08em;
 }
 
+/* 顶部大页签 */
+.site-tabs {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  gap: 0.35rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.site-tabs::-webkit-scrollbar { display: none; }
+
+.site-tab {
+  position: relative;
+  flex: 0 0 auto;
+  padding: 0.95rem 1.6rem;
+  border: none;
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: color 0.2s, background 0.2s;
+  white-space: nowrap;
+}
+.site-tab:hover {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.03);
+}
+.site-tab.active {
+  color: var(--accent);
+  background: rgba(212, 168, 83, 0.08);
+}
+.site-tab.active::after {
+  content: '';
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 0;
+  height: 2px;
+  border-radius: 2px 2px 0 0;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
 /* Buttons */
 .btn {
   display: inline-flex;
@@ -982,6 +1032,8 @@ body {
   .form-row.two-col { grid-template-columns: 1fr; }
   .brand h1 { font-size: 1.35rem; }
   .header-inner { padding: 1rem; }
+  .site-tabs { padding: 0 1rem; }
+  .site-tab { padding: 0.85rem 1.15rem; font-size: 0.95rem; }
   .main { padding: 1.25rem 1rem 2rem; }
   .filter-panel .toolbar { flex-direction: column; align-items: stretch; }
   .header-actions { width: 100%; }

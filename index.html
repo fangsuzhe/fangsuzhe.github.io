@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=2">
+  <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
   <div class="grain"></div>
@@ -23,6 +23,7 @@
         </div>
       </div>
     </div>
+    <nav class="site-tabs" id="siteTabs" aria-label="站点分区"></nav>
   </header>
 
   <main class="main">
@@ -31,7 +32,8 @@
       <p>加载片单中…</p>
     </div>
 
-    <div class="page-content hidden" id="pageContent">
+    <div class="tab-panel" id="tabPanelMovies" data-tab="movies">
+      <div class="page-content hidden" id="pageContent">
       <!-- 概览 -->
       <section class="overview">
         <div class="stats stats--two">
@@ -85,6 +87,7 @@
         <h2>没有符合条件的影片</h2>
         <p>试试切换评分档位或清空搜索</p>
       </div>
+      </div>
     </div>
   </main>
 
@@ -97,8 +100,8 @@
     <div class="detail-content" id="detailContent"></div>
   </dialog>
 
-  <script src="js/shared.js?v=2"></script>
-  <script src="js/view.js?v=2"></script>
+  <script src="js/shared.js?v=3"></script>
+  <script src="js/view.js?v=3"></script>
   <!-- 兼容浏览器缓存的旧版 view.js -->
   <span id="statAvg" hidden aria-hidden="true"></span>
 </body>
