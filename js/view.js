@@ -5,15 +5,22 @@ const {
   renderGrid, renderGrouped, renderDetail, renderTastePanel,
 } = MovieShared;
 
+const DEFAULT_MOVIE_SECTIONS = [
+  { id: 'records', label: '观影记录' },
+  { id: 'taste', label: '观影口味' },
+];
+
 let movies = [];
 let activeTier = 'all';
 let siteConfig = {
   title: '个人空间',
   subtitle: '记录 · 分享 · 留存',
   defaultTab: 'movies',
-  tabs: [{ id: 'movies', label: '电影空间' }],
+  defaultSubTab: 'records',
+  tabs: [{ id: 'movies', label: '电影空间', sections: DEFAULT_MOVIE_SECTIONS }],
 };
 let activeTab = 'movies';
+let activeSubTab = 'records';
 
 const FILTER_LABELS = [
   { id: 'all', label: '全部' },
@@ -36,9 +43,19 @@ const els = {
   pageTitle: $('#pageTitle'),
   pageSubtitle: $('#pageSubtitle'),
   siteTabs: $('#siteTabs'),
+  movieSubTabs: $('#movieSubTabs'),
   tabPanelMovies: $('#tabPanelMovies'),
   tasteContent: $('#tasteContent'),
 };
+
+function getMovieTab() {
+  return siteConfig.tabs.find((t) => t.id === 'movies') || siteConfig.tabs[0];
+}
+
+function getMovieSections() {
+  const sections = getMovieTab()?.sections;
+  return Array.isArray(sections) && sections.length ? sections : DEFAULT_MOVIE_SECTIONS;
+}
 
 async function loadPublicData() {
   const ts = Date.now();
@@ -55,7 +72,11 @@ async function loadPublicData() {
   if (siteRes.ok) {
     siteConfig = { ...siteConfig, ...(await siteRes.json()) };
     if (!Array.isArray(siteConfig.tabs) || !siteConfig.tabs.length) {
-      siteConfig.tabs = [{ id: 'movies', label: '电影空间' }];
+      siteConfig.tabs = [{ id: 'movies', label: '电影空间', sections: DEFAULT_MOVIE_SECTIONS }];
+    }
+    const movieTab = getMovieTab();
+    if (movieTab && (!Array.isArray(movieTab.sections) || !movieTab.sections.length)) {
+      movieTab.sections = DEFAULT_MOVIE_SECTIONS;
     }
     document.title = siteConfig.title || document.title;
     if (els.pageTitle) els.pageTitle.textContent = siteConfig.title;
@@ -81,7 +102,23 @@ function renderSiteTabs() {
     btn.addEventListener('click', () => switchTab(btn.dataset.tab));
   });
 
+  renderMovieSubTabs();
   switchTab(activeTab, false);
+}
+
+function renderMovieSubTabs() {
+  if (!els.movieSubTabs) return;
+  const sections = getMovieSections();
+  activeSubTab = siteConfig.defaultSubTab || sections[0]?.id || 'records';
+  if (!sections.some((s) => s.id === activeSubTab)) activeSubTab = sections[0].id;
+
+  els.movieSubTabs.innerHTML = sections.map(({ id, label }) =>
+    `<button type="button" class="sub-tab${id === activeSubTab ? ' active' : ''}" data-sub="${id}">${label}</button>`
+  ).join('');
+
+  els.movieSubTabs.querySelectorAll('.sub-tab').forEach((btn) => {
+    btn.addEventListener('click', () => switchSubTab(btn.dataset.sub));
+  });
 }
 
 function switchTab(tabId, updateUrl = true) {
@@ -96,12 +133,48 @@ function switchTab(tabId, updateUrl = true) {
     panel.classList.toggle('active', panel.dataset.tab === tabId);
   });
 
-  if (updateUrl) {
-    const url = new URL(window.location.href);
-    if (tabId === (siteConfig.defaultTab || 'movies')) url.searchParams.delete('tab');
-    else url.searchParams.set('tab', tabId);
-    history.replaceState(null, '', url);
+  if (tabId === 'movies') {
+    switchSubTab(activeSubTab, updateUrl);
+    return;
   }
+
+  if (updateUrl) updateRouteUrl();
+}
+
+function switchSubTab(subId, updateUrl = true) {
+  if (!subId) return;
+  const sections = getMovieSections();
+  if (!sections.some((s) => s.id === subId)) return;
+
+  activeSubTab = subId;
+
+  els.movieSubTabs?.querySelectorAll('.sub-tab').forEach((btn) => {
+    btn.classList.toggle('active', btn.dataset.sub === subId);
+  });
+
+  document.querySelectorAll('.sub-panel').forEach((panel) => {
+    panel.classList.toggle('active', panel.dataset.sub === subId);
+  });
+
+  if (updateUrl) updateRouteUrl();
+}
+
+function updateRouteUrl() {
+  const url = new URL(window.location.href);
+  const defaultTab = siteConfig.defaultTab || 'movies';
+  const defaultSub = siteConfig.defaultSubTab || 'records';
+
+  if (activeTab === defaultTab) url.searchParams.delete('tab');
+  else url.searchParams.set('tab', activeTab);
+
+  if (activeTab === 'movies') {
+    if (activeSubTab === defaultSub) url.searchParams.delete('sub');
+    else url.searchParams.set('sub', activeSubTab);
+  } else {
+    url.searchParams.delete('sub');
+  }
+
+  history.replaceState(null, '', url);
 }
 
 function renderTaste() {
@@ -180,10 +253,24 @@ async function init() {
     renderSiteTabs();
     renderTaste();
 
-    const tabFromUrl = new URLSearchParams(window.location.search).get('tab');
-    if (tabFromUrl && siteConfig.tabs.some((t) => t.id === tabFromUrl)) {
-      switchTab(tabFromUrl, false);
+    const params = new URLSearchParams(window.location.search);
+    const tabFromUrl = params.get('tab');
+    const subFromUrl = params.get('sub');
+
+    if (tabFromUrl === 'taste') {
+      activeTab = 'movies';
+      activeSubTab = 'taste';
+    } else if (tabFromUrl && siteConfig.tabs.some((t) => t.id === tabFromUrl)) {
+      activeTab = tabFromUrl;
     }
+
+    const sections = getMovieSections();
+    if (subFromUrl && sections.some((s) => s.id === subFromUrl)) {
+      activeSubTab = subFromUrl;
+    }
+
+    switchTab(activeTab, false);
+    if (activeTab === 'movies') switchSubTab(activeSubTab, false);
 
     els.loading.classList.add('hidden');
     els.pageContent.classList.remove('hidden');

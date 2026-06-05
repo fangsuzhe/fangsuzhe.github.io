@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=6">
+  <link rel="stylesheet" href="style.css?v=7">
 </head>
 <body>
   <div class="grain"></div>
@@ -36,6 +36,9 @@
     </div>
 
     <div class="tab-panel" id="tabPanelMovies" data-tab="movies">
+      <nav class="sub-tabs" id="movieSubTabs" aria-label="电影空间分区"></nav>
+
+      <div class="sub-panel active" id="subPanelRecords" data-sub="records">
       <div class="page-content hidden" id="pageContent">
 
         <section class="dashboard">
@@ -95,10 +98,11 @@
           <p>试试切换评分档位或清空搜索</p>
         </div>
       </div>
-    </div>
+      </div>
 
-    <div class="tab-panel" id="tabPanelTaste" data-tab="taste">
-      <div class="page-content taste-page" id="tasteContent"></div>
+      <div class="sub-panel" id="subPanelTaste" data-sub="taste">
+        <div class="page-content taste-page" id="tasteContent"></div>
+      </div>
     </div>
   </main>
 
@@ -113,8 +117,8 @@
     </div>
   </dialog>
 
-  <script src="js/shared.js?v=6"></script>
-  <script src="js/view.js?v=6"></script>
+  <script src="js/shared.js?v=7"></script>
+  <script src="js/view.js?v=7"></script>
   <span id="statAvg" hidden aria-hidden="true"></span>
 </body>
 </html>

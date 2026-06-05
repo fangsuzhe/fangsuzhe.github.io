@@ -17,9 +17,16 @@ let siteConfig = {
   title: '个人空间',
   subtitle: '记录 · 分享 · 留存',
   defaultTab: 'movies',
+  defaultSubTab: 'records',
   tabs: [
-    { id: 'movies', label: '电影空间' },
-    { id: 'taste', label: '观影口味' },
+    {
+      id: 'movies',
+      label: '电影空间',
+      sections: [
+        { id: 'records', label: '观影记录' },
+        { id: 'taste', label: '观影口味' },
+      ],
+    },
   ],
   taste: {
     intro: '',
