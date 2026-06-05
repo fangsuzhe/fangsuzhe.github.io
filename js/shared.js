@@ -364,11 +364,65 @@ const MovieShared = (() => {
     }
   }
 
+  function renderSpacePlaceholder(container, tab) {
+    if (!container || !tab) return;
+    const kicker = tab.kicker || 'Space';
+    const icon = tab.icon || '◈';
+    const message = tab.message || '筹备中…';
+
+    container.innerHTML = `
+      <section class="space-hero">
+        <p class="catalog-kicker">${escapeHtml(kicker)}</p>
+        <h2 class="space-title">${escapeHtml(tab.label || '')}</h2>
+      </section>
+      <div class="space-placeholder">
+        <div class="space-placeholder-icon" aria-hidden="true">${icon}</div>
+        <p class="space-placeholder-text">${escapeHtml(message)}</p>
+      </div>`;
+  }
+
+  const PICK_SECTION_META = {
+    perfect: { title: '十分', kicker: 'Perfect Ten' },
+    best: { title: '最', kicker: 'The Best' },
+  };
+
+  function renderPickCard(item, featured = false) {
+    const meta = [item.author, item.creator, item.year, item.note].filter(Boolean).join(' · ');
+    return `
+      <article class="pick-card${featured ? ' pick-card--featured' : ''}">
+        <div class="pick-card-head">
+          <h3 class="pick-card-title">${escapeHtml(item.title || '')}</h3>
+          ${item.rating ? `<span class="pick-card-rating">${escapeHtml(item.rating)}</span>` : ''}
+        </div>
+        ${meta ? `<p class="pick-card-meta">${escapeHtml(meta)}</p>` : ''}
+        ${item.bookmark ? `<blockquote class="pick-card-bookmark">${escapeHtml(item.bookmark)}</blockquote>` : ''}
+      </article>`;
+  }
+
+  function renderSpacePicksPage(container, sectionId, items, spaceKicker) {
+    if (!container) return;
+    const meta = PICK_SECTION_META[sectionId] || { title: sectionId, kicker: '' };
+    const list = Array.isArray(items) ? items : [];
+    const featured = sectionId === 'best';
+
+    container.innerHTML = `
+      <section class="picks-hero">
+        <p class="catalog-kicker">${escapeHtml(spaceKicker || meta.kicker)}</p>
+        <h2 class="picks-title">${escapeHtml(meta.title)}</h2>
+      </section>
+      <div class="pick-list${featured ? ' pick-list--featured' : ''}">
+        ${list.length
+          ? list.map((item) => renderPickCard(item, featured)).join('')
+          : '<p class="taste-empty">暂无</p>'}
+      </div>`;
+  }
+
   return {
     $, uid, ratingFromSlider, sliderFromRating, ratingColor, formatDate,
     escapeHtml, escapeAttr, renderTags, posterHtml,
     RATING_TIERS, getScore, matchRatingTier, countByTier, groupByTier,
     filterAndSort, calcStats, renderGrid, renderGrouped, renderDetail,
-    renderTastePanel, renderBestPanel, linesToList, listToLines, sha256,
+    renderTastePanel, renderBestPanel, renderSpacePlaceholder, renderSpacePicksPage,
+    linesToList, listToLines, sha256,
   };
 })();

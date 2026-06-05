@@ -3,6 +3,7 @@
 const {
   $, RATING_TIERS, filterAndSort, calcStats, countByTier,
   renderGrid, renderGrouped, renderDetail, renderTastePanel, renderBestPanel,
+  renderSpacePlaceholder, renderSpacePicksPage,
 } = MovieShared;
 
 const DEFAULT_MOVIE_SECTIONS = [
@@ -10,6 +11,13 @@ const DEFAULT_MOVIE_SECTIONS = [
   { id: 'best', label: '最' },
   { id: 'taste', label: '观影口味' },
 ];
+
+const DEFAULT_PICK_SECTIONS = [
+  { id: 'perfect', label: '十分' },
+  { id: 'best', label: '最' },
+];
+
+const CONTENT_SPACES = ['drama', 'anime', 'text'];
 
 let movies = [];
 let activeTier = 'all';
@@ -19,9 +27,15 @@ let siteConfig = {
   defaultTab: 'movies',
   defaultSubTab: 'records',
   tabs: [{ id: 'movies', label: '电影空间', sections: DEFAULT_MOVIE_SECTIONS }],
+  spaces: {},
 };
 let activeTab = 'movies';
-let activeSubTab = 'records';
+let activeSubTabs = {
+  movies: 'records',
+  drama: 'perfect',
+  anime: 'perfect',
+  text: 'perfect',
+};
 
 const FILTER_LABELS = [
   { id: 'all', label: '全部' },
@@ -45,18 +59,38 @@ const els = {
   pageSubtitle: $('#pageSubtitle'),
   siteTabs: $('#siteTabs'),
   movieSubTabs: $('#movieSubTabs'),
-  tabPanelMovies: $('#tabPanelMovies'),
   tasteContent: $('#tasteContent'),
   bestContent: $('#bestContent'),
 };
 
-function getMovieTab() {
-  return siteConfig.tabs.find((t) => t.id === 'movies') || siteConfig.tabs[0];
+function getTabConfig(tabId) {
+  return siteConfig.tabs.find((t) => t.id === tabId);
 }
 
-function getMovieSections() {
-  const sections = getMovieTab()?.sections;
-  return Array.isArray(sections) && sections.length ? sections : DEFAULT_MOVIE_SECTIONS;
+function getSpaceConfig(spaceId) {
+  return siteConfig.spaces?.[spaceId] || {};
+}
+
+function getSections(tabId) {
+  if (tabId === 'movies') {
+    const sections = getTabConfig('movies')?.sections;
+    return Array.isArray(sections) && sections.length ? sections : DEFAULT_MOVIE_SECTIONS;
+  }
+  const space = getSpaceConfig(tabId);
+  if (Array.isArray(space.sections) && space.sections.length) return space.sections;
+  return DEFAULT_PICK_SECTIONS;
+}
+
+function getDefaultSubTab(tabId) {
+  if (tabId === 'movies') return siteConfig.defaultSubTab || 'records';
+  return getSpaceConfig(tabId).defaultSubTab || 'perfect';
+}
+
+function initActiveSubTabs() {
+  activeSubTabs.movies = getDefaultSubTab('movies');
+  CONTENT_SPACES.forEach((id) => {
+    activeSubTabs[id] = getDefaultSubTab(id);
+  });
 }
 
 async function loadPublicData() {
@@ -76,10 +110,11 @@ async function loadPublicData() {
     if (!Array.isArray(siteConfig.tabs) || !siteConfig.tabs.length) {
       siteConfig.tabs = [{ id: 'movies', label: '电影空间', sections: DEFAULT_MOVIE_SECTIONS }];
     }
-    const movieTab = getMovieTab();
+    const movieTab = getTabConfig('movies');
     if (movieTab && (!Array.isArray(movieTab.sections) || !movieTab.sections.length)) {
       movieTab.sections = DEFAULT_MOVIE_SECTIONS;
     }
+    if (!siteConfig.spaces) siteConfig.spaces = {};
     document.title = siteConfig.title || document.title;
     if (els.pageTitle) els.pageTitle.textContent = siteConfig.title;
     if (els.pageSubtitle) {
@@ -88,6 +123,28 @@ async function loadPublicData() {
       els.pageSubtitle.classList.toggle('hidden', !sub);
     }
   }
+
+  initActiveSubTabs();
+}
+
+function renderSubTabs(tabId) {
+  const nav = tabId === 'movies'
+    ? els.movieSubTabs
+    : document.querySelector(`.space-sub-tabs[data-space="${tabId}"]`);
+  if (!nav) return;
+
+  const sections = getSections(tabId);
+  let active = activeSubTabs[tabId] || getDefaultSubTab(tabId);
+  if (!sections.some((s) => s.id === active)) active = sections[0].id;
+  activeSubTabs[tabId] = active;
+
+  nav.innerHTML = sections.map(({ id, label }) =>
+    `<button type="button" class="sub-tab${id === active ? ' active' : ''}" data-sub="${id}">${label}</button>`
+  ).join('');
+
+  nav.querySelectorAll('.sub-tab').forEach((btn) => {
+    btn.addEventListener('click', () => switchSubTab(tabId, btn.dataset.sub));
+  });
 }
 
 function renderSiteTabs() {
@@ -104,23 +161,9 @@ function renderSiteTabs() {
     btn.addEventListener('click', () => switchTab(btn.dataset.tab));
   });
 
-  renderMovieSubTabs();
+  renderSubTabs('movies');
+  CONTENT_SPACES.forEach((id) => renderSubTabs(id));
   switchTab(activeTab, false);
-}
-
-function renderMovieSubTabs() {
-  if (!els.movieSubTabs) return;
-  const sections = getMovieSections();
-  activeSubTab = siteConfig.defaultSubTab || sections[0]?.id || 'records';
-  if (!sections.some((s) => s.id === activeSubTab)) activeSubTab = sections[0].id;
-
-  els.movieSubTabs.innerHTML = sections.map(({ id, label }) =>
-    `<button type="button" class="sub-tab${id === activeSubTab ? ' active' : ''}" data-sub="${id}">${label}</button>`
-  ).join('');
-
-  els.movieSubTabs.querySelectorAll('.sub-tab').forEach((btn) => {
-    btn.addEventListener('click', () => switchSubTab(btn.dataset.sub));
-  });
 }
 
 function switchTab(tabId, updateUrl = true) {
@@ -135,28 +178,31 @@ function switchTab(tabId, updateUrl = true) {
     panel.classList.toggle('active', panel.dataset.tab === tabId);
   });
 
-  if (tabId === 'movies') {
-    switchSubTab(activeSubTab, updateUrl);
+  const sections = getSections(tabId);
+  if (sections.length) {
+    switchSubTab(tabId, activeSubTabs[tabId] || getDefaultSubTab(tabId), updateUrl);
     return;
   }
 
   if (updateUrl) updateRouteUrl();
 }
 
-function switchSubTab(subId, updateUrl = true) {
+function switchSubTab(tabId, subId, updateUrl = true) {
   if (!subId) return;
-  const sections = getMovieSections();
+  const sections = getSections(tabId);
   if (!sections.some((s) => s.id === subId)) return;
 
-  activeSubTab = subId;
+  activeSubTabs[tabId] = subId;
 
-  els.movieSubTabs?.querySelectorAll('.sub-tab').forEach((btn) => {
-    btn.classList.toggle('active', btn.dataset.sub === subId);
-  });
-
-  document.querySelectorAll('.sub-panel').forEach((panel) => {
-    panel.classList.toggle('active', panel.dataset.sub === subId);
-  });
+  const panel = document.querySelector(`.tab-panel[data-tab="${tabId}"]`);
+  if (panel) {
+    panel.querySelectorAll('.sub-tab').forEach((btn) => {
+      btn.classList.toggle('active', btn.dataset.sub === subId);
+    });
+    panel.querySelectorAll('.sub-panel').forEach((subPanel) => {
+      subPanel.classList.toggle('active', subPanel.dataset.sub === subId);
+    });
+  }
 
   if (updateUrl) updateRouteUrl();
 }
@@ -164,14 +210,14 @@ function switchSubTab(subId, updateUrl = true) {
 function updateRouteUrl() {
   const url = new URL(window.location.href);
   const defaultTab = siteConfig.defaultTab || 'movies';
-  const defaultSub = siteConfig.defaultSubTab || 'records';
+  const defaultSub = getDefaultSubTab(activeTab);
 
   if (activeTab === defaultTab) url.searchParams.delete('tab');
   else url.searchParams.set('tab', activeTab);
 
-  if (activeTab === 'movies') {
-    if (activeSubTab === defaultSub) url.searchParams.delete('sub');
-    else url.searchParams.set('sub', activeSubTab);
+  if (getSections(activeTab).length) {
+    if (activeSubTabs[activeTab] === defaultSub) url.searchParams.delete('sub');
+    else url.searchParams.set('sub', activeSubTabs[activeTab]);
   } else {
     url.searchParams.delete('sub');
   }
@@ -187,6 +233,25 @@ function renderTaste() {
 function renderBest() {
   if (!els.bestContent) return;
   renderBestPanel(els.bestContent, siteConfig.best, movies, openDetail);
+}
+
+function renderContentSpaces() {
+  CONTENT_SPACES.forEach((spaceId) => {
+    const space = getSpaceConfig(spaceId);
+    if (!space.perfect && !space.best) return;
+    const kicker = space.kicker || '';
+    renderSpacePicksPage($(`#${spaceId}_perfect`), 'perfect', space.perfect, kicker);
+    renderSpacePicksPage($(`#${spaceId}_best`), 'best', space.best, kicker);
+  });
+}
+
+function renderPlaceholderSpaces() {
+  (siteConfig.tabs || []).forEach((tab) => {
+    if (tab.id === 'movies' || CONTENT_SPACES.includes(tab.id)) return;
+    if (!tab.message && !tab.icon) return;
+    const container = $(`#space_${tab.id}`);
+    if (container) renderSpacePlaceholder(container, tab);
+  });
 }
 
 function renderFilterChips() {
@@ -260,6 +325,8 @@ async function init() {
     renderSiteTabs();
     renderTaste();
     renderBest();
+    renderContentSpaces();
+    renderPlaceholderSpaces();
 
     const params = new URLSearchParams(window.location.search);
     const tabFromUrl = params.get('tab');
@@ -267,18 +334,16 @@ async function init() {
 
     if (tabFromUrl === 'taste') {
       activeTab = 'movies';
-      activeSubTab = 'taste';
+      activeSubTabs.movies = 'taste';
     } else if (tabFromUrl && siteConfig.tabs.some((t) => t.id === tabFromUrl)) {
       activeTab = tabFromUrl;
     }
 
-    const sections = getMovieSections();
-    if (subFromUrl && sections.some((s) => s.id === subFromUrl)) {
-      activeSubTab = subFromUrl;
+    if (subFromUrl && getSections(activeTab).some((s) => s.id === subFromUrl)) {
+      activeSubTabs[activeTab] = subFromUrl;
     }
 
     switchTab(activeTab, false);
-    if (activeTab === 'movies') switchSubTab(activeSubTab, false);
 
     els.loading.classList.add('hidden');
     els.pageContent.classList.remove('hidden');

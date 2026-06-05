@@ -1374,6 +1374,127 @@ body {
   color: var(--text);
 }
 
+/* Other spaces */
+.space-page {
+  animation: fadeUp 0.45s ease both;
+}
+
+.space-hero {
+  margin-bottom: 1.75rem;
+}
+
+.space-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.85rem, 4vw, 2.35rem);
+  font-weight: 700;
+}
+
+.space-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 280px;
+  padding: 2.5rem 1.5rem;
+  background: var(--bg-glass);
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius);
+  backdrop-filter: blur(12px);
+}
+
+.space-placeholder-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  opacity: 0.85;
+}
+
+.space-placeholder-text {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  letter-spacing: 0.04em;
+}
+
+/* Picks pages (剧 / 动漫 / 文字) */
+.picks-page {
+  animation: fadeUp 0.45s ease both;
+}
+
+.picks-hero {
+  margin-bottom: 1.75rem;
+}
+
+.picks-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.85rem, 4vw, 2.35rem);
+  font-weight: 700;
+}
+
+.pick-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.pick-list--featured {
+  max-width: 640px;
+}
+
+.pick-card {
+  background: var(--bg-glass);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.2rem 1.35rem;
+  backdrop-filter: blur(12px);
+}
+
+.pick-card--featured {
+  border-color: rgba(232, 192, 104, 0.24);
+  background: linear-gradient(160deg, rgba(232, 192, 104, 0.08), var(--bg-glass));
+  padding: 1.5rem 1.45rem;
+}
+
+.pick-card-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.pick-card-title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+.pick-card--featured .pick-card-title {
+  font-size: clamp(1.5rem, 3.5vw, 1.85rem);
+}
+
+.pick-card-rating {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.pick-card-meta {
+  margin-top: 0.35rem;
+  color: var(--text-muted);
+  font-size: 0.86rem;
+}
+
+.pick-card-bookmark {
+  margin: 0.85rem 0 0;
+  padding-left: 0.85rem;
+  border-left: 2px solid rgba(232, 192, 104, 0.35);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--text);
+  font-style: italic;
+}
+
 .field-hint-block {
   font-size: 0.78rem;
   color: var(--text-muted);
