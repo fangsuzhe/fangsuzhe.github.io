@@ -2,11 +2,12 @@
 
 const {
   $, RATING_TIERS, filterAndSort, calcStats, countByTier,
-  renderGrid, renderGrouped, renderDetail, renderTastePanel,
+  renderGrid, renderGrouped, renderDetail, renderTastePanel, renderBestPanel,
 } = MovieShared;
 
 const DEFAULT_MOVIE_SECTIONS = [
   { id: 'records', label: '观影记录' },
+  { id: 'best', label: '最' },
   { id: 'taste', label: '观影口味' },
 ];
 
@@ -46,6 +47,7 @@ const els = {
   movieSubTabs: $('#movieSubTabs'),
   tabPanelMovies: $('#tabPanelMovies'),
   tasteContent: $('#tasteContent'),
+  bestContent: $('#bestContent'),
 };
 
 function getMovieTab() {
@@ -182,6 +184,11 @@ function renderTaste() {
   renderTastePanel(els.tasteContent, siteConfig.taste);
 }
 
+function renderBest() {
+  if (!els.bestContent) return;
+  renderBestPanel(els.bestContent, siteConfig.best, movies, openDetail);
+}
+
 function renderFilterChips() {
   if (!els.ratingFilters) return;
   const counts = countByTier(movies);
@@ -252,6 +259,7 @@ async function init() {
     await loadPublicData();
     renderSiteTabs();
     renderTaste();
+    renderBest();
 
     const params = new URLSearchParams(window.location.search);
     const tabFromUrl = params.get('tab');

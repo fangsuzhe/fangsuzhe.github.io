@@ -308,11 +308,67 @@ const MovieShared = (() => {
     return (Array.isArray(list) ? list : []).join('\n');
   }
 
+  function renderBestPanel(container, best, movies, onMovieClick) {
+    if (!container) return;
+    const config = best || {};
+    const director = config.director || { name: '北野武' };
+    const refs = Array.isArray(config.movies) ? config.movies : [{ id: 'm_hana_bi' }];
+    const featured = refs
+      .map((ref) => {
+        const id = typeof ref === 'string' ? ref : ref.id;
+        return movies.find((m) => m.id === id);
+      })
+      .filter(Boolean);
+
+    const directorName = director.name || '北野武';
+
+    container.innerHTML = `
+      <section class="best-hero">
+        <p class="catalog-kicker">The Best</p>
+        <h2 class="best-title">最</h2>
+      </section>
+      <div class="best-layout">
+        <article class="best-spotlight best-spotlight--director">
+          <span class="best-spotlight-label">导演</span>
+          <h3 class="best-spotlight-name">${escapeHtml(directorName)}</h3>
+          ${director.note ? `<p class="best-spotlight-note">${escapeHtml(director.note)}</p>` : ''}
+        </article>
+        <div class="best-movies">
+          ${featured.length ? featured.map((m) => {
+            const meta = [m.year, m.director].filter(Boolean).join(' · ');
+            return `
+              <article class="best-movie-card" data-id="${m.id}" tabindex="0" role="button">
+                <div class="best-movie-head">
+                  <h3 class="best-movie-title">${escapeHtml(m.title)}</h3>
+                  <span class="best-movie-rating">${escapeHtml(m.rating)}</span>
+                </div>
+                ${meta ? `<p class="best-movie-meta">${escapeHtml(meta)}</p>` : ''}
+                ${m.genre ? `<div class="card-tags">${renderTags(m.genre)}</div>` : ''}
+                ${m.bookmark ? `<blockquote class="best-movie-bookmark">${escapeHtml(m.bookmark)}</blockquote>` : ''}
+              </article>`;
+          }).join('') : '<p class="taste-empty">暂无</p>'}
+        </div>
+      </div>`;
+
+    if (typeof onMovieClick === 'function') {
+      container.querySelectorAll('.best-movie-card').forEach((card) => {
+        const open = () => onMovieClick(card.dataset.id);
+        card.addEventListener('click', open);
+        card.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            open();
+          }
+        });
+      });
+    }
+  }
+
   return {
     $, uid, ratingFromSlider, sliderFromRating, ratingColor, formatDate,
     escapeHtml, escapeAttr, renderTags, posterHtml,
     RATING_TIERS, getScore, matchRatingTier, countByTier, groupByTier,
     filterAndSort, calcStats, renderGrid, renderGrouped, renderDetail,
-    renderTastePanel, linesToList, listToLines, sha256,
+    renderTastePanel, renderBestPanel, linesToList, listToLines, sha256,
   };
 })();

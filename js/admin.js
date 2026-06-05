@@ -24,10 +24,15 @@ let siteConfig = {
       label: '电影空间',
       sections: [
         { id: 'records', label: '观影记录' },
+        { id: 'best', label: '最' },
         { id: 'taste', label: '观影口味' },
       ],
     },
   ],
+  best: {
+    director: { name: '北野武' },
+    movies: [{ id: 'm_hana_bi' }],
+  },
   taste: {
     intro: '',
     favoriteDirectors: [],

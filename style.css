@@ -1251,6 +1251,129 @@ body {
   font-size: 0.88rem;
 }
 
+/* Best picks */
+.best-page {
+  animation: fadeUp 0.45s ease both;
+}
+
+.best-hero {
+  margin-bottom: 1.75rem;
+}
+
+.best-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 2.6rem);
+  font-weight: 700;
+}
+
+.best-layout {
+  display: grid;
+  grid-template-columns: minmax(200px, 280px) 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+.best-spotlight {
+  background: var(--bg-glass);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem 1.4rem;
+  backdrop-filter: blur(12px);
+}
+
+.best-spotlight--director {
+  border-color: rgba(232, 192, 104, 0.22);
+  background: linear-gradient(160deg, rgba(232, 192, 104, 0.1), var(--bg-glass));
+  position: sticky;
+  top: 5.5rem;
+}
+
+.best-spotlight-label {
+  display: block;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.65rem;
+}
+
+.best-spotlight-name {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 2.2rem);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.best-spotlight-note {
+  margin-top: 0.75rem;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  line-height: 1.65;
+}
+
+.best-movies {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.best-movie-card {
+  background: var(--bg-glass);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.35rem 1.4rem;
+  backdrop-filter: blur(12px);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, transform 0.15s;
+}
+
+.best-movie-card:hover,
+.best-movie-card:focus-visible {
+  border-color: rgba(232, 192, 104, 0.28);
+  background: var(--bg-card-hover);
+  transform: translateY(-2px);
+  outline: none;
+}
+
+.best-movie-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.45rem;
+}
+
+.best-movie-title {
+  font-family: var(--font-display);
+  font-size: 1.65rem;
+  font-weight: 700;
+}
+
+.best-movie-rating {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.best-movie-meta {
+  color: var(--text-muted);
+  font-size: 0.86rem;
+  margin-bottom: 0.75rem;
+}
+
+.best-movie-bookmark {
+  margin: 1rem 0 0;
+  padding: 0.85rem 1rem;
+  border-left: 2px solid rgba(232, 192, 104, 0.4);
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  line-height: 1.65;
+  font-style: italic;
+  color: var(--text);
+}
+
 .field-hint-block {
   font-size: 0.78rem;
   color: var(--text-muted);
@@ -1376,6 +1499,8 @@ body {
   .header-shell { padding: 1rem 1rem 0; }
   .dash-stats { grid-template-columns: 1fr; }
   .taste-grid { grid-template-columns: 1fr; }
+  .best-layout { grid-template-columns: 1fr; }
+  .best-spotlight--director { position: static; }
 }
 
 @media (max-width: 640px) {
