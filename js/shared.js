@@ -113,7 +113,6 @@ const MovieShared = (() => {
         case 'rating-desc': return getScore(b) - getScore(a);
         case 'rating-asc':  return getScore(a) - getScore(b);
         case 'title-asc':   return a.title.localeCompare(b.title, 'zh-CN');
-        case 'watch-desc':  return (b.watchDate || '').localeCompare(a.watchDate || '');
         default:            return b.createdAt - a.createdAt;
       }
     });
@@ -222,7 +221,6 @@ const MovieShared = (() => {
     if (m.author) metaParts.push(m.author);
     if (m.artist) metaParts.push(m.artist);
     if (m.creator) metaParts.push(m.creator);
-    if (m.watchDate) metaParts.push('观看于 ' + formatDate(m.watchDate));
 
     detailContentEl.innerHTML = `
       ${m.poster

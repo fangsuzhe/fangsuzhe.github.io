@@ -128,7 +128,6 @@
             <option value="rating-desc">评分从高到低</option>
             <option value="rating-asc">评分从低到高</option>
             <option value="title-asc">片名 A→Z</option>
-            <option value="watch-desc">观影日期</option>
           </select>
           <button class="btn btn-ghost" id="btnExport">导出</button>
           <button class="btn btn-ghost" id="btnImport">导入</button>
@@ -171,16 +170,10 @@
             <input type="number" id="inputYear" placeholder="1994" min="1888" max="2099">
           </label>
         </div>
-        <div class="form-row two-col">
-          <label class="field">
-            <span>观影日期</span>
-            <input type="date" id="inputWatchDate">
-          </label>
-          <label class="field">
-            <span>类型 / 标签</span>
-            <input type="text" id="inputGenre" placeholder="剧情, 犯罪" maxlength="80">
-          </label>
-        </div>
+        <label class="field field-full">
+          <span>类型 / 标签</span>
+          <input type="text" id="inputGenre" placeholder="剧情, 犯罪" maxlength="80">
+        </label>
         <label class="field field-full">
           <span>海报链接（可选）</span>
           <input type="url" id="inputPoster" placeholder="https://…">

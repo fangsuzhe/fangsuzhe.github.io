@@ -332,7 +332,6 @@ function openModal(id) {
     $('#inputTitle').value = m.title;
     $('#inputDirector').value = m.director || '';
     $('#inputYear').value = m.year || '';
-    $('#inputWatchDate').value = m.watchDate || '';
     $('#inputGenre').value = m.genre || '';
     $('#inputPoster').value = m.poster || '';
     $('#inputBookmark').value = m.bookmark || '';
@@ -340,7 +339,6 @@ function openModal(id) {
     els.ratingSlider.value = sliderFromRating(m.rating);
   } else {
     els.ratingSlider.value = 80;
-    $('#inputWatchDate').value = new Date().toISOString().slice(0, 10);
   }
 
   els.ratingDisplay.textContent = ratingFromSlider(els.ratingSlider.value);
@@ -372,7 +370,6 @@ function handleSubmit(e) {
     title,
     director: $('#inputDirector').value.trim(),
     year: $('#inputYear').value.trim(),
-    watchDate: $('#inputWatchDate').value,
     genre: $('#inputGenre').value.trim(),
     poster: $('#inputPoster').value.trim(),
     rating: ratingFromSlider(els.ratingSlider.value),
@@ -382,7 +379,10 @@ function handleSubmit(e) {
 
   if (editingId) {
     const idx = movies.findIndex((x) => x.id === editingId);
-    if (idx !== -1) movies[idx] = { ...movies[idx], ...data };
+    if (idx !== -1) {
+      const { watchDate, ...rest } = movies[idx];
+      movies[idx] = { ...rest, ...data };
+    }
   } else {
     movies.unshift({ id: uid(), createdAt: Date.now(), ...data });
   }
@@ -422,7 +422,6 @@ function importData(file) {
         title: m.title,
         director: m.director || '',
         year: m.year || '',
-        watchDate: m.watchDate || '',
         genre: m.genre || '',
         poster: m.poster || '',
         rating: m.rating || '8.0',
