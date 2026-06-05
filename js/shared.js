@@ -162,7 +162,8 @@ const MovieShared = (() => {
     }
 
     return `
-      <article class="movie-card movie-card--text" data-id="${m.id}" style="animation-delay:${Math.min(i * 0.05, 0.5)}s">
+      <article class="movie-card movie-card--text" data-id="${m.id}" data-tier="${tierClass(score)}" style="animation-delay:${Math.min(i * 0.04, 0.48)}s">
+        <div class="card-accent" aria-hidden="true"></div>
         <div class="card-body">
           <div class="card-head">
             <h3 class="card-title">${escapeHtml(m.title)}</h3>

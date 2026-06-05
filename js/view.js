@@ -8,8 +8,8 @@ const {
 let movies = [];
 let activeTier = 'all';
 let siteConfig = {
-  title: '观影片单',
-  subtitle: '',
+  title: '个人空间',
+  subtitle: '记录 · 分享 · 留存',
   defaultTab: 'movies',
   tabs: [{ id: 'movies', label: '电影空间' }],
 };
