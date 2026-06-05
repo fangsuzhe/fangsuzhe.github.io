@@ -56,17 +56,7 @@ body {
 }
 
 .site-wallpaper-scrim {
-  pointer-events: none;
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  /* 仅底部略压暗，顶部保持壁纸原色 */
-  background: linear-gradient(
-    180deg,
-    rgba(6, 6, 8, 0) 0%,
-    rgba(6, 6, 8, 0) 65%,
-    rgba(6, 6, 8, 0.28) 100%
-  );
+  display: none;
 }
 
 .grain {
@@ -105,12 +95,10 @@ body {
 
 .header, .main, .footer { position: relative; z-index: 1; }
 
-/* Header */
+/* Header — 透明，不盖模糊蒙版 */
 .header {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(18px) saturate(1.25);
-  -webkit-backdrop-filter: blur(18px) saturate(1.25);
-  background: rgba(8, 8, 12, 0.12);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: transparent;
   position: sticky;
   top: 0;
   z-index: 100;
@@ -199,10 +187,10 @@ body {
 .site-tab {
   flex: 0 0 auto;
   padding: 0.72rem 1.35rem;
-  border: 1px solid var(--border);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.02);
-  color: var(--text-muted);
+  background: rgba(10, 10, 14, 0.82);
+  color: rgba(234, 232, 240, 0.92);
   font-family: var(--font-body);
   font-size: 0.95rem;
   font-weight: 500;
@@ -210,11 +198,12 @@ body {
   cursor: pointer;
   transition: color 0.2s, background 0.2s, border-color 0.2s, transform 0.15s;
   white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28);
 }
 .site-tab:hover {
-  color: var(--text);
-  border-color: var(--border-strong);
-  background: rgba(255, 255, 255, 0.04);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.16);
+  background: rgba(16, 16, 22, 0.92);
 }
 .site-tab.active {
   color: #1a1408;
@@ -234,8 +223,9 @@ body {
   margin-bottom: 1.35rem;
   padding: 0.28rem;
   border-radius: 999px;
-  border: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(10, 10, 14, 0.82);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28);
   width: fit-content;
   max-width: 100%;
   overflow-x: auto;
@@ -249,7 +239,7 @@ body {
   border: none;
   border-radius: 999px;
   background: transparent;
-  color: var(--text-muted);
+  color: rgba(234, 232, 240, 0.88);
   font-family: var(--font-body);
   font-size: 0.86rem;
   font-weight: 500;
@@ -259,14 +249,14 @@ body {
 }
 
 .sub-tab:hover {
-  color: var(--text);
-  background: rgba(255, 255, 255, 0.04);
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .sub-tab.active {
-  color: var(--text);
-  background: rgba(232, 192, 104, 0.14);
-  box-shadow: inset 0 0 0 1px rgba(232, 192, 104, 0.22);
+  color: #fff;
+  background: rgba(22, 20, 28, 0.96);
+  box-shadow: inset 0 0 0 1px rgba(232, 192, 104, 0.38);
 }
 
 .sub-panel { display: none; }
