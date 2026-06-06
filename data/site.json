@@ -31,7 +31,22 @@
         { "id": "d_bcs", "title": "风骚律师", "rating": "10.0" },
         { "id": "d_breaking_bad", "title": "绝命毒师", "rating": "10.0" },
         { "id": "d_friends", "title": "老友记", "rating": "10.0" },
-        { "id": "d_longmen", "title": "龙门镖局", "rating": "9.0" }
+        { "id": "d_longmen", "title": "龙门镖局", "rating": "9.0" },
+        { "id": "d_relife", "title": "重启人生", "rating": "10.0" },
+        { "id": "d_report_boss", "title": "报告老板", "rating": "9.0" },
+        { "id": "d_xianjian3", "title": "仙剑奇侠传3", "rating": "9.0" },
+        { "id": "d_the_boys", "title": "黑袍纠察队", "rating": "8.0" },
+        { "id": "d_shameless", "title": "无耻之徒", "rating": "8.0" },
+        { "id": "d_tiga", "title": "迪迦奥特曼", "rating": "8.0" },
+        { "id": "d_leo", "title": "雷欧奥特曼", "rating": "8.0" },
+        { "id": "d_taro", "title": "泰罗奥特曼", "rating": "7.0" },
+        { "id": "d_wanwan", "title": "万万没想到", "rating": "8.0" },
+        { "id": "d_true_detective_s1", "title": "真探 第一季", "rating": "7.0" },
+        { "id": "d_wulin", "title": "武林外传", "rating": "7.0" },
+        { "id": "d_hidden_corner", "title": "隐秘的角落", "rating": "7.0" },
+        { "id": "d_kuangbiao", "title": "狂飙", "rating": "7.0" },
+        { "id": "d_daioko", "title": "我是大哥大", "rating": "7.0" },
+        { "id": "d_stranger_things", "title": "怪奇物语", "rating": "4.0" }
       ],
       "best": [
         { "id": "d_bcs", "title": "风骚律师", "rating": "10.0" }
@@ -46,7 +61,18 @@
         { "id": "best", "label": "最" }
       ],
       "items": [
-        { "id": "a_chainsaw", "title": "炎拳", "rating": "10.0" }
+        { "id": "a_chainsaw", "title": "炎拳", "rating": "10.0" },
+        { "id": "a_bocchi", "title": "孤独摇滚！", "rating": "10.0" },
+        { "id": "a_gintama", "title": "银魂", "rating": "10.0" },
+        { "id": "a_katekyo", "title": "家庭教师", "rating": "10.0" },
+        { "id": "a_makeine", "title": "我们不可能成为恋人！绝对不行。", "rating": "10.0" },
+        { "id": "a_one_piece", "title": "海贼王", "rating": "10.0" },
+        { "id": "a_clannad", "title": "CLANNAD", "rating": "10.0" },
+        { "id": "a_rick_morty", "title": "瑞克和莫蒂", "rating": "10.0" },
+        { "id": "a_natsume", "title": "夏目友人帐", "rating": "9.0" },
+        { "id": "a_pantyhose", "title": "裤袜视界", "rating": "9.0" },
+        { "id": "a_dandadan", "title": "胆大党", "rating": "9.0" },
+        { "id": "a_naruto", "title": "火影忍者", "rating": "9.0" }
       ],
       "best": [
         { "id": "a_chainsaw", "title": "炎拳", "rating": "10.0" }
