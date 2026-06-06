@@ -10,6 +10,7 @@ import sharp from 'sharp';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, '..');
 const POSTER_DIR = path.join(ROOT, 'images', 'posters');
+const OUT_DIR = path.join(POSTER_DIR, '_out');
 const MAX_WIDTH = 420;
 const WEBP_QUALITY = 76;
 
@@ -20,33 +21,48 @@ async function main() {
     return;
   }
 
+  fs.mkdirSync(OUT_DIR, { recursive: true });
+
   let before = 0;
   let after = 0;
   let skipped = 0;
+  const toReplace = [];
 
   for (const file of files) {
     const abs = path.join(POSTER_DIR, file);
     const stat = fs.statSync(abs);
     before += stat.size;
 
-    const img = sharp(abs);
-    const meta = await img.metadata();
+    const meta = await sharp(abs).metadata();
+    const out = path.join(OUT_DIR, file);
+
     if (meta.width && meta.width <= MAX_WIDTH && stat.size < 90 * 1024) {
+      fs.copyFileSync(abs, out);
       after += stat.size;
       skipped++;
+      toReplace.push(file);
       continue;
     }
 
-    const buf = await img
+    await sharp(abs)
       .resize({ width: MAX_WIDTH, withoutEnlargement: true })
       .webp({ quality: WEBP_QUALITY, effort: 4 })
-      .toBuffer();
+      .toFile(out);
 
-    fs.writeFileSync(abs, buf);
-    after += buf.length;
-    const pct = ((1 - buf.length / stat.size) * 100).toFixed(0);
-    console.log(`${file}: ${(stat.size / 1024).toFixed(0)}KB → ${(buf.length / 1024).toFixed(0)}KB (${pct}%)`);
+    const newSize = fs.statSync(out).size;
+    after += newSize;
+    toReplace.push(file);
+    const pct = ((1 - newSize / stat.size) * 100).toFixed(0);
+    console.log(`${file}: ${(stat.size / 1024).toFixed(0)}KB → ${(newSize / 1024).toFixed(0)}KB (${pct}%)`);
   }
+
+  for (const file of toReplace) {
+    const src = path.join(OUT_DIR, file);
+    const dest = path.join(POSTER_DIR, file);
+    fs.copyFileSync(src, dest);
+  }
+
+  fs.rmSync(OUT_DIR, { recursive: true, force: true });
 
   console.log(`\n共 ${files.length} 张，跳过 ${skipped} 张已足够小`);
   console.log(`总计 ${(before / 1024 / 1024).toFixed(2)}MB → ${(after / 1024 / 1024).toFixed(2)}MB`);
