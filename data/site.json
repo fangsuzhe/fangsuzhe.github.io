@@ -90,7 +90,9 @@
       "items": [
         { "id": "t_wanshou", "title": "万寿寺", "author": "王小波", "rating": "10.0" },
         { "id": "t_frog", "title": "蛙", "author": "莫言", "rating": "10.0" },
-        { "id": "t_sandalwood", "title": "檀香刑", "author": "莫言", "rating": "10.0" }
+        { "id": "t_sandalwood", "title": "檀香刑", "author": "莫言", "rating": "10.0" },
+        { "id": "t_splendid_suns", "title": "灿烂千阳", "author": "卡勒德·胡赛尼", "rating": "7.0" },
+        { "id": "t_mountains_echoed", "title": "群山回唱", "author": "卡勒德·胡赛尼", "rating": "7.0" }
       ],
       "best": [
         { "id": "t_wanshou", "title": "万寿寺", "author": "王小波", "rating": "10.0" }
@@ -120,7 +122,8 @@
         { "id": "best", "label": "最" }
       ],
       "items": [
-        { "id": "ac_miho", "title": "北条麻妃", "rating": "10.0" }
+        { "id": "ac_miho", "title": "北条麻妃", "rating": "10.0" },
+        { "id": "ac_kirioka", "title": "桐冈小月", "rating": "10.0" }
       ],
       "best": [
         { "id": "ac_miho", "title": "北条麻妃", "rating": "10.0" }
