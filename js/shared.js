@@ -304,6 +304,28 @@ const MovieShared = (() => {
       </div>`;
   }
 
+  function renderNotesPanel(container, notes) {
+    if (!container) return;
+    const list = (Array.isArray(notes) ? notes : [])
+      .slice()
+      .sort((a, b) => (b.date || '').localeCompare(a.date || '') || (b.createdAt || 0) - (a.createdAt || 0));
+
+    const entriesHtml = list.length
+      ? list.map((note, i) => `
+          <article class="note-entry" style="animation-delay:${Math.min(i * 0.05, 0.35)}s">
+            <time class="note-date" datetime="${escapeAttr(note.date || '')}">${escapeHtml(formatDate(note.date) || note.date || '')}</time>
+            <p class="note-content">${escapeHtml(note.content || '')}</p>
+          </article>`).join('')
+      : '<p class="taste-empty">暂无</p>';
+
+    container.innerHTML = `
+      <section class="notes-hero">
+        <p class="catalog-kicker">Movie Notes</p>
+        <h2 class="notes-title">要说的</h2>
+      </section>
+      <div class="notes-list">${entriesHtml}</div>`;
+  }
+
   function linesToList(text) {
     return String(text || '')
       .split('\n')
@@ -566,7 +588,7 @@ const MovieShared = (() => {
     escapeHtml, escapeAttr, renderTags, posterHtml,
     RATING_TIERS, getScore, matchRatingTier, countByTier, groupByTier,
     filterAndSort, calcStats, renderGrid, renderGrouped, renderDetail,
-    renderTastePanel, renderBestPanel, renderSpacePlaceholder,
+    renderTastePanel, renderNotesPanel, renderBestPanel, renderSpacePlaceholder,
     renderSpacePicksPage, renderSpaceRecordsPanel, bindSpaceItemClicks,
     linesToList, listToLines, sha256,
   };

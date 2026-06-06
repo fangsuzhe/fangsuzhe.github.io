@@ -4,12 +4,14 @@ const {
   $, escapeHtml, RATING_TIERS, filterAndSort, calcStats, countByTier,
   renderGrid, renderGrouped, renderDetail, renderTastePanel, renderBestPanel,
   renderSpacePlaceholder, renderSpacePicksPage, renderSpaceRecordsPanel,
+  renderNotesPanel,
 } = MovieShared;
 
 const DEFAULT_MOVIE_SECTIONS = [
   { id: 'records', label: '观影记录' },
   { id: 'best', label: '最' },
   { id: 'taste', label: '观影口味' },
+  { id: 'notes', label: '要说的' },
 ];
 
 const DEFAULT_SPACE_SECTIONS = [
@@ -17,8 +19,68 @@ const DEFAULT_SPACE_SECTIONS = [
   { id: 'best', label: '最' },
 ];
 
+const HIDDEN_TAB_ID = 'idol';
+const IDOL_UNLOCK_CLICKS = 15;
+const IDOL_UNLOCK_KEY = 'site-idol-unlocked';
+const IDOL_CLICK_RESET_MS = 1500;
+
+let idolSpaceUnlocked = false;
+let idolClickCount = 0;
+let idolClickTimer = null;
+
+function loadIdolUnlockState() {
+  try {
+    idolSpaceUnlocked = localStorage.getItem(IDOL_UNLOCK_KEY) === '1';
+  } catch {
+    idolSpaceUnlocked = false;
+  }
+}
+
+function isIdolTabHidden(tabId) {
+  return tabId === HIDDEN_TAB_ID && !idolSpaceUnlocked;
+}
+
+function getVisibleTabs() {
+  return (siteConfig.tabs || []).filter((tab) => !isIdolTabHidden(tab.id));
+}
+
 function getContentSpaces() {
-  return Object.keys(siteConfig.spaces || {});
+  return Object.keys(siteConfig.spaces || {}).filter((id) => !isIdolTabHidden(id));
+}
+
+function syncIdolSpaceVisibility() {
+  document.querySelector(`.tab-panel[data-tab="${HIDDEN_TAB_ID}"]`)
+    ?.classList.toggle('hidden', !idolSpaceUnlocked);
+}
+
+function unlockIdolSpace() {
+  if (idolSpaceUnlocked) return;
+  idolSpaceUnlocked = true;
+  try {
+    localStorage.setItem(IDOL_UNLOCK_KEY, '1');
+  } catch { /* ignore */ }
+  ensureSpaceState();
+  buildSpaceItemIndex();
+  syncIdolSpaceVisibility();
+  renderContentSpaces();
+  renderSiteTabs();
+}
+
+function setupIdolUnlock() {
+  const avatar = $('#brandAvatar');
+  if (!avatar) return;
+  avatar.style.cursor = 'pointer';
+  avatar.addEventListener('click', () => {
+    if (idolSpaceUnlocked) return;
+    idolClickCount += 1;
+    clearTimeout(idolClickTimer);
+    idolClickTimer = setTimeout(() => { idolClickCount = 0; }, IDOL_CLICK_RESET_MS);
+    if (idolClickCount >= IDOL_UNLOCK_CLICKS) {
+      idolClickCount = 0;
+      clearTimeout(idolClickTimer);
+      unlockIdolSpace();
+    }
+  });
 }
 
 let movies = [];
@@ -60,6 +122,7 @@ const els = {
   siteTabs: $('#siteTabs'),
   movieSubTabs: $('#movieSubTabs'),
   tasteContent: $('#tasteContent'),
+  notesContent: $('#notesContent'),
   bestContent: $('#bestContent'),
 };
 
@@ -210,9 +273,13 @@ function renderSubTabs(tabId) {
 
 function renderSiteTabs() {
   if (!els.siteTabs) return;
-  const tabs = siteConfig.tabs;
-  activeTab = siteConfig.defaultTab || tabs[0]?.id || 'movies';
-  if (!tabs.some((t) => t.id === activeTab)) activeTab = tabs[0].id;
+  const tabs = getVisibleTabs();
+  if (isIdolTabHidden(activeTab)) {
+    activeTab = siteConfig.defaultTab || 'movies';
+  }
+  if (!tabs.some((t) => t.id === activeTab)) {
+    activeTab = siteConfig.defaultTab || tabs[0]?.id || 'movies';
+  }
 
   els.siteTabs.innerHTML = tabs.map(({ id, label }) =>
     `<button type="button" class="site-tab${id === activeTab ? ' active' : ''}" data-tab="${id}">${label}</button>`
@@ -289,6 +356,11 @@ function updateRouteUrl() {
 function renderTaste() {
   if (!els.tasteContent) return;
   renderTastePanel(els.tasteContent, siteConfig.taste);
+}
+
+function renderNotes() {
+  if (!els.notesContent) return;
+  renderNotesPanel(els.notesContent, siteConfig.notes);
 }
 
 function renderBest() {
@@ -402,9 +474,12 @@ function openDetail(id) {
 async function init() {
   try {
     await loadPublicData();
+    loadIdolUnlockState();
     ensureSpacePanels();
+    syncIdolSpaceVisibility();
     renderSiteTabs();
     renderTaste();
+    renderNotes();
     renderBest();
     renderContentSpaces();
     renderPlaceholderSpaces();
@@ -418,7 +493,10 @@ async function init() {
     if (tabFromUrl === 'taste') {
       activeTab = 'movies';
       activeSubTabs.movies = 'taste';
-    } else if (tabFromUrl && siteConfig.tabs.some((t) => t.id === tabFromUrl)) {
+    } else if (tabFromUrl === 'notes') {
+      activeTab = 'movies';
+      activeSubTabs.movies = 'notes';
+    } else if (tabFromUrl && siteConfig.tabs.some((t) => t.id === tabFromUrl) && !isIdolTabHidden(tabFromUrl)) {
       activeTab = tabFromUrl;
     }
 
@@ -440,6 +518,7 @@ async function init() {
     els.pageContent.classList.remove('hidden');
     renderFilterChips();
     render();
+    setupIdolUnlock();
   } catch (err) {
     els.loading.innerHTML = `
       <div class="empty-icon">⚠️</div>

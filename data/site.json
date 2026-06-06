@@ -10,7 +10,8 @@
       "sections": [
         { "id": "records", "label": "观影记录" },
         { "id": "best", "label": "最" },
-        { "id": "taste", "label": "观影口味" }
+        { "id": "taste", "label": "观影口味" },
+        { "id": "notes", "label": "要说的" }
       ]
     },
     { "id": "drama", "label": "剧空间" },
@@ -130,6 +131,13 @@
       ]
     }
   },
+  "notes": [
+    {
+      "id": "n_20260606",
+      "date": "2026-06-06",
+      "content": "爱在系列真他妈狗屎"
+    }
+  ],
   "taste": {
     "intro": "不算标准影评，只是我在找的东西。",
     "favoriteDirectors": [

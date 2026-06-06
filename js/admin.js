@@ -26,6 +26,7 @@ let siteConfig = {
         { id: 'records', label: '观影记录' },
         { id: 'best', label: '最' },
         { id: 'taste', label: '观影口味' },
+        { id: 'notes', label: '要说的' },
       ],
     },
     { id: 'drama', label: '剧空间' },
@@ -95,6 +96,7 @@ let siteConfig = {
     favoriteStyles: [],
     dislikes: [],
   },
+  notes: [],
 };
 let editingId = null;
 let fileSha = null;
