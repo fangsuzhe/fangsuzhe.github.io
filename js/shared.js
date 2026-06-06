@@ -64,8 +64,8 @@ const MovieShared = (() => {
   }
 
   const RATING_TIERS = [
-    { id: '10', label: '10 · 击碎我的' },
-    { id: '9',  label: '9 · 极致的' },
+    { id: '10', label: '10 分' },
+    { id: '9',  label: '9 分' },
     { id: '8',  label: '8 分' },
     { id: '7',  label: '7 分' },
     { id: '6',  label: '6 分' },
@@ -75,6 +75,20 @@ const MovieShared = (() => {
     { id: '2',  label: '2 分' },
     { id: '1',  label: '1 分' },
     { id: '0',  label: '0 分' },
+  ];
+
+  const MOVIE_RATING_TIERS = [
+    { id: '10', label: '10 · 击碎我的' },
+    { id: '9',  label: '9 · 极致的' },
+    { id: '8',  label: '8 · 非常好' },
+    { id: '7',  label: '7 · 有点意思' },
+    { id: '6',  label: '6 · 是可以看看' },
+    { id: '5',  label: '5 · 存在硬伤' },
+    { id: '4',  label: '4 · 不好看' },
+    { id: '3',  label: '3 · 是很不好看' },
+    { id: '2',  label: '2 · 也许有优点' },
+    { id: '1',  label: '1 · 是比0分好' },
+    { id: '0',  label: '0 · 浪费时间的垃圾' },
   ];
 
   function getScore(movie) {
@@ -90,9 +104,9 @@ const MovieShared = (() => {
     return true;
   }
 
-  function countByTier(movies) {
+  function countByTier(movies, tiers = RATING_TIERS) {
     const counts = { all: movies.length };
-    RATING_TIERS.forEach((t) => {
+    tiers.forEach((t) => {
       counts[t.id] = movies.filter((m) => matchRatingTier(m, t.id)).length;
     });
     return counts;
@@ -126,8 +140,8 @@ const MovieShared = (() => {
     return list;
   }
 
-  function groupByTier(movies) {
-    return RATING_TIERS
+  function groupByTier(movies, tiers = RATING_TIERS) {
+    return tiers
       .map((tier) => ({
         tier,
         movies: movies.filter((m) => matchRatingTier(m, tier.id)),
@@ -200,8 +214,8 @@ const MovieShared = (() => {
     bindCardClicks(gridEl, onCardClick);
   }
 
-  function renderGrouped(movies, containerEl, onCardClick) {
-    const groups = groupByTier(movies);
+  function renderGrouped(movies, containerEl, onCardClick, tiers = RATING_TIERS) {
+    const groups = groupByTier(movies, tiers);
     containerEl.innerHTML = groups.map(({ tier, movies: list }) => `
       <section class="rating-section" data-tier="${tier.id}">
         <div class="section-header">
@@ -500,7 +514,7 @@ const MovieShared = (() => {
             <span class="stat-num">${items.length}</span>
           </div>
           <div class="stat-card stat-card--highlight">
-            <span class="stat-label">击碎我的 · 10 分</span>
+            <span class="stat-label">10 分</span>
             <span class="stat-num">${counts['10'] || 0}</span>
           </div>
         </div>
@@ -586,7 +600,7 @@ const MovieShared = (() => {
   return {
     $, uid, ratingFromSlider, sliderFromRating, ratingColor, formatDate,
     escapeHtml, escapeAttr, renderTags, posterHtml,
-    RATING_TIERS, getScore, matchRatingTier, countByTier, groupByTier,
+    RATING_TIERS, MOVIE_RATING_TIERS, getScore, matchRatingTier, countByTier, groupByTier,
     filterAndSort, calcStats, renderGrid, renderGrouped, renderDetail,
     renderTastePanel, renderNotesPanel, renderBestPanel, renderSpacePlaceholder,
     renderSpacePicksPage, renderSpaceRecordsPanel, bindSpaceItemClicks,

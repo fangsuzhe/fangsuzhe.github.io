@@ -1,7 +1,7 @@
 /* 公开主页 — 只读，按评分分区展示 */
 
 const {
-  $, escapeHtml, RATING_TIERS, filterAndSort, calcStats, countByTier,
+  $, escapeHtml, MOVIE_RATING_TIERS, filterAndSort, calcStats, countByTier,
   renderGrid, renderGrouped, renderDetail, renderTastePanel, renderBestPanel,
   renderSpacePlaceholder, renderSpacePicksPage, renderSpaceRecordsPanel,
   renderNotesPanel,
@@ -101,7 +101,7 @@ const spaceTierState = {};
 
 const FILTER_LABELS = [
   { id: 'all', label: '全部' },
-  ...RATING_TIERS.map((t) => ({ id: t.id, label: t.label })),
+  ...MOVIE_RATING_TIERS.map((t) => ({ id: t.id, label: t.label })),
 ];
 
 const els = {
@@ -408,7 +408,7 @@ function renderPlaceholderSpaces() {
 
 function renderFilterChips() {
   if (!els.ratingFilters) return;
-  const counts = countByTier(movies);
+  const counts = countByTier(movies, MOVIE_RATING_TIERS);
   els.ratingFilters.innerHTML = FILTER_LABELS.map(({ id, label }) => {
     const count = counts[id] ?? 0;
     const active = activeTier === id ? ' active' : '';
@@ -436,7 +436,7 @@ function render() {
     const stats = calcStats(movies);
 
     if (els.statTotal) els.statTotal.textContent = stats.total;
-    if (els.statPerfect) els.statPerfect.textContent = countByTier(movies)['10'] || 0;
+    if (els.statPerfect) els.statPerfect.textContent = countByTier(movies, MOVIE_RATING_TIERS)['10'] || 0;
 
     const tierMeta = FILTER_LABELS.find((f) => f.id === activeTier);
     if (els.catalogTitle) els.catalogTitle.textContent = tierMeta?.label || '全部影片';
@@ -450,7 +450,7 @@ function render() {
     } else {
       els.empty?.classList.remove('visible');
       if (showGrouped) {
-        renderGrouped(list, els.movieList, openDetail);
+        renderGrouped(list, els.movieList, openDetail, MOVIE_RATING_TIERS);
       } else {
         els.movieList.innerHTML = '<div class="movie-grid" id="flatGrid"></div>';
         renderGrid(list, $('#flatGrid'), openDetail);
