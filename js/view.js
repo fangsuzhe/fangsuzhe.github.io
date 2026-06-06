@@ -1,7 +1,7 @@
 /* 公开主页 — 只读，按评分分区展示 */
 
 const {
-  $, RATING_TIERS, filterAndSort, calcStats, countByTier,
+  $, escapeHtml, RATING_TIERS, filterAndSort, calcStats, countByTier,
   renderGrid, renderGrouped, renderDetail, renderTastePanel, renderBestPanel,
   renderSpacePlaceholder, renderSpacePicksPage, renderSpaceRecordsPanel,
 } = MovieShared;
@@ -17,7 +17,9 @@ const DEFAULT_SPACE_SECTIONS = [
   { id: 'best', label: '最' },
 ];
 
-const CONTENT_SPACES = ['drama', 'anime', 'text', 'music', 'actress'];
+function getContentSpaces() {
+  return Object.keys(siteConfig.spaces || {});
+}
 
 let movies = [];
 let spaceItemIndex = new Map();
@@ -31,22 +33,9 @@ let siteConfig = {
   spaces: {},
 };
 let activeTab = 'movies';
-let activeSubTabs = {
-  movies: 'records',
-  drama: 'records',
-  anime: 'records',
-  text: 'records',
-  music: 'records',
-  actress: 'records',
-};
+let activeSubTabs = { movies: 'records' };
 
-const spaceTierState = {
-  drama: 'all',
-  anime: 'all',
-  text: 'all',
-  music: 'all',
-  actress: 'all',
-};
+const spaceTierState = {};
 
 const FILTER_LABELS = [
   { id: 'all', label: '全部' },
@@ -82,9 +71,58 @@ function getSpaceConfig(spaceId) {
   return siteConfig.spaces?.[spaceId] || {};
 }
 
+function normalizeSiteConfig() {
+  if (!siteConfig.spaces) siteConfig.spaces = {};
+
+  // 旧 id「actress」易被广告拦截扩展屏蔽，统一迁移为 idol
+  if (siteConfig.spaces.actress && !siteConfig.spaces.idol) {
+    siteConfig.spaces.idol = siteConfig.spaces.actress;
+    delete siteConfig.spaces.actress;
+  }
+  if (Array.isArray(siteConfig.tabs)) {
+    siteConfig.tabs = siteConfig.tabs.map((tab) =>
+      tab.id === 'actress' ? { ...tab, id: 'idol' } : tab
+    );
+  }
+  if (siteConfig.defaultTab === 'actress') siteConfig.defaultTab = 'idol';
+}
+
+function ensureSpaceState() {
+  getContentSpaces().forEach((id) => {
+    if (!(id in activeSubTabs)) activeSubTabs[id] = getDefaultSubTab(id);
+    if (!(id in spaceTierState)) spaceTierState[id] = 'all';
+  });
+}
+
+function ensureSpacePanels() {
+  const main = document.querySelector('.main');
+  if (!main) return;
+
+  getContentSpaces().forEach((spaceId) => {
+    if (document.querySelector(`.tab-panel[data-tab="${spaceId}"]`)) return;
+
+    const label = getTabConfig(spaceId)?.label || spaceId;
+    const panel = document.createElement('div');
+    panel.className = 'tab-panel';
+    panel.dataset.tab = spaceId;
+    panel.innerHTML = `
+      <nav class="sub-tabs space-sub-tabs" data-space="${spaceId}" aria-label="${escapeHtml(label)}分区"></nav>
+      <div class="sub-panel active" data-space="${spaceId}" data-sub="records">
+        <div class="page-content space-records-page" id="${spaceId}_records"></div>
+      </div>
+      <div class="sub-panel" data-space="${spaceId}" data-sub="best">
+        <div class="page-content picks-page" id="${spaceId}_best"></div>
+      </div>`;
+    main.appendChild(panel);
+  });
+
+  // 移除已废弃的 actress 面板，避免空页签残留
+  document.querySelector('.tab-panel[data-tab="actress"]')?.remove();
+}
+
 function buildSpaceItemIndex() {
   spaceItemIndex = new Map();
-  CONTENT_SPACES.forEach((spaceId) => {
+  getContentSpaces().forEach((spaceId) => {
     const space = getSpaceConfig(spaceId);
     [...(space.items || []), ...(space.best || [])].forEach((item) => {
       if (item?.id && !spaceItemIndex.has(item.id)) {
@@ -111,9 +149,7 @@ function getDefaultSubTab(tabId) {
 
 function initActiveSubTabs() {
   activeSubTabs.movies = getDefaultSubTab('movies');
-  CONTENT_SPACES.forEach((id) => {
-    activeSubTabs[id] = getDefaultSubTab(id);
-  });
+  ensureSpaceState();
 }
 
 async function loadPublicData() {
@@ -138,6 +174,7 @@ async function loadPublicData() {
       movieTab.sections = DEFAULT_MOVIE_SECTIONS;
     }
     if (!siteConfig.spaces) siteConfig.spaces = {};
+    normalizeSiteConfig();
     buildSpaceItemIndex();
     document.title = siteConfig.title || document.title;
     if (els.pageTitle) els.pageTitle.textContent = siteConfig.title;
@@ -186,7 +223,7 @@ function renderSiteTabs() {
   });
 
   renderSubTabs('movies');
-  CONTENT_SPACES.forEach((id) => renderSubTabs(id));
+  getContentSpaces().forEach((id) => renderSubTabs(id));
   switchTab(activeTab, false);
 }
 
@@ -260,7 +297,7 @@ function renderBest() {
 }
 
 function renderContentSpaces() {
-  CONTENT_SPACES.forEach((spaceId) => {
+  getContentSpaces().forEach((spaceId) => {
     const space = getSpaceConfig(spaceId);
     const items = space.items || [];
     const kicker = space.kicker || '';
@@ -290,7 +327,7 @@ function openSpaceDetail(id) {
 
 function renderPlaceholderSpaces() {
   (siteConfig.tabs || []).forEach((tab) => {
-    if (tab.id === 'movies' || CONTENT_SPACES.includes(tab.id)) return;
+    if (tab.id === 'movies' || getContentSpaces().includes(tab.id)) return;
     if (!tab.message && !tab.icon) return;
     const container = $(`#space_${tab.id}`);
     if (container) renderSpacePlaceholder(container, tab);
@@ -365,6 +402,7 @@ function openDetail(id) {
 async function init() {
   try {
     await loadPublicData();
+    ensureSpacePanels();
     renderSiteTabs();
     renderTaste();
     renderBest();
@@ -372,7 +410,8 @@ async function init() {
     renderPlaceholderSpaces();
 
     const params = new URLSearchParams(window.location.search);
-    const tabFromUrl = params.get('tab');
+    let tabFromUrl = params.get('tab');
+    if (tabFromUrl === 'actress') tabFromUrl = 'idol';
     let subFromUrl = params.get('sub');
     if (subFromUrl === 'perfect') subFromUrl = 'records';
 
