@@ -7,7 +7,7 @@
     "year": "2012",
     "watchDate": "2026-06-06",
     "genre": "动画, 喜剧, 冒险",
-    "poster": "",
+    "poster": "images/posters/m_wreck_it_ralph.webp",
     "rating": "6.0",
     "review": ""
   },
@@ -19,7 +19,7 @@
     "year": "2009",
     "watchDate": "2026-06-05",
     "genre": "剧情, 爱情",
-    "poster": "",
+    "poster": "images/posters/m_first_love.webp",
     "rating": "6.0",
     "review": ""
   },
@@ -43,7 +43,7 @@
     "year": "1986",
     "watchDate": "2026-06-04",
     "genre": "剧情, 动作, 犯罪",
-    "poster": "",
+    "poster": "images/posters/m_better_tomorrow.webp",
     "rating": "7.0",
     "review": ""
   },
@@ -55,7 +55,7 @@
     "year": "1999",
     "watchDate": "2026-06-04",
     "genre": "喜剧, 剧情, 奇幻, 爱情",
-    "poster": "",
+    "poster": "images/posters/m_malkovich.webp",
     "rating": "7.0",
     "review": ""
   },
@@ -67,7 +67,7 @@
     "year": "1984",
     "watchDate": "2026-06-04",
     "genre": "动画, 奇幻, 冒险",
-    "poster": "",
+    "poster": "images/posters/m_nausicaa.webp",
     "rating": "5.0",
     "review": ""
   },
@@ -79,7 +79,7 @@
     "year": "2002",
     "watchDate": "2026-06-03",
     "genre": "犯罪, 剧情",
-    "poster": "",
+    "poster": "images/posters/m_city_of_god.webp",
     "rating": "8.0",
     "review": ""
   },
@@ -91,7 +91,7 @@
     "year": "2014",
     "watchDate": "2026-06-02",
     "genre": "剧情, 犯罪, 悬疑",
-    "poster": "",
+    "poster": "images/posters/m_coffin.webp",
     "rating": "7.0",
     "review": ""
   },
@@ -103,7 +103,7 @@
     "year": "1968",
     "watchDate": "2026-06-01",
     "genre": "科幻, 惊悚, 冒险",
-    "poster": "",
+    "poster": "images/posters/m_2001.webp",
     "rating": "8.0",
     "review": ""
   },
@@ -115,7 +115,7 @@
     "year": "2015",
     "watchDate": "2026-06-01",
     "genre": "剧情, 家庭",
-    "poster": "",
+    "poster": "images/posters/m_our_little_sister.webp",
     "rating": "6.0",
     "review": ""
   },
@@ -127,7 +127,7 @@
     "year": "1952",
     "watchDate": "2026-05-30",
     "genre": "喜剧, 歌舞, 爱情",
-    "poster": "",
+    "poster": "images/posters/m_singing_rain.webp",
     "rating": "8.0",
     "review": ""
   },
@@ -139,7 +139,7 @@
     "year": "2018",
     "watchDate": "2026-05-30",
     "genre": "喜剧",
-    "poster": "",
+    "poster": "images/posters/m_tag.webp",
     "rating": "7.0",
     "review": ""
   },
@@ -151,7 +151,7 @@
     "year": "2007",
     "watchDate": "2026-05-30",
     "genre": "动作, 悬疑, 惊悚",
-    "poster": "",
+    "poster": "images/posters/m_bourne3.webp",
     "rating": "6.0",
     "review": ""
   },
@@ -163,7 +163,7 @@
     "year": "1991",
     "watchDate": "2026-05-30",
     "genre": "犯罪, 剧情, 惊悚",
-    "poster": "",
+    "poster": "images/posters/m_thelma_louise.webp",
     "rating": "6.0",
     "review": ""
   },
@@ -175,7 +175,7 @@
     "year": "2004",
     "watchDate": "2026-05-29",
     "genre": "动作, 悬疑, 惊悚",
-    "poster": "",
+    "poster": "images/posters/m_bourne2.webp",
     "rating": "5.0",
     "review": ""
   },
@@ -187,7 +187,7 @@
     "year": "2013",
     "watchDate": "2026-05-28",
     "genre": "喜剧, 动画, 冒险",
-    "poster": "",
+    "poster": "images/posters/m_croods.webp",
     "rating": "4.0",
     "review": ""
   },
@@ -199,7 +199,7 @@
     "year": "2016",
     "watchDate": "2026-05-27",
     "genre": "剧情, 爱情, 动画",
-    "poster": "",
+    "poster": "images/posters/m_your_name.webp",
     "rating": "8.0",
     "review": ""
   },
@@ -211,7 +211,7 @@
     "year": "2013",
     "watchDate": "2026-05-27",
     "genre": "剧情, 传记, 同性",
-    "poster": "",
+    "poster": "images/posters/m_dallas.webp",
     "rating": "7.0",
     "review": ""
   },
@@ -223,7 +223,7 @@
     "year": "2019",
     "watchDate": "2026-05-27",
     "genre": "爱情, 动画, 奇幻",
-    "poster": "",
+    "poster": "images/posters/m_weathering.webp",
     "rating": "6.0",
     "review": ""
   },
