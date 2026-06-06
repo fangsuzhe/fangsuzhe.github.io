@@ -1,5 +1,17 @@
 [
   {
+    "id": "m_hotel_rwanda",
+    "createdAt": 1780675199700,
+    "title": "卢旺达饭店",
+    "director": "特瑞·乔治",
+    "year": "2004",
+    "watchDate": "2026-06-06",
+    "genre": "剧情, 传记, 历史, 战争",
+    "poster": "images/posters/m_hotel_rwanda.webp",
+    "rating": "6.0",
+    "review": ""
+  },
+  {
     "id": "m_wreck_it_ralph",
     "createdAt": 1780675199600,
     "title": "无敌破坏王",
