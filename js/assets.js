@@ -38,11 +38,11 @@ const SiteAssets = (() => {
     img.src = url;
   }
 
-  function bindBrandAvatar(imgSelector, path = 'images/OIP.webp') {
+  function bindBrandAvatar(imgSelector, path = 'images/shan.png') {
     const img = document.querySelector(imgSelector);
     if (!img) return;
     const url = cdnUrl(path);
-    preloadImage(path, 'image/webp');
+    preloadImage(path, 'image/png');
     img.src = url;
   }
 
