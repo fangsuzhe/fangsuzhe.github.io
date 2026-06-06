@@ -491,10 +491,28 @@ body {
   background: rgba(212, 168, 83, 0.2);
 }
 
-.filter-chip--10 { color: #e8c868; border-color: rgba(255, 216, 117, 0.28); }
-.filter-chip--10.active { color: #ffd875; border-color: rgba(255, 216, 117, 0.55); background: rgba(255, 216, 117, 0.1); }
-.filter-chip--9  { color: #d8b050; border-color: rgba(232, 192, 104, 0.24); }
-.filter-chip--9.active  { color: #f0c868; border-color: rgba(232, 192, 104, 0.5); background: rgba(232, 192, 104, 0.08); }
+.filter-chip--10 {
+  color: #ffd875;
+  border-color: rgba(255, 216, 117, 0.42);
+  background: rgba(10, 8, 4, 0.88);
+}
+.filter-chip--10.active {
+  color: #ffe08a;
+  border-color: rgba(255, 216, 117, 0.65);
+  background: rgba(18, 14, 6, 0.95);
+  box-shadow: 0 0 0 1px rgba(255, 216, 117, 0.15);
+}
+.filter-chip--9 {
+  color: #f0c868;
+  border-color: rgba(232, 192, 104, 0.38);
+  background: rgba(12, 10, 6, 0.85);
+}
+.filter-chip--9.active {
+  color: #ffe08a;
+  border-color: rgba(232, 192, 104, 0.58);
+  background: rgba(16, 12, 6, 0.92);
+  box-shadow: 0 0 0 1px rgba(232, 192, 104, 0.12);
+}
 .filter-chip--8.active  { color: #d4a853; }
 .filter-chip--7.active  { color: #b8a078; }
 .filter-chip--6.active  { color: #a89878; }
@@ -534,6 +552,24 @@ body {
 
 .rating-section {
   margin-bottom: 2.75rem;
+}
+
+.rating-section[data-tier="10"] {
+  margin-bottom: 3.5rem;
+  padding: 1.1rem 1.1rem 1.3rem;
+  border-radius: var(--radius);
+  background: rgba(6, 5, 8, 0.9);
+  border: 1px solid rgba(255, 216, 117, 0.32);
+  box-shadow: 0 14px 44px rgba(0, 0, 0, 0.42);
+}
+
+.rating-section[data-tier="9"] {
+  margin-bottom: 3.25rem;
+  padding: 1.1rem 1.1rem 1.3rem;
+  border-radius: var(--radius);
+  background: rgba(8, 7, 10, 0.88);
+  border: 1px solid rgba(232, 192, 104, 0.26);
+  box-shadow: 0 12px 38px rgba(0, 0, 0, 0.38);
 }
 
 .rating-section:last-child { margin-bottom: 0; }
@@ -582,32 +618,39 @@ body {
 }
 
 .rating-section[data-tier="10"] .section-header {
-  background: linear-gradient(90deg, rgba(255, 216, 117, 0.14), rgba(255, 216, 117, 0.04));
-  border-color: rgba(255, 216, 117, 0.42);
-  box-shadow: inset 0 0 0 1px rgba(255, 216, 117, 0.08);
+  background: rgba(14, 11, 4, 0.96);
+  border-color: rgba(255, 216, 117, 0.5);
+  box-shadow: inset 0 1px 0 rgba(255, 216, 117, 0.12);
+  margin-bottom: 1.25rem;
+  padding: 0.85rem 1.05rem;
 }
 .rating-section[data-tier="10"] .section-title {
   color: #ffe08a;
-  font-size: 1.32rem;
+  font-size: 1.36rem;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.45);
 }
 .rating-section[data-tier="10"] .section-count {
   color: #ffe08a;
-  background: rgba(255, 216, 117, 0.12);
-  border: 1px solid rgba(255, 216, 117, 0.28);
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 216, 117, 0.35);
 }
 
 .rating-section[data-tier="9"] .section-header {
-  background: linear-gradient(90deg, rgba(232, 192, 104, 0.12), rgba(232, 192, 104, 0.03));
-  border-color: rgba(232, 192, 104, 0.35);
+  background: rgba(12, 10, 6, 0.94);
+  border-color: rgba(232, 192, 104, 0.42);
+  box-shadow: inset 0 1px 0 rgba(232, 192, 104, 0.1);
+  margin-bottom: 1.25rem;
+  padding: 0.85rem 1.05rem;
 }
 .rating-section[data-tier="9"] .section-title {
   color: #f0c868;
-  font-size: 1.28rem;
+  font-size: 1.32rem;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.45);
 }
 .rating-section[data-tier="9"] .section-count {
   color: #f0c868;
-  background: rgba(232, 192, 104, 0.1);
-  border: 1px solid rgba(232, 192, 104, 0.22);
+  background: rgba(0, 0, 0, 0.32);
+  border: 1px solid rgba(232, 192, 104, 0.3);
 }
 
 .rating-section[data-tier="8"] .section-title { color: #e0bc70; }
