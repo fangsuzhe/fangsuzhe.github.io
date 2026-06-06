@@ -3,3 +3,5 @@ audio/fishman.original.mp3
 
 # 本地转换工具（开发用）
 scripts/ani-convert-tool/
+
+node_modules/

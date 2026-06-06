@@ -1,0 +1,12 @@
+{
+  "name": "fangsuzhe.github.io",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "link-posters": "node scripts/link-posters.mjs",
+    "compress-posters": "node scripts/compress-posters.mjs"
+  },
+  "devDependencies": {
+    "sharp": "^0.34.2"
+  }
+}

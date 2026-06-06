@@ -5,7 +5,10 @@ const SiteAssets = (() => {
   function useCdn() {
     const { protocol, hostname } = location;
     if (!protocol.startsWith('http')) return false;
-    return hostname !== 'localhost' && hostname !== '127.0.0.1';
+    if (hostname === 'localhost' || hostname === '127.0.0.1') return false;
+    // GitHub Pages 上文件与页面同源部署，直接相对路径更快（少一跳 jsDelivr）
+    if (hostname.endsWith('github.io')) return false;
+    return true;
   }
 
   /** 本地相对路径 → CDN；http(s) 外链原样返回 */
