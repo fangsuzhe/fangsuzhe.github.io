@@ -131,13 +131,11 @@ body {
 .brand-mark {
   width: 2.75rem;
   height: 2.75rem;
-  display: grid;
-  place-items: center;
+  display: block;
   border-radius: 12px;
-  background: linear-gradient(145deg, rgba(232, 192, 104, 0.18), rgba(255, 255, 255, 0.03));
-  border: 1px solid rgba(232, 192, 104, 0.22);
-  color: var(--accent);
-  font-size: 1.1rem;
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28);
   flex-shrink: 0;
 }
 
@@ -153,12 +151,13 @@ body {
 .brand-icon { font-size: 2rem; line-height: 1; }
 
 .brand h1 {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: clamp(1.6rem, 4vw, 2rem);
   font-weight: 700;
   letter-spacing: 0.03em;
   line-height: 1.15;
-  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.45);
+  color: #ffffff;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.7), 0 2px 28px rgba(0, 0, 0, 0.45);
 }
 
 .brand-kicker {
@@ -368,11 +367,6 @@ body {
   inset: 0;
   background: radial-gradient(circle at top right, rgba(255,255,255,0.04), transparent 55%);
   pointer-events: none;
-}
-
-.stat-card--highlight {
-  border-color: rgba(232, 192, 104, 0.22);
-  background: linear-gradient(145deg, rgba(232, 192, 104, 0.1), var(--bg-glass));
 }
 
 .stat-num {

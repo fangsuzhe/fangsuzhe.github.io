@@ -35,6 +35,14 @@ const SiteAssets = (() => {
     img.src = url;
   }
 
+  function bindBrandAvatar(imgSelector, path = 'images/OIP.png') {
+    const img = document.querySelector(imgSelector);
+    if (!img) return;
+    const url = cdnUrl(path);
+    preloadImage(path);
+    img.src = url;
+  }
+
   function bindHeaderBg(options = {}) {
     const {
       imgSelector = '#headerBg',
@@ -55,5 +63,5 @@ const SiteAssets = (() => {
     img.src = fallbackUrl;
   }
 
-  return { REPO_CDN, cdnUrl, useCdn, preloadImage, bindWallpaper, bindHeaderBg };
+  return { REPO_CDN, cdnUrl, useCdn, preloadImage, bindWallpaper, bindBrandAvatar, bindHeaderBg };
 })();
