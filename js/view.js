@@ -17,7 +17,7 @@ const DEFAULT_SPACE_SECTIONS = [
   { id: 'best', label: '最' },
 ];
 
-const CONTENT_SPACES = ['drama', 'anime', 'text', 'music'];
+const CONTENT_SPACES = ['drama', 'anime', 'text', 'music', 'actress'];
 
 let movies = [];
 let spaceItemIndex = new Map();
@@ -37,6 +37,7 @@ let activeSubTabs = {
   anime: 'records',
   text: 'records',
   music: 'records',
+  actress: 'records',
 };
 
 const spaceTierState = {
@@ -44,6 +45,7 @@ const spaceTierState = {
   anime: 'all',
   text: 'all',
   music: 'all',
+  actress: 'all',
 };
 
 const FILTER_LABELS = [
