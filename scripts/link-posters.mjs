@@ -13,21 +13,30 @@ const MOVIES_PATH = path.join(ROOT, 'data', 'movies.json');
 const EXTS = new Set(['.webp', '.jpg', '.jpeg', '.png']);
 
 const movies = JSON.parse(fs.readFileSync(MOVIES_PATH, 'utf8'));
-const byId = new Map(movies.map((m) => [m.id, m]));
+const idCounts = new Map();
+for (const m of movies) {
+  idCounts.set(m.id, (idCounts.get(m.id) || 0) + 1);
+}
+for (const [id, count] of idCounts) {
+  if (count > 1) console.warn(`重复 id（${count} 条）: ${id}`);
+}
+
 const files = fs.readdirSync(POSTER_DIR).filter((f) => EXTS.has(path.extname(f).toLowerCase()) && /^m_/i.test(f));
 
 let linked = 0;
 for (const file of files) {
   const id = file.replace(/\.[^.]+$/, '');
-  const movie = byId.get(id);
-  if (!movie) {
+  const matches = movies.filter((m) => m.id === id);
+  if (!matches.length) {
     console.warn('无对应电影:', file);
     continue;
   }
   const rel = `images/posters/${file}`;
-  if (movie.poster !== rel) {
-    movie.poster = rel;
-    linked++;
+  for (const movie of matches) {
+    if (movie.poster !== rel) {
+      movie.poster = rel;
+      linked++;
+    }
   }
 }
 
