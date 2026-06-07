@@ -97,7 +97,7 @@ async function main() {
     const m = movies[i];
     process.stdout.write(`[${i + 1}/${movies.length}] ${m.title} … `);
 
-    if (m.poster?.startsWith('images/posters/')) {
+    if (m.poster?.startsWith('images/movies/')) {
       const localPath = path.join(ROOT, m.poster);
       if (fs.existsSync(localPath)) {
         report.skip.push({ id: m.id, title: m.title });

@@ -30,7 +30,7 @@ const SiteAssets = (() => {
     document.head.appendChild(link);
   }
 
-  function bindWallpaper(imgSelector, path = 'images/posters/wallpaper.jpg') {
+  function bindWallpaper(imgSelector, path = 'images/site/wallpaper.jpg') {
     const img = document.querySelector(imgSelector);
     if (!img) return;
     const url = cdnUrl(path);
@@ -38,7 +38,7 @@ const SiteAssets = (() => {
     img.src = url;
   }
 
-  function bindBrandAvatar(imgSelector, path = 'images/OIP.webp') {
+  function bindBrandAvatar(imgSelector, path = 'images/brand/avatar.webp') {
     const img = document.querySelector(imgSelector);
     if (!img) return;
     const url = cdnUrl(path);
@@ -46,25 +46,5 @@ const SiteAssets = (() => {
     img.src = url;
   }
 
-  function bindHeaderBg(options = {}) {
-    const {
-      imgSelector = '#headerBg',
-      webpSelector = '#headerBgWebp',
-      webpPath = 'images/posters/top.webp',
-      fallbackPath = 'images/posters/top.png',
-    } = options;
-
-    const webp = document.querySelector(webpSelector);
-    const img = document.querySelector(imgSelector);
-    if (!img) return;
-
-    const webpUrl = cdnUrl(webpPath);
-    const fallbackUrl = cdnUrl(fallbackPath);
-
-    preloadImage(webpPath, 'image/webp');
-    if (webp) webp.srcset = webpUrl;
-    img.src = fallbackUrl;
-  }
-
-  return { REPO_CDN, cdnUrl, useCdn, preloadImage, bindWallpaper, bindBrandAvatar, bindHeaderBg };
+  return { REPO_CDN, cdnUrl, useCdn, preloadImage, bindWallpaper, bindBrandAvatar };
 })();

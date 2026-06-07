@@ -12,7 +12,7 @@ except ImportError:
     sys.exit(1)
 
 ROOT = os.path.join(os.path.dirname(__file__), "..")
-SRC_DIR = os.path.join(ROOT, "images", "七海千秋Win10-11")
+SRC_DIR = os.path.join(ROOT, "images", "_source", "cursors-chiaki")
 OUT_DIR = os.path.join(ROOT, "images", "cursors", "chiaki")
 
 CUR_MAP = {

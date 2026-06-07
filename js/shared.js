@@ -56,8 +56,19 @@ const MovieShared = (() => {
 
   function defaultPosterPath(id) {
     if (!id || typeof id !== 'string') return '';
-    if (!/^(m_|d_|a_|t_|mu_|ac_|ch_)/.test(id)) return '';
-    return `images/posters/${id}.webp`;
+    const dirs = [
+      ['m_', 'images/movies/'],
+      ['d_', 'images/drama/'],
+      ['a_', 'images/anime/'],
+      ['ch_', 'images/characters/'],
+      ['t_', 'images/text/'],
+      ['mu_', 'images/music/'],
+      ['ac_', 'images/idol/'],
+    ];
+    for (const [prefix, dir] of dirs) {
+      if (id.startsWith(prefix)) return `${dir}${id}.webp`;
+    }
+    return '';
   }
 
   function resolvePoster(item) {

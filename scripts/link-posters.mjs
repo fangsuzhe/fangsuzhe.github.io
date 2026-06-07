@@ -1,6 +1,6 @@
 /**
- * 扫描 images/posters/m_*.{webp,jpg,png} 并写入 movies.json 的 poster 字段
- * 可选：展示页已按 images/posters/{id}.webp 自动匹配，不加 JSON 也能显示
+ * 扫描 images/movies/m_*.{webp,jpg,png} 并写入 movies.json 的 poster 字段
+ * 展示页也会按 id 自动匹配 images/movies/{id}.webp，不加 JSON 也能显示
  * 用法：node scripts/link-posters.mjs
  */
 import fs from 'fs';
@@ -9,7 +9,7 @@ import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, '..');
-const POSTER_DIR = path.join(ROOT, 'images', 'posters');
+const POSTER_DIR = path.join(ROOT, 'images', 'movies');
 const MOVIES_PATH = path.join(ROOT, 'data', 'movies.json');
 const EXTS = new Set(['.webp', '.jpg', '.jpeg', '.png']);
 
@@ -32,7 +32,7 @@ for (const file of files) {
     console.warn('无对应电影:', file);
     continue;
   }
-  const rel = `images/posters/${file}`;
+  const rel = `images/movies/${file}`;
   for (const movie of matches) {
     if (movie.poster !== rel) {
       movie.poster = rel;

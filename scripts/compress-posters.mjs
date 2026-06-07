@@ -1,5 +1,5 @@
 /**
- * 批量压缩 images/posters/m_*.webp（列表用，约 420px 宽）
+ * 批量压缩 images/movies/m_*.webp（列表用，约 420px 宽）
  * 用法：npm install && node scripts/compress-posters.mjs
  */
 import fs from 'fs';
@@ -9,7 +9,7 @@ import sharp from 'sharp';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, '..');
-const POSTER_DIR = path.join(ROOT, 'images', 'posters');
+const POSTER_DIR = path.join(ROOT, 'images', 'movies');
 const OUT_DIR = path.join(POSTER_DIR, '_out');
 const MAX_WIDTH = 420;
 const WEBP_QUALITY = 76;

@@ -1,5 +1,5 @@
 /**
- * 从豆瓣搜索页精确匹配海报，下载到本地 images/posters/
+ * 从豆瓣搜索页精确匹配海报，下载到本地 images/movies/
  * 匹配规则：片名 + 年份，避免错配
  */
 import fs from 'fs';
@@ -9,7 +9,7 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, '..');
 const MOVIES_PATH = path.join(ROOT, 'data', 'movies.json');
-const POSTER_DIR = path.join(ROOT, 'images', 'posters');
+const POSTER_DIR = path.join(ROOT, 'images', 'movies');
 const REPORT_PATH = path.join(ROOT, 'scripts', 'poster-report.json');
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36';
@@ -110,7 +110,7 @@ async function main() {
 
   for (let i = 0; i < movies.length; i++) {
     const m = movies[i];
-    const relPath = `images/posters/${m.id}.jpg`;
+    const relPath = `images/movies/${m.id}.jpg`;
     const absPath = path.join(ROOT, relPath);
 
     process.stdout.write(`[${i + 1}/${movies.length}] ${m.title} (${m.year}) … `);
@@ -155,7 +155,7 @@ async function main() {
   fs.writeFileSync(MOVIES_PATH, JSON.stringify(movies, null, 2) + '\n', 'utf8');
   fs.writeFileSync(REPORT_PATH, JSON.stringify(report, null, 2), 'utf8');
 
-  const withPoster = movies.filter((m) => m.poster?.startsWith('images/posters/')).length;
+  const withPoster = movies.filter((m) => m.poster?.startsWith('images/movies/')).length;
   console.log('\n=== 完成 ===');
   console.log(`成功: ${report.ok.length}`);
   console.log(`跳过: ${report.skip.length}`);
