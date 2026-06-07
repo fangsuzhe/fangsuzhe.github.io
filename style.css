@@ -1872,6 +1872,120 @@ body {
   animation: fadeUp 0.45s ease both;
 }
 
+/* Favorite characters */
+.characters-page {
+  animation: fadeUp 0.45s ease both;
+}
+
+.characters-hero {
+  margin-bottom: 1.75rem;
+}
+
+.characters-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.85rem, 4vw, 2.35rem);
+  font-weight: 700;
+}
+
+.character-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+
+.character-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  animation: fadeUp 0.45s ease both;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.character-card:hover {
+  border-color: rgba(232, 192, 104, 0.28);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow);
+}
+
+.character-card-visual {
+  aspect-ratio: 3 / 4;
+  background: linear-gradient(160deg, #1a1824, #0e0d12);
+  overflow: hidden;
+}
+
+.character-card-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+
+.character-card-photo--fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  color: rgba(232, 192, 104, 0.35);
+  background: linear-gradient(145deg, #1e1c28, #121018);
+}
+
+.character-card-body {
+  padding: 1.15rem 1.2rem 1.25rem;
+}
+
+.character-card-name {
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  font-weight: 700;
+  margin-bottom: 0.15rem;
+}
+
+.character-card-name-jp {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+  margin-bottom: 0.45rem;
+}
+
+.character-card-from {
+  font-size: 0.82rem;
+  color: var(--accent);
+  margin-bottom: 0.85rem;
+}
+
+.character-card-meta {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0;
+}
+
+.character-card-row {
+  display: grid;
+  grid-template-columns: 3.2rem 1fr;
+  gap: 0.65rem;
+  align-items: baseline;
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+
+.character-card-row dt {
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+}
+
+.character-card-row dd {
+  margin: 0;
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+
 .space-records-list .empty-state {
   display: none;
   margin-top: 1rem;

@@ -62,7 +62,8 @@
       "defaultSubTab": "records",
       "sections": [
         { "id": "records", "label": "记录" },
-        { "id": "best", "label": "最" }
+        { "id": "best", "label": "最" },
+        { "id": "characters", "label": "喜欢的角色" }
       ],
       "items": [
         { "id": "a_chainsaw", "title": "炎拳", "rating": "10.0" },
@@ -86,6 +87,18 @@
         { "id": "a_danshi_nichijou", "title": "男子高中生的日常", "rating": "9.0" },
         { "id": "a_rezero", "title": "从零开始的异世界生活", "rating": "6.0" },
         { "id": "a_shield_hero", "title": "盾之勇者成名录", "rating": "5.0" }
+      ],
+      "characters": [
+        {
+          "id": "ch_ryo_yamada",
+          "name": "山田凉",
+          "nameJp": "山田リョウ",
+          "from": "孤独摇滚！",
+          "age": "17岁",
+          "occupation": "结束乐队贝斯手 · 作曲担当",
+          "birthday": "9月18日",
+          "zodiac": "处女座"
+        }
       ],
       "best": [
         { "id": "a_chainsaw", "title": "炎拳", "rating": "10.0" }

@@ -56,7 +56,7 @@ const MovieShared = (() => {
 
   function defaultPosterPath(id) {
     if (!id || typeof id !== 'string') return '';
-    if (!/^(m_|d_|a_|t_|mu_|ac_)/.test(id)) return '';
+    if (!/^(m_|d_|a_|t_|mu_|ac_|ch_)/.test(id)) return '';
     return `images/posters/${id}.webp`;
   }
 
@@ -595,6 +595,51 @@ const MovieShared = (() => {
       </article>`;
   }
 
+  function renderCharacterCard(ch, i = 0) {
+    const poster = resolvePoster(ch);
+    const initial = escapeHtml((ch.name || '?').charAt(0));
+    const photoHtml = poster
+      ? `<img class="character-card-photo" src="${escapeAttr(cdnUrl(poster))}" alt="${escapeAttr(ch.name || '')}" loading="lazy" decoding="async" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'character-card-photo character-card-photo--fallback',textContent:'${initial}'}))">`
+      : `<div class="character-card-photo character-card-photo--fallback" aria-hidden="true">${initial}</div>`;
+
+    const fields = [
+      ['年龄', ch.age],
+      ['职业', ch.occupation],
+      ['生日', ch.birthday],
+      ['星座', ch.zodiac],
+    ].filter(([, v]) => v);
+
+    return `
+      <article class="character-card" style="animation-delay:${Math.min(i * 0.06, 0.5)}s">
+        <div class="character-card-visual">${photoHtml}</div>
+        <div class="character-card-body">
+          <h3 class="character-card-name">${escapeHtml(ch.name || '')}</h3>
+          ${ch.nameJp ? `<p class="character-card-name-jp">${escapeHtml(ch.nameJp)}</p>` : ''}
+          ${ch.from ? `<p class="character-card-from">出自 · ${escapeHtml(ch.from)}</p>` : ''}
+          ${fields.length ? `<dl class="character-card-meta">${fields.map(([k, v]) =>
+            `<div class="character-card-row"><dt>${escapeHtml(k)}</dt><dd>${escapeHtml(v)}</dd></div>`
+          ).join('')}</dl>` : ''}
+        </div>
+      </article>`;
+  }
+
+  function renderCharactersPanel(container, options = {}) {
+    if (!container) return;
+    const { characters = [], kicker = 'Anime Space', title = '喜欢的角色' } = options;
+    const list = Array.isArray(characters) ? characters : [];
+
+    container.innerHTML = `
+      <section class="characters-hero">
+        <p class="catalog-kicker">${escapeHtml(kicker)}</p>
+        <h2 class="characters-title">${escapeHtml(title)}</h2>
+      </section>
+      <div class="character-grid">
+        ${list.length
+          ? list.map((ch, i) => renderCharacterCard(ch, i)).join('')
+          : '<p class="taste-empty">暂无</p>'}
+      </div>`;
+  }
+
   function renderSpacePicksPage(container, sectionId, items, spaceKicker, onItemClick) {
     if (!container) return;
     const meta = PICK_SECTION_META[sectionId] || { title: sectionId, kicker: '' };
@@ -621,7 +666,7 @@ const MovieShared = (() => {
     RATING_TIERS, MOVIE_RATING_TIERS, getScore, matchRatingTier, countByTier, groupByTier,
     filterAndSort, calcStats, renderGrid, renderGrouped, renderDetail,
     renderTastePanel, renderNotesPanel, renderBestPanel, renderSpacePlaceholder,
-    renderSpacePicksPage, renderSpaceRecordsPanel, bindSpaceItemClicks,
+    renderSpacePicksPage, renderSpaceRecordsPanel, renderCharactersPanel, bindSpaceItemClicks,
     linesToList, listToLines, sha256,
   };
 })();

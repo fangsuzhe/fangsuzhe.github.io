@@ -4,6 +4,7 @@ const {
   $, escapeHtml, MOVIE_RATING_TIERS, filterAndSort, calcStats, countByTier,
   renderGrid, renderGrouped, renderDetail, renderTastePanel, renderBestPanel,
   renderSpacePlaceholder, renderSpacePicksPage, renderSpaceRecordsPanel,
+  renderCharactersPanel,
   renderNotesPanel,
 } = MovieShared;
 
@@ -176,6 +177,13 @@ function ensureSpacePanels() {
       <div class="sub-panel" data-space="${spaceId}" data-sub="best">
         <div class="page-content picks-page" id="${spaceId}_best"></div>
       </div>`;
+    const sections = getSections(spaceId);
+    if (sections.some((s) => s.id === 'characters')) {
+      panel.innerHTML += `
+      <div class="sub-panel" data-space="${spaceId}" data-sub="characters">
+        <div class="page-content characters-page" id="${spaceId}_characters"></div>
+      </div>`;
+    }
     main.appendChild(panel);
   });
 
@@ -387,6 +395,13 @@ function renderContentSpaces() {
     });
 
     renderSpacePicksPage($(`#${spaceId}_best`), 'best', space.best, kicker, openSpaceDetail);
+
+    if (space.characters?.length || getSections(spaceId).some((s) => s.id === 'characters')) {
+      renderCharactersPanel($(`#${spaceId}_characters`), {
+        characters: space.characters || [],
+        kicker,
+      });
+    }
   });
 }
 
