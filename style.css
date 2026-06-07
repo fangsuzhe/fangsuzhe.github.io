@@ -1312,6 +1312,9 @@ body {
   position: relative;
   width: min(560px, calc(100% - 2rem));
   max-height: calc(100dvh - 2rem);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
   animation: modalIn 0.24s ease;
 }
 
@@ -1325,7 +1328,12 @@ body {
   max-height: calc(100dvh - 2rem);
   position: relative;
   padding: 0;
-  overflow: hidden;
+  flex: 1;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
 }
 
 .detail-close {
@@ -1423,6 +1431,7 @@ body {
   line-height: 1.65;
   color: var(--text);
   font-style: italic;
+  white-space: pre-wrap;
 }
 
 .card-bookmark {
@@ -2060,6 +2069,23 @@ body {
   .note-content,
   .pick-card-title { overflow-wrap: anywhere; word-break: break-word; }
   .bgm-toggle { right: 1rem; bottom: 1rem; }
+  /* 详情弹窗：手机端由 dialog 整体滚动，避免内层截断短评 */
+  .modal[open] {
+    align-items: flex-start;
+    padding: 0.75rem;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .modal-detail-box {
+    width: 100%;
+    max-height: none;
+  }
+  .modal-detail .detail-content {
+    max-height: none;
+    overflow: visible;
+    flex: none;
+    overscroll-behavior: auto;
+  }
 }
 
 /* Background music toggle */
