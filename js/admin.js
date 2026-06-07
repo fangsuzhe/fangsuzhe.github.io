@@ -43,7 +43,7 @@ let siteConfig = {
       sections: [{ id: 'records', label: '记录' }, { id: 'best', label: '最' }],
       items: [
         { id: 'd_bcs', title: '风骚律师', rating: '10.0' },
-        { id: 'd_breaking_bad', title: '绝命毒师', rating: '10.0' },
+        { id: 'd_breaking_bad', title: '绝命毒师', rating: '9.0' },
         { id: 'd_friends', title: '老友记', rating: '10.0' },
         { id: 'd_longmen', title: '龙门镖局', rating: '9.0' },
       ],
