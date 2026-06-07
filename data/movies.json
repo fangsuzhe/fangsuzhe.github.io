@@ -1,5 +1,41 @@
 [
   {
+    "id": "m_kiki_delivery",
+    "createdAt": 1780675199900,
+    "title": "魔女宅急便",
+    "director": "宫崎骏",
+    "year": "1989",
+    "watchDate": "2026-06-06",
+    "genre": "动画, 奇幻, 冒险",
+    "poster": "images/posters/m_kiki_delivery.webp",
+    "rating": "5.0",
+    "review": ""
+  },
+  {
+    "id": "m_jana_gana_mana",
+    "createdAt": 1780675199850,
+    "title": "宿敌",
+    "director": "Dijo Jose Antony",
+    "year": "2022",
+    "watchDate": "2026-06-06",
+    "genre": "剧情, 悬疑, 犯罪",
+    "poster": "images/posters/m_jana_gana_mana.webp",
+    "rating": "6.0",
+    "review": ""
+  },
+  {
+    "id": "m_tokyo_godfathers",
+    "createdAt": 1780675199800,
+    "title": "东京教父",
+    "director": "今敏",
+    "year": "2003",
+    "watchDate": "2026-06-06",
+    "genre": "动画, 剧情, 喜剧",
+    "poster": "images/posters/m_tokyo_godfathers.webp",
+    "rating": "9.0",
+    "review": ""
+  },
+  {
     "id": "m_hotel_rwanda",
     "createdAt": 1780675199700,
     "title": "卢旺达饭店",
