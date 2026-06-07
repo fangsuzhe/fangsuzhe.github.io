@@ -38,6 +38,9 @@
         { "id": "d_report_boss", "title": "报告老板", "rating": "9.0" },
         { "id": "d_xianjian3", "title": "仙剑奇侠传3", "rating": "9.0" },
         { "id": "d_the_boys", "title": "黑袍纠察队", "rating": "8.0" },
+        { "id": "d_suitang_hero", "title": "隋唐演义", "rating": "8.0" },
+        { "id": "d_huanzhugege", "title": "还珠格格", "rating": "8.0" },
+        { "id": "d_demigods_huang", "title": "天龙八部", "rating": "8.0" },
         { "id": "d_shameless", "title": "无耻之徒", "rating": "8.0" },
         { "id": "d_tiga", "title": "迪迦奥特曼", "rating": "8.0" },
         { "id": "d_leo", "title": "雷欧奥特曼", "rating": "8.0" },
@@ -49,6 +52,7 @@
         { "id": "d_kuangbiao", "title": "狂飙", "rating": "7.0" },
         { "id": "d_daioko", "title": "我是大哥大", "rating": "7.0" },
         { "id": "d_love_apartment", "title": "爱情公寓", "rating": "7.0" },
+        { "id": "d_journey_west", "title": "西游记", "rating": "7.0" },
         { "id": "d_stranger_things", "title": "怪奇物语", "rating": "4.0" },
         { "id": "d_sweet_home", "title": "甜蜜之家", "rating": "6.0" }
       ],

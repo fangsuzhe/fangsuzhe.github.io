@@ -460,9 +460,27 @@ const MovieShared = (() => {
   function renderSpaceItemCard(item, i = 0) {
     const meta = [item.year, item.author, item.artist, item.creator, item.director].filter(Boolean).join(' · ');
     const score = getScore(item);
+    const poster = resolvePoster(item);
     const idAttr = item.id ? ` data-space-item="${escapeAttr(item.id)}"` : '';
+    const interact = item.id ? ' tabindex="0" role="button"' : '';
+
+    if (poster) {
+      return `
+        <article class="movie-card"${idAttr}${interact} style="animation-delay:${Math.min(i * 0.05, 0.5)}s">
+          <div class="poster-wrap">
+            ${posterHtml(item)}
+            <span class="rating-badge rating-badge--${tierClass(score)}" style="color:${ratingColor(item.rating)}">${escapeHtml(item.rating || '')}</span>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">${escapeHtml(item.title || '')}</h3>
+            ${meta ? `<p class="card-meta">${escapeHtml(meta)}</p>` : ''}
+            ${item.bookmark ? `<p class="card-bookmark">${escapeHtml(item.bookmark)}</p>` : ''}
+          </div>
+        </article>`;
+    }
+
     return `
-      <article class="movie-card movie-card--text"${idAttr}${item.id ? ' tabindex="0" role="button"' : ''} style="animation-delay:${Math.min(i * 0.04, 0.48)}s">
+      <article class="movie-card movie-card--text"${idAttr}${interact} style="animation-delay:${Math.min(i * 0.04, 0.48)}s">
         <div class="card-accent" aria-hidden="true" data-tier="${tierClass(score)}"></div>
         <div class="card-body">
           <div class="card-head">
