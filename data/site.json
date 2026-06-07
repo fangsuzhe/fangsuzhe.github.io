@@ -82,7 +82,10 @@
         { "id": "a_your_lie_april", "title": "四月是你的谎言", "rating": "8.0" },
         { "id": "a_saint_seiya", "title": "圣斗士星矢", "rating": "8.0" },
         { "id": "a_anohana", "title": "未闻花名", "rating": "7.0" },
-        { "id": "a_sakurasou", "title": "樱花庄的宠物女孩", "rating": "7.0" }
+        { "id": "a_sakurasou", "title": "樱花庄的宠物女孩", "rating": "7.0" },
+        { "id": "a_danshi_nichijou", "title": "男子高中生的日常", "rating": "9.0" },
+        { "id": "a_rezero", "title": "从零开始的异世界生活", "rating": "6.0" },
+        { "id": "a_shield_hero", "title": "盾之勇者成名录", "rating": "5.0" }
       ],
       "best": [
         { "id": "a_chainsaw", "title": "炎拳", "rating": "10.0" }
