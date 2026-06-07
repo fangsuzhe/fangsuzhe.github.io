@@ -1889,8 +1889,9 @@ body {
 
 .character-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 340px));
+  justify-content: center;
+  gap: 1.35rem;
 }
 
 .character-card {
@@ -1923,6 +1924,7 @@ body {
   object-fit: cover;
   object-position: top center;
   display: block;
+  image-rendering: auto;
 }
 
 .character-card-photo--fallback {

@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "link-posters": "node scripts/link-posters.mjs",
-    "compress-posters": "node scripts/compress-posters.mjs"
+    "compress-posters": "node scripts/compress-posters.mjs",
+    "compress-characters": "node scripts/compress-characters.mjs"
   },
   "devDependencies": {
     "sharp": "^0.34.2"

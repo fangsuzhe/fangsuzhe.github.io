@@ -628,7 +628,7 @@ const MovieShared = (() => {
     const poster = resolvePoster(ch);
     const initial = escapeHtml((ch.name || '?').charAt(0));
     const photoHtml = poster
-      ? `<img class="character-card-photo" src="${escapeAttr(cdnUrl(poster))}" alt="${escapeAttr(ch.name || '')}" loading="lazy" decoding="async" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'character-card-photo character-card-photo--fallback',textContent:'${initial}'}))">`
+      ? `<img class="character-card-photo" src="${escapeAttr(cdnUrl(poster))}" alt="${escapeAttr(ch.name || '')}" sizes="(max-width: 680px) 90vw, 340px" loading="lazy" decoding="async" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'character-card-photo character-card-photo--fallback',textContent:'${initial}'}))">`
       : `<div class="character-card-photo character-card-photo--fallback" aria-hidden="true">${initial}</div>`;
 
     const fields = [
