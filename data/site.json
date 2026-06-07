@@ -98,6 +98,33 @@
           "occupation": "结束乐队贝斯手 · 作曲担当",
           "birthday": "9月18日",
           "zodiac": "处女座"
+        },
+        {
+          "id": "ch_usami",
+          "name": "兔兔美",
+          "nameJp": "ウサミ",
+          "from": "超级弹丸论破2：再见绝望学园",
+          "occupation": "希望之峰学园77期带队老师 · AI"
+        },
+        {
+          "id": "ch_chiaki_nanami",
+          "name": "七海千秋",
+          "nameJp": "七海 千秋",
+          "from": "超级弹丸论破2：再见绝望学园",
+          "age": "17岁",
+          "occupation": "超高校级游戏玩家 · 观察员",
+          "birthday": "3月14日",
+          "zodiac": "双鱼座"
+        },
+        {
+          "id": "ch_futaba_sakura",
+          "name": "佐仓双叶",
+          "nameJp": "佐倉 双葉",
+          "from": "女神异闻录5",
+          "age": "15岁",
+          "occupation": "心之怪盗团黑客 · NAVI",
+          "birthday": "2月19日",
+          "zodiac": "双鱼座"
         }
       ],
       "best": [
