@@ -54,7 +54,22 @@ const MovieShared = (() => {
       .map((t) => `<span class="tag">${escapeHtml(t)}</span>`).join('');
   }
 
-  function posterHtml(poster, cls = '') {
+  function defaultPosterPath(id) {
+    if (!id || typeof id !== 'string') return '';
+    if (!/^(m_|d_|a_|t_|mu_|ac_)/.test(id)) return '';
+    return `images/posters/${id}.webp`;
+  }
+
+  function resolvePoster(item) {
+    if (!item) return '';
+    if (typeof item === 'string') return item.trim();
+    const explicit = String(item.poster || '').trim();
+    if (explicit) return explicit;
+    return defaultPosterPath(item.id);
+  }
+
+  function posterHtml(posterOrItem, cls = '') {
+    const poster = resolvePoster(posterOrItem);
     if (poster) {
       const src = cdnUrl(poster);
       const ref = /^https?:\/\//i.test(poster) ? ' referrerpolicy="no-referrer"' : '';
@@ -162,13 +177,14 @@ const MovieShared = (() => {
   function renderMovieCard(m, i = 0) {
     const meta = [m.year, m.director].filter(Boolean).join(' · ');
     const score = getScore(m);
-    const hasPoster = m.poster && m.poster.trim();
+    const poster = resolvePoster(m);
+    const hasPoster = Boolean(poster);
 
     if (hasPoster) {
       return `
         <article class="movie-card" data-id="${m.id}" style="animation-delay:${Math.min(i * 0.05, 0.5)}s">
           <div class="poster-wrap">
-            ${posterHtml(m.poster)}
+            ${posterHtml(m)}
             <span class="rating-badge rating-badge--${tierClass(score)}" style="color:${ratingColor(m.rating)}">${m.rating}</span>
           </div>
           <div class="card-body">
@@ -242,11 +258,13 @@ const MovieShared = (() => {
     if (m.artist) metaParts.push(m.artist);
     if (m.creator) metaParts.push(m.creator);
 
+    const poster = resolvePoster(m);
+
     detailContentEl.innerHTML = `
-      ${m.poster
-        ? `<img class="detail-poster" src="${escapeAttr(cdnUrl(m.poster))}" alt=""${/^https?:\/\//i.test(m.poster) ? ' referrerpolicy="no-referrer"' : ''} loading="lazy" decoding="async" onerror="this.remove()">`
+      ${poster
+        ? `<img class="detail-poster" src="${escapeAttr(cdnUrl(poster))}" alt=""${/^https?:\/\//i.test(poster) ? ' referrerpolicy="no-referrer"' : ''} loading="lazy" decoding="async" onerror="this.remove();this.nextElementSibling?.classList.add('detail-inner--no-poster')">`
         : ''}
-      <div class="detail-inner${m.poster ? '' : ' detail-inner--no-poster'}">
+      <div class="detail-inner${poster ? '' : ' detail-inner--no-poster'}">
         <h2>${escapeHtml(m.title)}</h2>
         ${metaParts.length ? `<p class="detail-meta">${escapeHtml(metaParts.join(' · '))}</p>` : ''}
         <div class="detail-rating">★ ${m.rating} <span style="font-size:0.85rem;font-weight:400;opacity:0.7">/ 10</span></div>
@@ -599,7 +617,7 @@ const MovieShared = (() => {
 
   return {
     $, uid, ratingFromSlider, sliderFromRating, ratingColor, formatDate,
-    escapeHtml, escapeAttr, renderTags, posterHtml,
+    escapeHtml, escapeAttr, renderTags, posterHtml, resolvePoster, defaultPosterPath,
     RATING_TIERS, MOVIE_RATING_TIERS, getScore, matchRatingTier, countByTier, groupByTier,
     filterAndSort, calcStats, renderGrid, renderGrouped, renderDetail,
     renderTastePanel, renderNotesPanel, renderBestPanel, renderSpacePlaceholder,

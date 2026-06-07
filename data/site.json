@@ -48,6 +48,7 @@
         { "id": "d_hidden_corner", "title": "隐秘的角落", "rating": "7.0" },
         { "id": "d_kuangbiao", "title": "狂飙", "rating": "7.0" },
         { "id": "d_daioko", "title": "我是大哥大", "rating": "7.0" },
+        { "id": "d_love_apartment", "title": "爱情公寓", "rating": "7.0" },
         { "id": "d_stranger_things", "title": "怪奇物语", "rating": "4.0" },
         { "id": "d_sweet_home", "title": "甜蜜之家", "rating": "6.0" }
       ],
@@ -75,7 +76,13 @@
         { "id": "a_natsume", "title": "夏目友人帐", "rating": "9.0" },
         { "id": "a_pantyhose", "title": "裤袜视界", "rating": "9.0" },
         { "id": "a_dandadan", "title": "胆大党", "rating": "9.0" },
-        { "id": "a_naruto", "title": "火影忍者", "rating": "9.0" }
+        { "id": "a_naruto", "title": "火影忍者", "rating": "9.0" },
+        { "id": "a_goodbye_eri", "title": "再见绘梨", "rating": "10.0" },
+        { "id": "a_attack_on_titan", "title": "进击的巨人", "rating": "10.0" },
+        { "id": "a_your_lie_april", "title": "四月是你的谎言", "rating": "8.0" },
+        { "id": "a_saint_seiya", "title": "圣斗士星矢", "rating": "8.0" },
+        { "id": "a_anohana", "title": "未闻花名", "rating": "7.0" },
+        { "id": "a_sakurasou", "title": "樱花庄的宠物女孩", "rating": "7.0" }
       ],
       "best": [
         { "id": "a_chainsaw", "title": "炎拳", "rating": "10.0" }

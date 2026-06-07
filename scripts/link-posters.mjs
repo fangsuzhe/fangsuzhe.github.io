@@ -1,5 +1,6 @@
 /**
  * 扫描 images/posters/m_*.{webp,jpg,png} 并写入 movies.json 的 poster 字段
+ * 可选：展示页已按 images/posters/{id}.webp 自动匹配，不加 JSON 也能显示
  * 用法：node scripts/link-posters.mjs
  */
 import fs from 'fs';
