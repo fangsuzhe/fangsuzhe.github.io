@@ -54,39 +54,112 @@ const MovieShared = (() => {
       .map((t) => `<span class="tag">${escapeHtml(t)}</span>`).join('');
   }
 
-  function defaultPosterPath(id) {
+  const POSTER_EXTENSIONS = ['webp', 'jpg', 'jpeg', 'png'];
+
+  const POSTER_DIRS = [
+    ['m_', 'images/movies/'],
+    ['d_', 'images/drama/'],
+    ['a_', 'images/anime/'],
+    ['ch_', 'images/characters/'],
+    ['t_', 'images/text/'],
+    ['mu_', 'images/music/'],
+    ['ac_', 'images/idol/'],
+  ];
+
+  function posterDirForId(id) {
     if (!id || typeof id !== 'string') return '';
-    const dirs = [
-      ['m_', 'images/movies/'],
-      ['d_', 'images/drama/'],
-      ['a_', 'images/anime/'],
-      ['ch_', 'images/characters/'],
-      ['t_', 'images/text/'],
-      ['mu_', 'images/music/'],
-      ['ac_', 'images/idol/'],
-    ];
-    for (const [prefix, dir] of dirs) {
-      if (id.startsWith(prefix)) return `${dir}${id}.webp`;
+    for (const [prefix, dir] of POSTER_DIRS) {
+      if (id.startsWith(prefix)) return dir;
     }
     return '';
   }
 
-  function resolvePoster(item) {
-    if (!item) return '';
-    if (typeof item === 'string') return item.trim();
+  function expandPosterCandidates(path) {
+    if (!path) return [];
+    if (/^https?:\/\//i.test(path) || path.startsWith('data:')) return [path];
+    const match = path.match(/^(.+\/[^/.]+)\.([a-zA-Z0-9]+)$/);
+    if (!match) return [path];
+    const base = match[1];
+    const ext = match[2].toLowerCase();
+    const ordered = [ext, ...POSTER_EXTENSIONS.filter((e) => e !== ext)];
+    const seen = new Set();
+    return ordered.map((e) => `${base}.${e}`).filter((p) => {
+      if (seen.has(p)) return false;
+      seen.add(p);
+      return true;
+    });
+  }
+
+  function posterCandidates(item) {
+    if (!item) return [];
+    if (typeof item === 'string') return expandPosterCandidates(item.trim());
     const explicit = String(item.poster || '').trim();
-    if (explicit) return explicit;
-    return defaultPosterPath(item.id);
+    if (explicit) return expandPosterCandidates(explicit);
+    const dir = posterDirForId(item.id);
+    if (!dir || !item.id) return [];
+    return POSTER_EXTENSIONS.map((ext) => `${dir}${item.id}.${ext}`);
+  }
+
+  function defaultPosterPath(id) {
+    return posterCandidates({ id })[0] || '';
+  }
+
+  function resolvePoster(item) {
+    return posterCandidates(item)[0] || '';
+  }
+
+  function tryPosterFallback(img) {
+    let fallbacks = [];
+    try {
+      fallbacks = JSON.parse(img.dataset.posterFallbacks || '[]');
+    } catch {
+      fallbacks = [];
+    }
+    if (!fallbacks.length) {
+      img.onerror = null;
+      if (img.classList.contains('detail-poster')) {
+        img.remove();
+        img.nextElementSibling?.classList.add('detail-inner--no-poster');
+        return;
+      }
+      if (img.classList.contains('character-card-photo')) {
+        const initial = (img.alt || '?').charAt(0);
+        img.replaceWith(Object.assign(document.createElement('div'), {
+          className: 'character-card-photo character-card-photo--fallback',
+          textContent: initial,
+        }));
+        return;
+      }
+      if (img.parentElement?.classList.contains('poster-wrap')) {
+        img.parentElement.innerHTML = '<div class=\'poster-placeholder\'>🎬</div>';
+      }
+      return;
+    }
+    const next = fallbacks.shift();
+    img.dataset.posterFallbacks = JSON.stringify(fallbacks);
+    img.src = cdnUrl(next);
+  }
+
+  function posterImgTag(candidates, cls = '', options = {}) {
+    if (!candidates.length) return '';
+    const [primary, ...fallbacks] = candidates;
+    const src = cdnUrl(primary);
+    const ref = /^https?:\/\//i.test(primary) ? ' referrerpolicy="no-referrer"' : '';
+    const fallbackAttr = fallbacks.length
+      ? ` data-poster-fallbacks="${escapeAttr(JSON.stringify(fallbacks))}"`
+      : '';
+    const alt = options.alt != null ? ` alt="${escapeAttr(options.alt)}"` : ' alt=""';
+    const sizes = options.sizes ? ` sizes="${escapeAttr(options.sizes)}"` : '';
+    const klass = cls ? ` class="${cls}"` : '';
+    return `<img${klass} src="${escapeAttr(src)}"${alt}${sizes} loading="lazy" decoding="async"${ref}${fallbackAttr} onerror="MovieShared.tryPosterFallback(this)">`;
   }
 
   function posterHtml(posterOrItem, cls = '') {
-    const poster = resolvePoster(posterOrItem);
-    if (poster) {
-      const src = cdnUrl(poster);
-      const ref = /^https?:\/\//i.test(poster) ? ' referrerpolicy="no-referrer"' : '';
-      return `<img class="${cls}" src="${escapeAttr(src)}" alt="" loading="lazy" decoding="async"${ref} onerror="this.parentElement.innerHTML='<div class=\\'poster-placeholder\\'>🎬</div>'">`;
-    }
-    return `<div class="poster-placeholder">🎬</div>`;
+    const candidates = typeof posterOrItem === 'string'
+      ? posterCandidates(posterOrItem)
+      : posterCandidates(posterOrItem);
+    if (!candidates.length) return `<div class="poster-placeholder">🎬</div>`;
+    return posterImgTag(candidates, cls);
   }
 
   const RATING_TIERS = [
@@ -269,13 +342,13 @@ const MovieShared = (() => {
     if (m.artist) metaParts.push(m.artist);
     if (m.creator) metaParts.push(m.creator);
 
-    const poster = resolvePoster(m);
+    const candidates = posterCandidates(m);
 
     detailContentEl.innerHTML = `
-      ${poster
-        ? `<img class="detail-poster" src="${escapeAttr(cdnUrl(poster))}" alt=""${/^https?:\/\//i.test(poster) ? ' referrerpolicy="no-referrer"' : ''} loading="lazy" decoding="async" onerror="this.remove();this.nextElementSibling?.classList.add('detail-inner--no-poster')">`
+      ${candidates.length
+        ? posterImgTag(candidates, 'detail-poster')
         : ''}
-      <div class="detail-inner${poster ? '' : ' detail-inner--no-poster'}">
+      <div class="detail-inner${candidates.length ? '' : ' detail-inner--no-poster'}">
         <h2>${escapeHtml(m.title)}</h2>
         ${metaParts.length ? `<p class="detail-meta">${escapeHtml(metaParts.join(' · '))}</p>` : ''}
         <div class="detail-rating">★ ${m.rating} <span style="font-size:0.85rem;font-weight:400;opacity:0.7">/ 10</span></div>
@@ -460,11 +533,11 @@ const MovieShared = (() => {
   function renderSpaceItemCard(item, i = 0) {
     const meta = [item.year, item.author, item.artist, item.creator, item.director].filter(Boolean).join(' · ');
     const score = getScore(item);
-    const poster = resolvePoster(item);
+    const candidates = posterCandidates(item);
     const idAttr = item.id ? ` data-space-item="${escapeAttr(item.id)}"` : '';
     const interact = item.id ? ' tabindex="0" role="button"' : '';
 
-    if (poster) {
+    if (candidates.length) {
       return `
         <article class="movie-card"${idAttr}${interact} style="animation-delay:${Math.min(i * 0.05, 0.5)}s">
           <div class="poster-wrap">
@@ -625,10 +698,13 @@ const MovieShared = (() => {
   }
 
   function renderCharacterCard(ch, i = 0) {
-    const poster = resolvePoster(ch);
+    const candidates = posterCandidates(ch);
     const initial = escapeHtml((ch.name || '?').charAt(0));
-    const photoHtml = poster
-      ? `<img class="character-card-photo" src="${escapeAttr(cdnUrl(poster))}" alt="${escapeAttr(ch.name || '')}" sizes="(max-width: 680px) 90vw, 340px" loading="lazy" decoding="async" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'character-card-photo character-card-photo--fallback',textContent:'${initial}'}))">`
+    const photoHtml = candidates.length
+      ? posterImgTag(candidates, 'character-card-photo', {
+        alt: ch.name || '',
+        sizes: '(max-width: 680px) 90vw, 340px',
+      })
       : `<div class="character-card-photo character-card-photo--fallback" aria-hidden="true">${initial}</div>`;
 
     const fields = [
@@ -691,7 +767,7 @@ const MovieShared = (() => {
 
   return {
     $, uid, ratingFromSlider, sliderFromRating, ratingColor, formatDate,
-    escapeHtml, escapeAttr, renderTags, posterHtml, resolvePoster, defaultPosterPath,
+    escapeHtml, escapeAttr, renderTags, posterHtml, posterCandidates, resolvePoster, defaultPosterPath, tryPosterFallback, posterImgTag,
     RATING_TIERS, MOVIE_RATING_TIERS, getScore, matchRatingTier, countByTier, groupByTier,
     filterAndSort, calcStats, renderGrid, renderGrouped, renderDetail,
     renderTastePanel, renderNotesPanel, renderBestPanel, renderSpacePlaceholder,
