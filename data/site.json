@@ -83,17 +83,43 @@
         { "id": "a_dandadan", "title": "胆大党", "rating": "9.0" },
         { "id": "a_steins_gate", "title": "命运石之门", "rating": "9.0" },
         { "id": "a_naruto", "title": "火影忍者", "rating": "9.0" },
+        { "id": "a_jackie_adventures", "title": "成龙历险记", "rating": "9.0" },
         { "id": "a_goodbye_eri", "title": "再见绘梨", "rating": "10.0" },
         { "id": "a_attack_on_titan", "title": "进击的巨人", "rating": "10.0" },
         { "id": "a_your_lie_april", "title": "四月是你的谎言", "rating": "8.0" },
         { "id": "a_saint_seiya", "title": "圣斗士星矢", "rating": "8.0" },
         { "id": "a_plastic_memories", "title": "可塑性记忆", "rating": "8.0" },
+        { "id": "a_gekkan_shoujo", "title": "月刊少女野崎君", "rating": "8.0" },
+        { "id": "a_one_punch", "title": "一拳超人", "rating": "8.0" },
+        { "id": "a_tokyo_ghoul", "title": "东京喰种", "rating": "8.0" },
+        { "id": "a_jojo", "title": "JOJO的奇妙冒险", "rating": "8.0" },
+        { "id": "a_durarara", "title": "无头骑士异闻录", "rating": "8.0" },
+        { "id": "a_kaiju8", "title": "怪兽8号", "rating": "8.0" },
+        { "id": "a_kimetsu", "title": "鬼灭之刃", "rating": "8.0" },
         { "id": "a_anohana", "title": "未闻花名", "rating": "7.0" },
         { "id": "a_sakurasou", "title": "樱花庄的宠物女孩", "rating": "7.0" },
         { "id": "a_suixinyiting", "title": "随心一听", "rating": "7.0" },
+        { "id": "a_cardcaptor", "title": "魔卡少女樱", "rating": "7.0" },
+        { "id": "a_pokemon", "title": "精灵宝可梦", "rating": "7.0" },
+        { "id": "a_dragon_ball", "title": "龙珠", "rating": "7.0" },
+        { "id": "a_code_geass", "title": "叛逆的鲁鲁修", "rating": "7.0" },
+        { "id": "a_death_note", "title": "死亡笔记", "rating": "7.0" },
+        { "id": "a_ginga_strikers", "title": "超智能足球", "rating": "7.0" },
+        { "id": "a_parasyte", "title": "寄生兽", "rating": "7.0" },
+        { "id": "a_csm", "title": "电锯人", "rating": "7.0" },
         { "id": "a_danshi_nichijou", "title": "男子高中生的日常", "rating": "9.0" },
         { "id": "a_rezero", "title": "从零开始的异世界生活", "rating": "6.0" },
-        { "id": "a_shield_hero", "title": "盾之勇者成名录", "rating": "5.0" }
+        { "id": "a_madoka", "title": "魔法少女小圆", "rating": "6.0" },
+        { "id": "a_digimon", "title": "数码宝贝", "rating": "6.0" },
+        { "id": "a_wataru", "title": "神龙斗士", "rating": "6.0" },
+        { "id": "a_slime", "title": "关于我转生变成史莱姆这档事", "rating": "6.0" },
+        { "id": "a_citrus", "title": "柑橘味香气", "rating": "6.0" },
+        { "id": "a_mha", "title": "我的英雄学院", "rating": "6.0" },
+        { "id": "a_solo_leveling", "title": "我独自升级", "rating": "6.0" },
+        { "id": "a_jujutsu", "title": "咒术回战", "rating": "6.0" },
+        { "id": "a_shield_hero", "title": "盾之勇者成名录", "rating": "5.0" },
+        { "id": "a_sao", "title": "刀剑神域", "rating": "5.0" },
+        { "id": "a_sakamoto", "title": "在下坂本，有何贵干？", "rating": "5.0" }
       ],
       "characters": [
         {
@@ -183,7 +209,8 @@
       "items": [
         { "id": "ac_miho", "title": "北条麻妃", "rating": "10.0" },
         { "id": "ac_kirioka", "title": "桐冈小月", "rating": "10.0" },
-        { "id": "ac_angelawhite", "title": "Angela White", "rating": "10.0" }
+        { "id": "ac_angelawhite", "title": "Angela White", "rating": "10.0" },
+        { "id": "ac_hatano", "title": "波多野结衣", "rating": "9.0" }
       ],
       "best": [
         { "id": "ac_miho", "title": "北条麻妃", "rating": "10.0" }

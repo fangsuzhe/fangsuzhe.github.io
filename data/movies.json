@@ -1,5 +1,17 @@
 [
   {
+    "id": "m_doraemon_stand",
+    "createdAt": 1780934400000,
+    "title": "哆啦A梦：伴我同行",
+    "director": "八木龙一 / 山崎贵",
+    "year": "2014",
+    "watchDate": "2026-06-07",
+    "genre": "动画, 科幻, 家庭",
+    "poster": "",
+    "rating": "6.0",
+    "review": ""
+  },
+  {
     "id": "m_suspect_x",
     "createdAt": 1780848000000,
     "title": "嫌疑人X的献身",
