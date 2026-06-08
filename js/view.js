@@ -31,7 +31,9 @@ let idolClickTimer = null;
 
 function loadIdolUnlockState() {
   try {
-    idolSpaceUnlocked = localStorage.getItem(IDOL_UNLOCK_KEY) === '1';
+    // 旧版用 localStorage 永久解锁，迁移后改为仅当前会话有效
+    localStorage.removeItem(IDOL_UNLOCK_KEY);
+    idolSpaceUnlocked = sessionStorage.getItem(IDOL_UNLOCK_KEY) === '1';
   } catch {
     idolSpaceUnlocked = false;
   }
@@ -58,7 +60,7 @@ function unlockIdolSpace() {
   if (idolSpaceUnlocked) return;
   idolSpaceUnlocked = true;
   try {
-    localStorage.setItem(IDOL_UNLOCK_KEY, '1');
+    sessionStorage.setItem(IDOL_UNLOCK_KEY, '1');
   } catch { /* ignore */ }
   ensureSpaceState();
   buildSpaceItemIndex();
