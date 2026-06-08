@@ -210,7 +210,11 @@
         { "id": "ac_miho", "title": "北条麻妃", "rating": "10.0" },
         { "id": "ac_kirioka", "title": "桐冈小月", "rating": "10.0" },
         { "id": "ac_angelawhite", "title": "Angela White", "rating": "10.0" },
-        { "id": "ac_hatano", "title": "波多野结衣", "rating": "9.0" }
+        { "id": "ac_hatano", "title": "波多野结衣", "rating": "9.0" },
+        { "id": "ac_haruhara", "title": "春原未来", "rating": "9.0" },
+        { "id": "ac_mitani", "title": "美谷朱里", "rating": "9.0" },
+        { "id": "ac_minami", "title": "南梨央奈", "rating": "8.0" },
+        { "id": "ac_mikami", "title": "三上悠亚", "rating": "7.0" }
       ],
       "best": [
         { "id": "ac_miho", "title": "北条麻妃", "rating": "10.0" }
