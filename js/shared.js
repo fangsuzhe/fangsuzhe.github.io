@@ -367,7 +367,11 @@ const MovieShared = (() => {
           <div class="detail-tracks">
             <span class="detail-tracks-label">推荐</span>
             <ol class="detail-tracks-list">
-              ${m.tracks.map((track) => `<li>${escapeHtml(track)}</li>`).join('')}
+              ${m.tracks.map((track, i) => `
+                <li>
+                  <span class="detail-tracks-num">${i + 1}</span>
+                  <span class="detail-tracks-name">${escapeHtml(track)}</span>
+                </li>`).join('')}
             </ol>
           </div>` : ''}
         ${showEdit ? `<div class="detail-actions"><button class="btn btn-ghost" id="detailEdit">编辑</button></div>` : ''}

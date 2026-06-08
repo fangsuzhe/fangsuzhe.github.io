@@ -209,17 +209,17 @@
           "id": "mu_sodagreen",
           "title": "苏打绿",
           "artist": "苏打绿",
-          "rating": "10.0",
+          "rating": "9.0",
           "tracks": [
             "频率",
             "相信",
-            "无与伦比的魅力"
+            "无与伦比的美丽"
           ]
         }
       ],
       "best": [
         { "id": "mu_fishmans", "title": "fishmans", "artist": "fishmans", "rating": "10.0" },
-        { "id": "mu_sodagreen", "title": "苏打绿", "artist": "苏打绿", "rating": "10.0" }
+        { "id": "mu_sodagreen", "title": "苏打绿", "artist": "苏打绿", "rating": "9.0" }
       ]
     },
     "idol": {
