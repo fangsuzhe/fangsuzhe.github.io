@@ -1,5 +1,17 @@
 [
   {
+    "id": "m_shoplifters",
+    "createdAt": 1781020800000,
+    "title": "小偷家族",
+    "director": "是枝裕和",
+    "year": "2018",
+    "watchDate": "2026-06-08",
+    "genre": "剧情, 犯罪, 家庭",
+    "poster": "",
+    "rating": "5.0",
+    "review": ""
+  },
+  {
     "id": "m_doraemon_stand",
     "createdAt": 1780934400000,
     "title": "哆啦A梦：伴我同行",
