@@ -241,11 +241,14 @@
         { "id": "ac_haruhara", "title": "春原未来", "rating": "9.0" },
         { "id": "ac_mitani", "title": "美谷朱里", "rating": "9.0" },
         { "id": "ac_emma", "title": "Emma Rose", "rating": "9.0" },
+        { "id": "ac_nagai", "title": "永井玛丽亚", "rating": "9.0" },
         { "id": "ac_minami", "title": "南梨央奈", "rating": "8.0" },
         { "id": "ac_dee", "title": "Dee Williams", "rating": "8.0" },
         { "id": "ac_lora", "title": "Lora Cross", "rating": "8.0" },
         { "id": "ac_liuyue", "title": "刘玥", "rating": "8.0" },
-        { "id": "ac_mikami", "title": "三上悠亚", "rating": "7.0" }
+        { "id": "ac_mikami", "title": "三上悠亚", "rating": "7.0" },
+        { "id": "ac_hongkongdoll", "title": "hongkongdoll", "rating": "6.0" },
+        { "id": "ac_fukada", "title": "深田咏美", "rating": "6.0" }
       ],
       "best": [
         { "id": "ac_miho", "title": "北条麻妃", "rating": "10.0" }
