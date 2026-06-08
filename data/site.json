@@ -182,7 +182,8 @@
       ],
       "items": [
         { "id": "ac_miho", "title": "北条麻妃", "rating": "10.0" },
-        { "id": "ac_kirioka", "title": "桐冈小月", "rating": "10.0" }
+        { "id": "ac_kirioka", "title": "桐冈小月", "rating": "10.0" },
+        { "id": "ac_angelawhite", "title": "Angela White", "rating": "10.0" }
       ],
       "best": [
         { "id": "ac_miho", "title": "北条麻妃", "rating": "10.0" }
