@@ -160,9 +160,10 @@
           "zodiac": "双鱼座"
         }
       ],
-      "best": [
-        { "id": "a_chainsaw", "title": "炎拳", "rating": "10.0" }
-      ]
+      "best": {
+        "author": { "name": "藤本树" },
+        "items": [{ "id": "a_chainsaw" }]
+      }
     },
     "text": {
       "kicker": "Text Space",
@@ -179,9 +180,10 @@
         { "id": "t_splendid_suns", "title": "灿烂千阳", "author": "卡勒德·胡赛尼", "rating": "7.0" },
         { "id": "t_mountains_echoed", "title": "群山回唱", "author": "卡勒德·胡赛尼", "rating": "7.0" }
       ],
-      "best": [
-        { "id": "t_wanshou", "title": "万寿寺", "author": "王小波", "rating": "10.0" }
-      ]
+      "best": {
+        "author": { "name": "王小波" },
+        "items": [{ "id": "t_wanshou" }]
+      }
     },
     "music": {
       "kicker": "Music Space",
@@ -192,10 +194,32 @@
         { "id": "best", "label": "最" }
       ],
       "items": [
-        { "id": "mu_fishmans", "title": "fishmans", "artist": "fishmans", "rating": "10.0" }
+        {
+          "id": "mu_fishmans",
+          "title": "fishmans",
+          "artist": "fishmans",
+          "rating": "10.0",
+          "tracks": [
+            "跟上节拍",
+            "babyblue",
+            "walking in the rhythm"
+          ]
+        },
+        {
+          "id": "mu_sodagreen",
+          "title": "苏打绿",
+          "artist": "苏打绿",
+          "rating": "10.0",
+          "tracks": [
+            "频率",
+            "相信",
+            "无与伦比的魅力"
+          ]
+        }
       ],
       "best": [
-        { "id": "mu_fishmans", "title": "fishmans", "artist": "fishmans", "rating": "10.0" }
+        { "id": "mu_fishmans", "title": "fishmans", "artist": "fishmans", "rating": "10.0" },
+        { "id": "mu_sodagreen", "title": "苏打绿", "artist": "苏打绿", "rating": "10.0" }
       ]
     },
     "idol": {
@@ -229,6 +253,11 @@
     }
   },
   "notes": [
+    {
+      "id": "n_20260616",
+      "date": "2026-06-07",
+      "content": "是枝裕和的电影对我来说有点做作了"
+    },
     {
       "id": "n_20260615",
       "date": "2026-06-06",

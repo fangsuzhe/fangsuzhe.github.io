@@ -363,6 +363,13 @@ const MovieShared = (() => {
             <span class="detail-review-label">短评</span>
             <p class="detail-review">${escapeHtml(m.review)}</p>
           </div>` : ''}
+        ${Array.isArray(m.tracks) && m.tracks.length ? `
+          <div class="detail-tracks">
+            <span class="detail-tracks-label">推荐</span>
+            <ol class="detail-tracks-list">
+              ${m.tracks.map((track) => `<li>${escapeHtml(track)}</li>`).join('')}
+            </ol>
+          </div>` : ''}
         ${showEdit ? `<div class="detail-actions"><button class="btn btn-ghost" id="detailEdit">编辑</button></div>` : ''}
       </div>`;
 
@@ -745,6 +752,76 @@ const MovieShared = (() => {
       </div>`;
   }
 
+  function getBestItems(best) {
+    if (!best) return [];
+    if (Array.isArray(best)) return best;
+    if (Array.isArray(best.items)) return best.items;
+    return [];
+  }
+
+  function getBestSpotlight(best) {
+    if (!best || Array.isArray(best)) return null;
+    const raw = best.spotlight || best.author || best.director;
+    if (!raw?.name) return null;
+    return {
+      label: raw.label || (best.author ? '作者' : '导演'),
+      name: raw.name,
+      note: raw.note || '',
+    };
+  }
+
+  function resolveBestEntries(best, pool) {
+    return getBestItems(best)
+      .map((ref) => {
+        const id = typeof ref === 'string' ? ref : ref.id;
+        if (id && Array.isArray(pool)) return pool.find((item) => item.id === id) || ref;
+        return ref;
+      })
+      .filter(Boolean);
+  }
+
+  function renderSpaceBestPanel(container, best, spaceItems, options = {}) {
+    if (!container) return;
+    const { spaceKicker = '', onItemClick } = options;
+    const spotlight = getBestSpotlight(best);
+    const featured = resolveBestEntries(best, spaceItems);
+
+    if (!spotlight) {
+      renderSpacePicksPage(container, 'best', featured, spaceKicker, onItemClick);
+      return;
+    }
+
+    container.innerHTML = `
+      <section class="best-hero">
+        <p class="catalog-kicker">${escapeHtml(spaceKicker || 'The Best')}</p>
+        <h2 class="best-title">最</h2>
+      </section>
+      <div class="best-layout">
+        <article class="best-spotlight best-spotlight--director">
+          <span class="best-spotlight-label">${escapeHtml(spotlight.label)}</span>
+          <h3 class="best-spotlight-name">${escapeHtml(spotlight.name)}</h3>
+          ${spotlight.note ? `<p class="best-spotlight-note">${escapeHtml(spotlight.note)}</p>` : ''}
+        </article>
+        <div class="best-movies">
+          ${featured.length ? featured.map((item) => {
+            const meta = [item.author, item.artist, item.year, item.director].filter(Boolean).join(' · ');
+            const idAttr = item.id ? ` data-space-item="${escapeAttr(item.id)}"` : '';
+            return `
+              <article class="best-movie-card"${idAttr} tabindex="0" role="button">
+                <div class="best-movie-head">
+                  <h3 class="best-movie-title">${escapeHtml(item.title || '')}</h3>
+                  <span class="best-movie-rating">${escapeHtml(item.rating || '')}</span>
+                </div>
+                ${meta ? `<p class="best-movie-meta">${escapeHtml(meta)}</p>` : ''}
+                ${item.bookmark ? `<blockquote class="best-movie-bookmark">${escapeHtml(item.bookmark)}</blockquote>` : ''}
+              </article>`;
+          }).join('') : '<p class="taste-empty">暂无</p>'}
+        </div>
+      </div>`;
+
+    bindSpaceItemClicks(container, onItemClick);
+  }
+
   function renderSpacePicksPage(container, sectionId, items, spaceKicker, onItemClick) {
     if (!container) return;
     const meta = PICK_SECTION_META[sectionId] || { title: sectionId, kicker: '' };
@@ -770,8 +847,9 @@ const MovieShared = (() => {
     escapeHtml, escapeAttr, renderTags, posterHtml, posterCandidates, resolvePoster, defaultPosterPath, tryPosterFallback, posterImgTag,
     RATING_TIERS, MOVIE_RATING_TIERS, getScore, matchRatingTier, countByTier, groupByTier,
     filterAndSort, calcStats, renderGrid, renderGrouped, renderDetail,
-    renderTastePanel, renderNotesPanel, renderBestPanel, renderSpacePlaceholder,
+    renderTastePanel, renderNotesPanel, renderBestPanel, renderSpaceBestPanel, renderSpacePlaceholder,
     renderSpacePicksPage, renderSpaceRecordsPanel, renderCharactersPanel, bindSpaceItemClicks,
+    getBestItems,
     linesToList, listToLines, sha256,
   };
 })();

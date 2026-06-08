@@ -1407,13 +1407,29 @@ body {
 }
 
 .detail-review-label,
-.detail-bookmark-label {
+.detail-bookmark-label,
+.detail-tracks-label {
   display: block;
   font-size: 0.72rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--text-muted);
   margin-bottom: 0.55rem;
+}
+
+.detail-tracks {
+  margin-bottom: 1.25rem;
+}
+
+.detail-tracks-list {
+  margin: 0;
+  padding-left: 1.25rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+.detail-tracks-list li {
+  padding-left: 0.25rem;
 }
 
 .detail-bookmark {

@@ -3,9 +3,10 @@
 const {
   $, escapeHtml, MOVIE_RATING_TIERS, filterAndSort, calcStats, countByTier,
   renderGrid, renderGrouped, renderDetail, renderTastePanel, renderBestPanel,
-  renderSpacePlaceholder, renderSpacePicksPage, renderSpaceRecordsPanel,
+  renderSpacePlaceholder, renderSpaceBestPanel, renderSpaceRecordsPanel,
   renderCharactersPanel,
   renderNotesPanel,
+  getBestItems,
 } = MovieShared;
 
 const DEFAULT_MOVIE_SECTIONS = [
@@ -197,7 +198,7 @@ function buildSpaceItemIndex() {
   spaceItemIndex = new Map();
   getContentSpaces().forEach((spaceId) => {
     const space = getSpaceConfig(spaceId);
-    [...(space.items || []), ...(space.best || [])].forEach((item) => {
+    [...(space.items || []), ...getBestItems(space.best)].forEach((item) => {
       if (item?.id && !spaceItemIndex.has(item.id)) {
         spaceItemIndex.set(item.id, item);
       }
@@ -396,7 +397,10 @@ function renderContentSpaces() {
       onItemClick: openSpaceDetail,
     });
 
-    renderSpacePicksPage($(`#${spaceId}_best`), 'best', space.best, kicker, openSpaceDetail);
+    renderSpaceBestPanel($(`#${spaceId}_best`), space.best, items, {
+      spaceKicker: kicker,
+      onItemClick: openSpaceDetail,
+    });
 
     if (space.characters?.length || getSections(spaceId).some((s) => s.id === 'characters')) {
       renderCharactersPanel($(`#${spaceId}_characters`), {
