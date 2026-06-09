@@ -1,5 +1,18 @@
 [
   {
+    "id": "m_hibiscus_town",
+    "createdAt": 1781107200000,
+    "title": "芙蓉镇",
+    "director": "谢晋",
+    "year": "1987",
+    "watchDate": "2026-06-09",
+    "genre": "剧情, 爱情",
+    "poster": "",
+    "rating": "9.0",
+    "bookmark": "比肖申克的救赎好",
+    "review": ""
+  },
+  {
     "id": "m_shoplifters",
     "createdAt": 1781020800000,
     "title": "小偷家族",
