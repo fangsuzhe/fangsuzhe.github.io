@@ -1,5 +1,17 @@
 [
   {
+    "id": "m_hachi_monogatari",
+    "createdAt": 1781280000000,
+    "title": "忠犬八公物语",
+    "director": "神山征二郎",
+    "year": "1987",
+    "watchDate": "2026-06-09",
+    "genre": "剧情",
+    "poster": "",
+    "rating": "5.0",
+    "review": ""
+  },
+  {
     "id": "m_storm_rider",
     "createdAt": 1781193600000,
     "title": "风云决",
