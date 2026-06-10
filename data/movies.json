@@ -1,5 +1,29 @@
 [
   {
+    "id": "m_laugh_power",
+    "createdAt": 1781366400000,
+    "title": "笑功震武林",
+    "director": "谷德昭",
+    "year": "2013",
+    "watchDate": "2026-06-10",
+    "genre": "喜剧, 动作",
+    "poster": "",
+    "rating": "5.0",
+    "review": ""
+  },
+  {
+    "id": "m_king_fighters",
+    "createdAt": 1781366399900,
+    "title": "拳皇",
+    "director": "陈嘉上",
+    "year": "2010",
+    "watchDate": "2026-06-10",
+    "genre": "动作, 奇幻",
+    "poster": "",
+    "rating": "5.0",
+    "review": ""
+  },
+  {
     "id": "m_hachi_monogatari",
     "createdAt": 1781280000001,
     "title": "忠犬八公物语",
