@@ -1,5 +1,17 @@
 [
   {
+    "id": "m_wild_tales",
+    "createdAt": 1781452800100,
+    "title": "蛮荒故事",
+    "director": "达米安·斯兹弗隆",
+    "year": "2014",
+    "watchDate": "2026-06-10",
+    "genre": "剧情, 喜剧, 犯罪",
+    "poster": "",
+    "rating": "8.0",
+    "review": ""
+  },
+  {
     "id": "m_echoes_rainbow",
     "createdAt": 1781452800000,
     "title": "岁月神偷",
