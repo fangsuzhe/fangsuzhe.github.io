@@ -234,8 +234,7 @@
         }
       ],
       "best": [
-        { "id": "mu_fishmans", "title": "fishmans", "artist": "fishmans", "rating": "10.0" },
-        { "id": "mu_sodagreen", "title": "苏打绿", "artist": "苏打绿", "rating": "9.0" }
+        { "id": "mu_fishmans", "title": "fishmans", "artist": "fishmans", "rating": "10.0" }
       ]
     },
     "idol": {
