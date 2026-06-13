@@ -427,6 +427,17 @@
           "id": "link_duga",
           "title": "DUGA",
           "url": "https://duga.jp/main/"
+        },
+        {
+          "id": "link_pooscat",
+          "title": "PooScat",
+          "url": "https://pooscat.com/"
+        },
+        {
+          "id": "link_theidolbase",
+          "title": "TheIdolBase",
+          "url": "https://www.theidolbase.com/",
+          "note": "用来搜女优的"
         }
       ]
     }

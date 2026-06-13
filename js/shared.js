@@ -64,6 +64,7 @@ const MovieShared = (() => {
     ['t_', 'images/text/'],
     ['mu_', 'images/music/'],
     ['ac_', 'images/idol/'],
+    ['code_', 'images/porn/'],
   ];
 
   function posterDirForId(id) {
@@ -486,17 +487,23 @@ const MovieShared = (() => {
     const list = Array.isArray(codes) ? codes : [];
 
     const entriesHtml = list.length
-      ? list.map((item, i) => `
-          <article class="code-entry" style="animation-delay:${Math.min(i * 0.05, 0.35)}s">
-            <div class="code-entry-head">
-              <div>
-                <h3 class="code-entry-title">${escapeHtml(item.title || item.code || '未命名')}</h3>
-                ${item.code ? `<p class="code-entry-code">${escapeHtml(item.code)}</p>` : ''}
+      ? list.map((item, i) => {
+          const poster = resolvePoster(item);
+          return `
+          <article class="code-entry${poster ? ' code-entry--has-poster' : ''}" style="animation-delay:${Math.min(i * 0.05, 0.35)}s">
+            ${poster ? `<div class="code-entry-poster">${posterHtml(item, 'code-entry-poster-img')}</div>` : ''}
+            <div class="code-entry-body">
+              <div class="code-entry-head">
+                <div>
+                  <h3 class="code-entry-title">${escapeHtml(item.title || item.code || '未命名')}</h3>
+                  ${item.code ? `<p class="code-entry-code">${escapeHtml(item.code)}</p>` : ''}
+                </div>
+                ${item.siteRating ? `<span class="code-entry-rating">${escapeHtml(item.siteRating)}</span>` : ''}
               </div>
-              ${item.siteRating ? `<span class="code-entry-rating">${escapeHtml(item.siteRating)}</span>` : ''}
+              <div class="code-meta">${renderCodeMetaRows(item)}</div>
             </div>
-            <div class="code-meta">${renderCodeMetaRows(item)}</div>
-          </article>`).join('')
+          </article>`;
+        }).join('')
       : '<p class="taste-empty">暂无</p>';
 
     container.innerHTML = `

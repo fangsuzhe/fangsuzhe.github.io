@@ -1685,6 +1685,31 @@ body {
   animation: fadeUp 0.45s ease both;
 }
 
+.code-entry--has-poster {
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  gap: 1.1rem;
+  align-items: start;
+}
+
+.code-entry-poster {
+  border-radius: calc(var(--radius) - 4px);
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.code-entry-poster-img,
+.code-entry-poster .poster-wrap img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+}
+
+.code-entry-body {
+  min-width: 0;
+}
+
 .code-entry-head {
   display: flex;
   align-items: flex-start;
