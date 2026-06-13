@@ -81,9 +81,11 @@ let siteConfig = {
       kicker: 'Idol Space',
       statLabel: '已收录',
       defaultSubTab: 'records',
-      sections: [{ id: 'records', label: '记录' }, { id: 'best', label: '最' }],
+      sections: [{ id: 'records', label: '记录' }, { id: 'best', label: '最' }, { id: 'codes', label: '番号' }, { id: 'links', label: '网址记录' }],
       items: [{ id: 'ac_miho', title: '北条麻妃', rating: '10.0' }],
       best: [{ id: 'ac_miho', title: '北条麻妃', rating: '10.0' }],
+      codes: [],
+      links: [],
     },
   },
   best: {

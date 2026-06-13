@@ -274,7 +274,9 @@
       "defaultSubTab": "records",
       "sections": [
         { "id": "records", "label": "记录" },
-        { "id": "best", "label": "最" }
+        { "id": "best", "label": "最" },
+        { "id": "codes", "label": "番号" },
+        { "id": "links", "label": "网址记录" }
       ],
       "items": [
         { "id": "ac_miho", "title": "北条麻妃", "rating": "10.0" },
@@ -289,6 +291,10 @@
         { "id": "ac_ashikawa_mei", "title": "芦川芽依", "rating": "10.0" },
         { "id": "ac_matsumoto_mei", "title": "松本芽衣", "rating": "10.0" },
         { "id": "ac_kobayakawa_reiko", "title": "小早川怜子", "rating": "10.0" },
+        { "id": "ac_matsuzawa_yukari", "title": "松沢ゆかり", "rating": "10.0" },
+        { "id": "ac_goto_yua", "title": "后藤结爱", "rating": "10.0" },
+        { "id": "ac_maeda_mako", "title": "前多真子", "rating": "10.0" },
+        { "id": "ac_oikawa_kazuko", "title": "及川贵和子", "rating": "10.0" },
         { "id": "ac_hatano", "title": "波多野结衣", "rating": "9.0" },
         { "id": "ac_haruhara", "title": "春原未来", "rating": "9.0" },
         { "id": "ac_mitani", "title": "美谷朱里", "rating": "9.0" },
@@ -371,6 +377,57 @@
       ],
       "best": [
         { "id": "ac_miho", "title": "北条麻妃", "rating": "10.0" }
+      ],
+      "codes": [
+        {
+          "id": "code_vrxs272",
+          "title": "粪接吻",
+          "code": "VRXS-272",
+          "workId": "vr-0553",
+          "cast": ["前多真子", "及川贵和子"],
+          "director": "安达薰",
+          "maker": "V&R Planning",
+          "label": "V&R Planning",
+          "series": "粪接吻（V&R Planning）",
+          "category": "成人 > 排泄物",
+          "streamDate": "2021-11-01",
+          "releaseDate": "2021-11-08",
+          "mylistCount": 703,
+          "siteRating": "5.0",
+          "reviewCount": 4,
+          "rankScat": 77,
+          "rankOverall": 684
+        },
+        {
+          "id": "code_vrxs235",
+          "title": "粪接吻",
+          "code": "VRXS-235",
+          "workId": "vr-0488",
+          "cast": ["松沢ゆかり", "后藤结爱"],
+          "director": "安达薰",
+          "maker": "V&R Planning",
+          "label": "V&R Planning",
+          "series": "粪接吻（V&R Planning）",
+          "category": "成人 > 排泄物",
+          "streamDate": "2019-06-24",
+          "releaseDate": "2019-07-01",
+          "mylistCount": 380,
+          "siteRating": "5.0",
+          "reviewCount": 3
+        }
+      ],
+      "links": [
+        {
+          "id": "link_yandex_images",
+          "title": "Yandex Images",
+          "url": "https://yandex.com/images/",
+          "note": "用来识图的"
+        },
+        {
+          "id": "link_duga",
+          "title": "DUGA",
+          "url": "https://duga.jp/main/"
+        }
       ]
     }
   },

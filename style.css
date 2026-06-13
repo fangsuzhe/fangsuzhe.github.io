@@ -1655,6 +1655,144 @@ body {
   white-space: pre-wrap;
 }
 
+/* Idol codes / 番号 */
+.codes-page {
+  animation: fadeUp 0.45s ease both;
+}
+
+.codes-hero {
+  margin-bottom: 1.75rem;
+}
+
+.codes-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.85rem, 4vw, 2.35rem);
+  font-weight: 700;
+}
+
+.codes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.code-entry {
+  background: var(--bg-glass);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.35rem;
+  backdrop-filter: blur(12px);
+  animation: fadeUp 0.45s ease both;
+}
+
+.code-entry-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.code-entry-title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+.code-entry-code {
+  margin-top: 0.35rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+
+.code-entry-rating {
+  flex-shrink: 0;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--gold);
+}
+
+.code-meta {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.code-meta-row {
+  display: grid;
+  grid-template-columns: 6.5rem 1fr;
+  gap: 0.75rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.code-meta-label {
+  color: var(--text-muted);
+}
+
+.code-meta-value {
+  color: var(--text);
+}
+
+/* Idol links / 网址记录 */
+.links-page {
+  animation: fadeUp 0.45s ease both;
+}
+
+.links-hero {
+  margin-bottom: 1.75rem;
+}
+
+.links-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.85rem, 4vw, 2.35rem);
+  font-weight: 700;
+}
+
+.links-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.link-entry {
+  background: var(--bg-glass);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.35rem;
+  backdrop-filter: blur(12px);
+  animation: fadeUp 0.45s ease both;
+}
+
+.link-entry-title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.55rem;
+}
+
+.link-entry-url {
+  display: inline-block;
+  color: var(--accent);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  word-break: break-all;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.link-entry-url:hover {
+  color: var(--gold);
+}
+
+.link-entry-note {
+  margin-top: 0.65rem;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
 /* Best picks */
 .best-page {
   animation: fadeUp 0.45s ease both;

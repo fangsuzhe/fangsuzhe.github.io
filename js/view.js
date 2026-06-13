@@ -6,6 +6,8 @@ const {
   renderSpacePlaceholder, renderSpaceBestPanel, renderSpaceRecordsPanel,
   renderCharactersPanel,
   renderNotesPanel,
+  renderCodesPanel,
+  renderLinksPanel,
   getBestItems,
 } = MovieShared;
 
@@ -229,6 +231,18 @@ function ensureSpacePanels() {
         <div class="page-content characters-page" id="${spaceId}_characters"></div>
       </div>`;
     }
+    if (sections.some((s) => s.id === 'codes')) {
+      panel.innerHTML += `
+      <div class="sub-panel" data-space="${spaceId}" data-sub="codes">
+        <div class="page-content codes-page" id="${spaceId}_codes"></div>
+      </div>`;
+    }
+    if (sections.some((s) => s.id === 'links')) {
+      panel.innerHTML += `
+      <div class="sub-panel" data-space="${spaceId}" data-sub="links">
+        <div class="page-content links-page" id="${spaceId}_links"></div>
+      </div>`;
+    }
     main.appendChild(panel);
   });
 
@@ -448,6 +462,20 @@ function renderContentSpaces() {
     if (space.characters?.length || getSections(spaceId).some((s) => s.id === 'characters')) {
       renderCharactersPanel($(`#${spaceId}_characters`), {
         characters: space.characters || [],
+        kicker,
+      });
+    }
+
+    if (space.codes?.length || getSections(spaceId).some((s) => s.id === 'codes')) {
+      renderCodesPanel($(`#${spaceId}_codes`), {
+        codes: space.codes || [],
+        kicker,
+      });
+    }
+
+    if (space.links?.length || getSections(spaceId).some((s) => s.id === 'links')) {
+      renderLinksPanel($(`#${spaceId}_links`), {
+        links: space.links || [],
         kicker,
       });
     }

@@ -453,6 +453,82 @@ const MovieShared = (() => {
       <div class="notes-list">${entriesHtml}</div>`;
   }
 
+  function renderCodeMetaRows(item) {
+    const cast = Array.isArray(item.cast) ? item.cast.join('、') : (item.cast || '');
+    const rows = [
+      ['厂商编号', item.code],
+      ['作品 ID', item.workId],
+      ['出演', cast],
+      ['导演', item.director],
+      ['制作商', item.maker],
+      ['厂牌', item.label],
+      ['系列', item.series],
+      ['分类', item.category],
+      ['流媒体上线', formatDate(item.streamDate) || item.streamDate],
+      ['发售日', formatDate(item.releaseDate) || item.releaseDate],
+      ['心愿单收藏', item.mylistCount != null ? `${item.mylistCount} 人` : ''],
+      ['站点评分', item.siteRating],
+      ['用户评论', item.reviewCount != null ? `${item.reviewCount} 条` : ''],
+      ['排泄物榜', item.rankScat != null ? `第 ${item.rankScat} 名` : ''],
+      ['总榜', item.rankOverall != null ? `第 ${item.rankOverall} 名` : ''],
+    ].filter(([, value]) => value != null && value !== '');
+
+    return rows.map(([label, value]) => `
+      <div class="code-meta-row">
+        <span class="code-meta-label">${escapeHtml(label)}</span>
+        <span class="code-meta-value">${escapeHtml(String(value))}</span>
+      </div>`).join('');
+  }
+
+  function renderCodesPanel(container, options = {}) {
+    if (!container) return;
+    const { codes = [], kicker = 'Idol Space', title = '番号' } = options;
+    const list = Array.isArray(codes) ? codes : [];
+
+    const entriesHtml = list.length
+      ? list.map((item, i) => `
+          <article class="code-entry" style="animation-delay:${Math.min(i * 0.05, 0.35)}s">
+            <div class="code-entry-head">
+              <div>
+                <h3 class="code-entry-title">${escapeHtml(item.title || item.code || '未命名')}</h3>
+                ${item.code ? `<p class="code-entry-code">${escapeHtml(item.code)}</p>` : ''}
+              </div>
+              ${item.siteRating ? `<span class="code-entry-rating">${escapeHtml(item.siteRating)}</span>` : ''}
+            </div>
+            <div class="code-meta">${renderCodeMetaRows(item)}</div>
+          </article>`).join('')
+      : '<p class="taste-empty">暂无</p>';
+
+    container.innerHTML = `
+      <section class="codes-hero">
+        <p class="catalog-kicker">${escapeHtml(kicker)}</p>
+        <h2 class="codes-title">${escapeHtml(title)}</h2>
+      </section>
+      <div class="codes-list">${entriesHtml}</div>`;
+  }
+
+  function renderLinksPanel(container, options = {}) {
+    if (!container) return;
+    const { links = [], kicker = 'Idol Space', title = '网址记录' } = options;
+    const list = Array.isArray(links) ? links : [];
+
+    const entriesHtml = list.length
+      ? list.map((item, i) => `
+          <article class="link-entry" style="animation-delay:${Math.min(i * 0.05, 0.35)}s">
+            <h3 class="link-entry-title">${escapeHtml(item.title || item.url || '未命名')}</h3>
+            ${item.url ? `<a class="link-entry-url" href="${escapeAttr(item.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.url)}</a>` : ''}
+            ${item.note ? `<p class="link-entry-note">${escapeHtml(item.note)}</p>` : ''}
+          </article>`).join('')
+      : '<p class="taste-empty">暂无</p>';
+
+    container.innerHTML = `
+      <section class="links-hero">
+        <p class="catalog-kicker">${escapeHtml(kicker)}</p>
+        <h2 class="links-title">${escapeHtml(title)}</h2>
+      </section>
+      <div class="links-list">${entriesHtml}</div>`;
+  }
+
   function linesToList(text) {
     return String(text || '')
       .split('\n')
@@ -851,7 +927,7 @@ const MovieShared = (() => {
     escapeHtml, escapeAttr, renderTags, posterHtml, posterCandidates, resolvePoster, defaultPosterPath, tryPosterFallback, posterImgTag,
     RATING_TIERS, MOVIE_RATING_TIERS, getScore, matchRatingTier, countByTier, groupByTier,
     filterAndSort, calcStats, renderGrid, renderGrouped, renderDetail,
-    renderTastePanel, renderNotesPanel, renderBestPanel, renderSpaceBestPanel, renderSpacePlaceholder,
+    renderTastePanel, renderNotesPanel, renderCodesPanel, renderLinksPanel, renderBestPanel, renderSpaceBestPanel, renderSpacePlaceholder,
     renderSpacePicksPage, renderSpaceRecordsPanel, renderCharactersPanel, bindSpaceItemClicks,
     getBestItems,
     linesToList, listToLines, sha256,
