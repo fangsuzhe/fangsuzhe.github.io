@@ -473,6 +473,26 @@
           "title": "TheIdolBase",
           "url": "https://www.theidolbase.com/",
           "note": "用来搜女优的"
+        },
+        {
+          "id": "link_pornhub",
+          "title": "Pornhub",
+          "url": "https://www.pornhub.com/"
+        },
+        {
+          "id": "link_xvideos",
+          "title": "XVideos",
+          "url": "https://www.xvideos.com/"
+        },
+        {
+          "id": "link_missav",
+          "title": "MissAV",
+          "url": "https://missav.ws/"
+        },
+        {
+          "id": "link_heavy_r",
+          "title": "Heavy-R",
+          "url": "https://heavy-r.com/"
         }
       ]
     }
