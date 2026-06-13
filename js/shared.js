@@ -34,6 +34,16 @@ const MovieShared = (() => {
     return d.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' });
   }
 
+  function formatCount(n) {
+    const num = Number(n);
+    if (!Number.isFinite(num)) return String(n ?? '');
+    if (num >= 10000) {
+      const wan = num / 10000;
+      return wan >= 10 ? `${Math.round(wan)} 万` : `${wan.toFixed(1).replace(/\.0$/, '')} 万`;
+    }
+    return `${num}`;
+  }
+
   function escapeHtml(str) {
     const d = document.createElement('div');
     d.textContent = str;
@@ -470,6 +480,8 @@ const MovieShared = (() => {
       ['心愿单收藏', item.mylistCount != null ? `${item.mylistCount} 人` : ''],
       ['站点评分', item.siteRating],
       ['用户评论', item.reviewCount != null ? `${item.reviewCount} 条` : ''],
+      ['播放量', item.viewCount != null ? formatCount(item.viewCount) : ''],
+      ['收藏', item.favoriteCount != null ? formatCount(item.favoriteCount) : ''],
       ['排泄物榜', item.rankScat != null ? `第 ${item.rankScat} 名` : ''],
       ['总榜', item.rankOverall != null ? `第 ${item.rankOverall} 名` : ''],
     ].filter(([, value]) => value != null && value !== '');
