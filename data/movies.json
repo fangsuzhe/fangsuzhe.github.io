@@ -1,5 +1,17 @@
 [
   {
+    "id": "m_walter_mitty",
+    "createdAt": 1781539200200,
+    "title": "白日梦想家",
+    "director": "本·斯蒂勒",
+    "year": "2013",
+    "watchDate": "2026-06-13",
+    "genre": "冒险, 喜剧, 剧情",
+    "poster": "",
+    "rating": "6.0",
+    "review": ""
+  },
+  {
     "id": "m_still_walking",
     "createdAt": 1781539200100,
     "title": "步履不停",
@@ -3739,7 +3751,7 @@
     "watchDate": "2026-02-22",
     "genre": "剧情, 家庭",
     "poster": "images/movies/m_manchester.webp",
-    "rating": "8.0",
+    "rating": "7.0",
     "review": ""
   },
   {
