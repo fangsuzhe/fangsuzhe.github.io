@@ -5,7 +5,8 @@
   "scripts": {
     "link-posters": "node scripts/link-posters.mjs",
     "compress-posters": "node scripts/compress-posters.mjs",
-    "compress-characters": "node scripts/compress-characters.mjs"
+    "compress-characters": "node scripts/compress-characters.mjs",
+    "gen-movie-ratings": "node scripts/gen_movie_ratings_doc.mjs"
   },
   "devDependencies": {
     "sharp": "^0.34.2"
