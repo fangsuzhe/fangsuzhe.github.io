@@ -22,26 +22,39 @@ const DEFAULT_SPACE_SECTIONS = [
 ];
 
 const HIDDEN_TAB_ID = 'idol';
+const HIDDEN_MOVIE_SUB = 'notes';
 const IDOL_UNLOCK_CLICKS = 15;
+const NOTES_UNLOCK_CLICKS = 10;
 const IDOL_UNLOCK_KEY = 'site-idol-unlocked';
-const IDOL_CLICK_RESET_MS = 1500;
+const NOTES_UNLOCK_KEY = 'site-notes-unlocked';
+const UNLOCK_CLICK_RESET_MS = 1500;
 
 let idolSpaceUnlocked = false;
+let notesUnlocked = false;
 let idolClickCount = 0;
 let idolClickTimer = null;
+let notesClickCount = 0;
+let notesClickTimer = null;
 
-function loadIdolUnlockState() {
+function loadHiddenUnlockState() {
   try {
     // 旧版用 localStorage 永久解锁，迁移后改为仅当前会话有效
     localStorage.removeItem(IDOL_UNLOCK_KEY);
+    localStorage.removeItem(NOTES_UNLOCK_KEY);
     idolSpaceUnlocked = sessionStorage.getItem(IDOL_UNLOCK_KEY) === '1';
+    notesUnlocked = sessionStorage.getItem(NOTES_UNLOCK_KEY) === '1';
   } catch {
     idolSpaceUnlocked = false;
+    notesUnlocked = false;
   }
 }
 
 function isIdolTabHidden(tabId) {
   return tabId === HIDDEN_TAB_ID && !idolSpaceUnlocked;
+}
+
+function isNotesSubHidden(subId) {
+  return subId === HIDDEN_MOVIE_SUB && !notesUnlocked;
 }
 
 function getVisibleTabs() {
@@ -57,17 +70,28 @@ function syncIdolSpaceVisibility() {
     ?.classList.toggle('hidden', !idolSpaceUnlocked);
 }
 
+function syncNotesVisibility() {
+  document.getElementById('subPanelNotes')
+    ?.classList.toggle('hidden', !notesUnlocked);
+}
+
 function unlockIdolSpace() {
   if (idolSpaceUnlocked) return;
   idolSpaceUnlocked = true;
-  try {
-    sessionStorage.setItem(IDOL_UNLOCK_KEY, '1');
-  } catch { /* ignore */ }
+  try { sessionStorage.setItem(IDOL_UNLOCK_KEY, '1'); } catch { /* ignore */ }
   ensureSpaceState();
   buildSpaceItemIndex();
   syncIdolSpaceVisibility();
   renderContentSpaces();
   renderSiteTabs();
+}
+
+function unlockNotes() {
+  if (notesUnlocked) return;
+  notesUnlocked = true;
+  try { sessionStorage.setItem(NOTES_UNLOCK_KEY, '1'); } catch { /* ignore */ }
+  syncNotesVisibility();
+  renderSubTabs('movies');
 }
 
 function setupIdolUnlock() {
@@ -78,11 +102,29 @@ function setupIdolUnlock() {
     if (idolSpaceUnlocked) return;
     idolClickCount += 1;
     clearTimeout(idolClickTimer);
-    idolClickTimer = setTimeout(() => { idolClickCount = 0; }, IDOL_CLICK_RESET_MS);
+    idolClickTimer = setTimeout(() => { idolClickCount = 0; }, UNLOCK_CLICK_RESET_MS);
     if (idolClickCount >= IDOL_UNLOCK_CLICKS) {
       idolClickCount = 0;
       clearTimeout(idolClickTimer);
       unlockIdolSpace();
+    }
+  });
+}
+
+function setupNotesUnlock() {
+  const nav = els.siteTabs;
+  if (!nav || nav.dataset.notesUnlockBound) return;
+  nav.dataset.notesUnlockBound = '1';
+  nav.addEventListener('click', (e) => {
+    const tab = e.target.closest('.site-tab[data-tab="movies"]');
+    if (!tab || notesUnlocked) return;
+    notesClickCount += 1;
+    clearTimeout(notesClickTimer);
+    notesClickTimer = setTimeout(() => { notesClickCount = 0; }, UNLOCK_CLICK_RESET_MS);
+    if (notesClickCount >= NOTES_UNLOCK_CLICKS) {
+      notesClickCount = 0;
+      clearTimeout(notesClickTimer);
+      unlockNotes();
     }
   });
 }
@@ -209,7 +251,8 @@ function buildSpaceItemIndex() {
 function getSections(tabId) {
   if (tabId === 'movies') {
     const sections = getTabConfig('movies')?.sections;
-    return Array.isArray(sections) && sections.length ? sections : DEFAULT_MOVIE_SECTIONS;
+    const list = Array.isArray(sections) && sections.length ? sections : DEFAULT_MOVIE_SECTIONS;
+    return list.filter((s) => !isNotesSubHidden(s.id));
   }
   const space = getSpaceConfig(tabId);
   if (Array.isArray(space.sections) && space.sections.length) return space.sections;
@@ -495,9 +538,10 @@ function openDetail(id) {
 async function init() {
   try {
     await loadPublicData();
-    loadIdolUnlockState();
+    loadHiddenUnlockState();
     ensureSpacePanels();
     syncIdolSpaceVisibility();
+    syncNotesVisibility();
     renderSiteTabs();
     renderTaste();
     renderNotes();
@@ -516,7 +560,7 @@ async function init() {
       activeSubTabs.movies = 'taste';
     } else if (tabFromUrl === 'notes') {
       activeTab = 'movies';
-      activeSubTabs.movies = 'notes';
+      if (notesUnlocked) activeSubTabs.movies = 'notes';
     } else if (tabFromUrl && siteConfig.tabs.some((t) => t.id === tabFromUrl) && !isIdolTabHidden(tabFromUrl)) {
       activeTab = tabFromUrl;
     }
@@ -540,6 +584,7 @@ async function init() {
     renderFilterChips();
     render();
     setupIdolUnlock();
+    setupNotesUnlock();
   } catch (err) {
     els.loading.innerHTML = `
       <div class="empty-icon">⚠️</div>
