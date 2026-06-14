@@ -1,5 +1,17 @@
 [
   {
+    "id": "m_la_la_land",
+    "createdAt": 1781539200300,
+    "title": "爱乐之城",
+    "director": "达米恩·查泽雷",
+    "year": "2016",
+    "watchDate": "2026-06-13",
+    "genre": "爱情, 音乐, 喜剧, 剧情",
+    "poster": "",
+    "rating": "8.0",
+    "review": ""
+  },
+  {
     "id": "m_walter_mitty",
     "createdAt": 1781539200200,
     "title": "白日梦想家",
@@ -32,7 +44,7 @@
     "watchDate": "2026-06-13",
     "genre": "剧情",
     "poster": "",
-    "rating": "8.0",
+    "rating": "7.0",
     "review": ""
   },
   {
@@ -443,7 +455,7 @@
     "watchDate": "2026-05-30",
     "genre": "喜剧, 歌舞, 爱情",
     "poster": "images/movies/m_singing_rain.webp",
-    "rating": "8.0",
+    "rating": "9.0",
     "review": ""
   },
   {
@@ -587,7 +599,7 @@
     "watchDate": "2026-05-26",
     "genre": "动画, 奇幻, 音乐",
     "poster": "images/movies/m_soul.webp",
-    "rating": "7.0",
+    "rating": "6.0",
     "review": ""
   },
   {
@@ -1043,7 +1055,7 @@
     "watchDate": "2026-05-15",
     "genre": "剧情, 爱情",
     "poster": "images/movies/m_lust_caution.webp",
-    "rating": "8.0",
+    "rating": "9.0",
     "bookmark": "很多事对于她来说其实没有意义",
     "review": ""
   },
@@ -1524,7 +1536,7 @@
     "watchDate": "2026-04-21",
     "genre": "剧情, 犯罪, 动画, 悬疑, 惊悚",
     "poster": "images/movies/m_perfect_blue.webp",
-    "rating": "7.0",
+    "rating": "8.0",
     "review": ""
   },
   {
@@ -2440,7 +2452,7 @@
     "watchDate": "2026-03-27",
     "genre": "剧情, 爱情",
     "poster": "images/movies/m_chungking.webp",
-    "rating": "9.0",
+    "rating": "8.0",
     "review": ""
   },
   {
@@ -2476,7 +2488,7 @@
     "watchDate": "2026-03-27",
     "genre": "剧情, 爱情",
     "poster": "images/movies/m_love_letter.webp",
-    "rating": "8.0",
+    "rating": "7.0",
     "review": ""
   },
   {
@@ -3463,7 +3475,7 @@
     "watchDate": "2026-02-22",
     "genre": "剧情, 传记, 历史, 战争",
     "poster": "images/movies/m_hacksaw.webp",
-    "rating": "9.0",
+    "rating": "8.0",
     "review": ""
   },
   {
@@ -3967,7 +3979,7 @@
     "watchDate": "2026-02-22",
     "genre": "剧情",
     "poster": "images/movies/m_silenced.webp",
-    "rating": "8.0",
+    "rating": "7.0",
     "review": ""
   },
   {
