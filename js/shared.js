@@ -205,6 +205,24 @@ const MovieShared = (() => {
     return parseFloat(movie.rating) || 0;
   }
 
+  const DEFAULT_HIDDEN_INDEX = 10000;
+
+  function getHiddenIndex(movie) {
+    const n = Number(movie?.hiddenIndex);
+    return Number.isFinite(n) ? n : DEFAULT_HIDDEN_INDEX;
+  }
+
+  /** 隐藏排序：index 越小越靠前；同 index 时按评分降序 */
+  function compareByPreference(a, b) {
+    const byIndex = getHiddenIndex(a) - getHiddenIndex(b);
+    if (byIndex !== 0) return byIndex;
+    return getScore(b) - getScore(a);
+  }
+
+  function sortByPreference(movies) {
+    return [...movies].sort(compareByPreference);
+  }
+
   function matchRatingTier(movie, tierId) {
     if (!tierId || tierId === 'all') return true;
     const s = getScore(movie);
@@ -239,6 +257,8 @@ const MovieShared = (() => {
     }
 
     list.sort((a, b) => {
+      const byPref = compareByPreference(a, b);
+      if (byPref !== 0) return byPref;
       switch (sort) {
         case 'rating-desc': return getScore(b) - getScore(a);
         case 'rating-asc':  return getScore(a) - getScore(b);
@@ -254,7 +274,7 @@ const MovieShared = (() => {
     return tiers
       .map((tier) => ({
         tier,
-        movies: movies.filter((m) => matchRatingTier(m, tier.id)),
+        movies: sortByPreference(movies.filter((m) => matchRatingTier(m, tier.id))),
       }))
       .filter((g) => g.movies.length > 0);
   }
@@ -944,7 +964,7 @@ const MovieShared = (() => {
   return {
     $, uid, ratingFromSlider, sliderFromRating, ratingColor, formatDate,
     escapeHtml, escapeAttr, renderTags, posterHtml, posterCandidates, resolvePoster, defaultPosterPath, tryPosterFallback, posterImgTag,
-    RATING_TIERS, MOVIE_RATING_TIERS, getScore, matchRatingTier, countByTier, groupByTier,
+    RATING_TIERS, MOVIE_RATING_TIERS, DEFAULT_HIDDEN_INDEX, getHiddenIndex, getScore, matchRatingTier, countByTier, groupByTier,
     filterAndSort, calcStats, renderGrid, renderGrouped, renderDetail,
     renderTastePanel, renderNotesPanel, renderCodesPanel, renderLinksPanel, renderBestPanel, renderSpaceBestPanel, renderSpacePlaceholder,
     renderSpacePicksPage, renderSpaceRecordsPanel, renderCharactersPanel, bindSpaceItemClicks,

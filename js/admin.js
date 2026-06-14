@@ -3,6 +3,7 @@
 const {
   $, uid, ratingFromSlider, sliderFromRating,
   filterAndSort, calcStats, renderGrid, renderDetail, sha256,
+  DEFAULT_HIDDEN_INDEX,
   linesToList, listToLines,
 } = MovieShared;
 
@@ -397,7 +398,7 @@ function handleSubmit(e) {
       movies[idx] = { ...rest, ...data };
     }
   } else {
-    movies.unshift({ id: uid(), createdAt: Date.now(), ...data });
+    movies.unshift({ id: uid(), createdAt: Date.now(), hiddenIndex: DEFAULT_HIDDEN_INDEX, ...data });
   }
 
   closeModal();
@@ -432,6 +433,7 @@ function importData(file) {
       movies = data.map((m) => ({
         id: m.id || uid(),
         createdAt: m.createdAt || Date.now(),
+        hiddenIndex: Number.isFinite(Number(m.hiddenIndex)) ? Number(m.hiddenIndex) : DEFAULT_HIDDEN_INDEX,
         title: m.title,
         director: m.director || '',
         year: m.year || '',
