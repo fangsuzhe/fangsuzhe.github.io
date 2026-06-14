@@ -212,11 +212,11 @@ const MovieShared = (() => {
     return Number.isFinite(n) ? n : DEFAULT_HIDDEN_INDEX;
   }
 
-  /** 隐藏排序：index 越小越靠前；同 index 时按评分降序 */
+  /** 先按评分降序，同分再按 hiddenIndex 升序（越小越靠前） */
   function compareByPreference(a, b) {
-    const byIndex = getHiddenIndex(a) - getHiddenIndex(b);
-    if (byIndex !== 0) return byIndex;
-    return getScore(b) - getScore(a);
+    const byScore = getScore(b) - getScore(a);
+    if (byScore !== 0) return byScore;
+    return getHiddenIndex(a) - getHiddenIndex(b);
   }
 
   function sortByPreference(movies) {
@@ -257,13 +257,24 @@ const MovieShared = (() => {
     }
 
     list.sort((a, b) => {
-      const byPref = compareByPreference(a, b);
-      if (byPref !== 0) return byPref;
       switch (sort) {
-        case 'rating-desc': return getScore(b) - getScore(a);
-        case 'rating-asc':  return getScore(a) - getScore(b);
-        case 'title-asc':   return a.title.localeCompare(b.title, 'zh-CN');
-        default:            return b.createdAt - a.createdAt;
+        case 'rating-desc':
+          return compareByPreference(a, b);
+        case 'rating-asc': {
+          const byScore = getScore(a) - getScore(b);
+          if (byScore !== 0) return byScore;
+          return getHiddenIndex(a) - getHiddenIndex(b);
+        }
+        case 'title-asc': {
+          const byTitle = a.title.localeCompare(b.title, 'zh-CN');
+          if (byTitle !== 0) return byTitle;
+          return compareByPreference(a, b);
+        }
+        default: {
+          const byDate = b.createdAt - a.createdAt;
+          if (byDate !== 0) return byDate;
+          return compareByPreference(a, b);
+        }
       }
     });
 
