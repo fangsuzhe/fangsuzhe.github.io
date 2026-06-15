@@ -275,6 +275,30 @@
             "相信",
             "无与伦比的美丽"
           ]
+        },
+        {
+          "id": "mu_queen",
+          "title": "皇后乐队",
+          "artist": "Queen",
+          "rating": "9.0"
+        },
+        {
+          "id": "mu_celine_dion",
+          "title": "席琳迪翁",
+          "artist": "Celine Dion",
+          "rating": "10.0"
+        },
+        {
+          "id": "mu_david_tao",
+          "title": "陶喆",
+          "artist": "陶喆",
+          "rating": "9.0"
+        },
+        {
+          "id": "mu_jay_chou",
+          "title": "周杰伦",
+          "artist": "周杰伦",
+          "rating": "9.0"
         }
       ],
       "best": [
