@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>hiddenIndex 排序 · 最少比较</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d0f14;
+      --card: #161a22;
+      --border: rgba(255,255,255,.08);
+      --text: #e8eaef;
+      --muted: #8b93a7;
+      --accent: #c9a227;
+      --accent-dim: rgba(201,162,39,.15);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Noto Sans SC', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+    .wrap { max-width: 960px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+    h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: .35rem; }
+    .sub { color: var(--muted); font-size: .9rem; margin-bottom: 1.5rem; }
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+    }
+    .panel h2 { font-size: .95rem; color: var(--muted); margin-bottom: .75rem; font-weight: 500; }
+    .row { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; }
+    label { display: flex; flex-direction: column; gap: .35rem; font-size: .85rem; color: var(--muted); }
+    select, button, input[type=file] {
+      font: inherit;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #1e2430;
+      color: var(--text);
+      padding: .55rem .85rem;
+    }
+    button {
+      cursor: pointer;
+      background: var(--accent-dim);
+      border-color: rgba(201,162,39,.35);
+      color: var(--accent);
+      font-weight: 500;
+    }
+    button:hover { filter: brightness(1.08); }
+    button:disabled { opacity: .45; cursor: not-allowed; }
+    button.primary { background: var(--accent); color: #111; border-color: transparent; }
+    .stats { display: flex; gap: 1.25rem; flex-wrap: wrap; font-size: .85rem; color: var(--muted); }
+    .stats strong { color: var(--text); }
+    .compare-area { display: none; }
+    .compare-area.active { display: block; }
+    .prompt {
+      text-align: center;
+      margin-bottom: 1rem;
+      font-size: 1.05rem;
+    }
+    .prompt em { color: var(--accent); font-style: normal; }
+    .cards {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 1rem;
+      align-items: stretch;
+    }
+    @media (max-width: 640px) {
+      .cards { grid-template-columns: 1fr; }
+      .vs { transform: rotate(90deg); margin: 0 auto; }
+    }
+    .vs {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: .85rem;
+      font-weight: 700;
+    }
+    .pick-card {
+      background: #1a1f2a;
+      border: 2px solid var(--border);
+      border-radius: 14px;
+      padding: 1rem;
+      cursor: pointer;
+      transition: border-color .15s, transform .15s, box-shadow .15s;
+      text-align: left;
+      width: 100%;
+      color: inherit;
+      font: inherit;
+    }
+    .pick-card:hover, .pick-card:focus-visible {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,.35);
+      outline: none;
+    }
+    .pick-card .poster {
+      width: 100%;
+      aspect-ratio: 2/3;
+      object-fit: cover;
+      border-radius: 8px;
+      background: #111;
+      margin-bottom: .75rem;
+    }
+    .pick-card .placeholder {
+      width: 100%;
+      aspect-ratio: 2/3;
+      border-radius: 8px;
+      background: #111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      margin-bottom: .75rem;
+    }
+    .pick-card .title { font-size: 1.1rem; font-weight: 700; margin-bottom: .25rem; }
+    .pick-card .meta { font-size: .82rem; color: var(--muted); }
+    .pick-card .hint {
+      margin-top: .75rem;
+      font-size: .78rem;
+      color: var(--accent);
+      opacity: .85;
+    }
+    .progress-bar {
+      height: 6px;
+      background: #222;
+      border-radius: 3px;
+      overflow: hidden;
+      margin-top: .75rem;
+    }
+    .progress-bar > div {
+      height: 100%;
+      background: var(--accent);
+      width: 0%;
+      transition: width .25s;
+    }
+    .done-area { display: none; }
+    .done-area.active { display: block; }
+    .rank-list {
+      max-height: 320px;
+      overflow: auto;
+      font-size: .88rem;
+    }
+    .rank-list li {
+      display: flex;
+      gap: .75rem;
+      padding: .45rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .rank-list .idx { color: var(--accent); min-width: 2rem; font-weight: 700; }
+    .hidden { display: none !important; }
+    .kbd { font-size: .75rem; color: var(--muted); text-align: center; margin-top: .75rem; }
+    kbd {
+      background: #222;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: .1rem .35rem;
+      font-family: inherit;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>hiddenIndex 排序助手</h1>
+    <p class="sub">同分电影两两比较，点选更靠前的一部。使用归并排序，比较次数约 <em>n·log₂n</em>（接近理论最少）。</p>
+
+    <div class="panel" id="setupPanel">
+      <h2>1. 加载数据</h2>
+      <div class="row">
+        <label>
+          选择 movies.json
+          <input type="file" id="fileInput" accept=".json,application/json">
+        </label>
+        <button type="button" id="btnLoadRemote">从本站加载</button>
+      </div>
+      <p class="sub" style="margin: .75rem 0 0" id="loadStatus">尚未加载</p>
+    </div>
+
+    <div class="panel hidden" id="tierPanel">
+      <h2>2. 选择要排序的评分档</h2>
+      <div class="row">
+        <label>
+          评分（同分内 hiddenIndex 越小越靠前）
+          <select id="tierSelect"></select>
+        </label>
+        <button type="button" class="primary" id="btnStart">开始排序</button>
+      </div>
+      <p class="sub" style="margin-top: .75rem" id="tierHint"></p>
+    </div>
+
+    <div class="panel compare-area" id="comparePanel">
+      <div class="stats">
+        <span>已比较 <strong id="statDone">0</strong> 次</span>
+        <span>预计还需约 <strong id="statRemain">0</strong> 次</span>
+        <span>本档共 <strong id="statTotal">0</strong> 部</span>
+      </div>
+      <div class="progress-bar"><div id="progressFill"></div></div>
+      <p class="prompt" style="margin-top: 1.25rem">哪一部应该排在<em>更前面</em>？</p>
+      <div class="cards">
+        <button type="button" class="pick-card" id="pickA" data-side="a">
+          <div class="placeholder" id="posterA">🎬</div>
+          <div class="title" id="titleA"></div>
+          <div class="meta" id="metaA"></div>
+          <div class="hint">点击选这部 · 快捷键 <kbd>1</kbd> 或 <kbd>←</kbd></div>
+        </button>
+        <div class="vs">VS</div>
+        <button type="button" class="pick-card" id="pickB" data-side="b">
+          <div class="placeholder" id="posterB">🎬</div>
+          <div class="title" id="titleB"></div>
+          <div class="meta" id="metaB"></div>
+          <div class="hint">点击选这部 · 快捷键 <kbd>2</kbd> 或 <kbd>→</kbd></div>
+        </button>
+      </div>
+      <p class="kbd">按 <kbd>Esc</kbd> 取消本次排序</p>
+    </div>
+
+    <div class="panel done-area" id="donePanel">
+      <h2>排序完成</h2>
+      <div class="stats" style="margin-bottom: .75rem">
+        <span>共比较 <strong id="finalCount">0</strong> 次</span>
+        <span>理论下限约 <strong id="finalMin">0</strong> 次</span>
+      </div>
+      <ol class="rank-list" id="rankList"></ol>
+      <div class="row" style="margin-top: 1rem">
+        <button type="button" class="primary" id="btnDownload">下载更新后的 movies.json</button>
+        <button type="button" id="btnAnother">排序另一档</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const DEFAULT_HIDDEN_INDEX = 10000;
+
+    let movies = [];
+    let tierMovies = [];
+    let tierRating = '';
+    let compareCount = 0;
+    let estimatedTotal = 0;
+    let resolveCompare = null;
+    let sorting = false;
+
+    const $ = (id) => document.getElementById(id);
+
+    function getScore(m) {
+      return parseFloat(m.rating) || 0;
+    }
+
+    function getHiddenIndex(m) {
+      const n = Number(m?.hiddenIndex);
+      return Number.isFinite(n) ? n : DEFAULT_HIDDEN_INDEX;
+    }
+
+    const POSTER_DIRS = [
+      ['m_', 'images/movies/'],
+      ['d_', 'images/drama/'],
+      ['a_', 'images/anime/'],
+      ['t_', 'images/text/'],
+      ['mu_', 'images/music/'],
+    ];
+    const POSTER_EXT = ['webp', 'jpg', 'jpeg', 'png'];
+
+    function posterCandidates(m) {
+      const explicit = String(m.poster || '').trim();
+      if (explicit) return [explicit];
+      if (!m.id) return [];
+      const dir = POSTER_DIRS.find(([p]) => m.id.startsWith(p))?.[1];
+      if (!dir) return [];
+      return POSTER_EXT.map((ext) => `${dir}${m.id}.${ext}`);
+    }
+
+    function setPoster(el, m) {
+      const urls = posterCandidates(m);
+      el.innerHTML = '';
+      if (!urls.length) {
+        el.className = 'placeholder';
+        el.textContent = '🎬';
+        return;
+      }
+      let i = 0;
+      const img = document.createElement('img');
+      img.className = 'poster';
+      img.alt = m.title || '';
+      img.onerror = () => {
+        i += 1;
+        if (i < urls.length) img.src = urls[i];
+        else {
+          el.className = 'placeholder';
+          el.textContent = '🎬';
+        }
+      };
+      el.className = '';
+      el.appendChild(img);
+      img.src = urls[0];
+    }
+
+    /** 若已有 hiddenIndex 能判定先后，返回 'a' | 'b'；否则 null 需人工 */
+    function knownWinner(a, b) {
+      const ha = getHiddenIndex(a);
+      const hb = getHiddenIndex(b);
+      const aSet = ha !== DEFAULT_HIDDEN_INDEX;
+      const bSet = hb !== DEFAULT_HIDDEN_INDEX;
+      if (aSet && bSet && ha !== hb) return ha < hb ? 'a' : 'b';
+      if (aSet && !bSet) return 'a';
+      if (!aSet && bSet) return 'b';
+      return null;
+    }
+
+    function mergeSortEstimate(n) {
+      if (n <= 1) return 0;
+      const k = Math.ceil(Math.log2(n));
+      return n * k - (2 ** k) + 1;
+    }
+
+    function lowerBoundEstimate(n) {
+      if (n <= 1) return 0;
+      let s = 0;
+      for (let i = 2; i <= n; i++) s += Math.ceil(Math.log2(i));
+      return s;
+    }
+
+    function showCompare(a, b) {
+      setPoster($('posterA'), a);
+      setPoster($('posterB'), b);
+      $('titleA').textContent = a.title || '(无标题)';
+      $('titleB').textContent = b.title || '(无标题)';
+      $('metaA').textContent = [a.director, a.year].filter(Boolean).join(' · ') || '—';
+      $('metaB').textContent = [b.director, b.year].filter(Boolean).join(' · ') || '—';
+    }
+
+    function updateStats() {
+      $('statDone').textContent = compareCount;
+      $('statRemain').textContent = Math.max(0, estimatedTotal - compareCount);
+      $('statTotal').textContent = tierMovies.length;
+      const pct = estimatedTotal ? Math.min(100, (compareCount / estimatedTotal) * 100) : 0;
+      $('progressFill').style.width = pct + '%';
+    }
+
+    function askUser(a, b) {
+      const known = knownWinner(a, b);
+      if (known) {
+        compareCount++;
+        updateStats();
+        return Promise.resolve(known);
+      }
+      return new Promise((resolve) => {
+        resolveCompare = resolve;
+        showCompare(a, b);
+      });
+    }
+
+    function pick(side) {
+      if (!resolveCompare) return;
+      compareCount++;
+      updateStats();
+      const fn = resolveCompare;
+      resolveCompare = null;
+      fn(side);
+    }
+
+    async function mergeSort(items) {
+      if (items.length <= 1) return items.slice();
+      const mid = Math.floor(items.length / 2);
+      const left = await mergeSort(items.slice(0, mid));
+      const right = await mergeSort(items.slice(mid));
+      return mergeLists(left, right);
+    }
+
+    async function mergeLists(left, right) {
+      const out = [];
+      let i = 0;
+      let j = 0;
+      while (i < left.length && j < right.length) {
+        if (!sorting) throw new Error('cancelled');
+        const winner = await askUser(left[i], right[j]);
+        if (winner === 'a') out.push(left[i++]);
+        else out.push(right[j++]);
+      }
+      return out.concat(left.slice(i), right.slice(j));
+    }
+
+    function groupByRating() {
+      const map = new Map();
+      for (const m of movies) {
+        const s = getScore(m).toFixed(1);
+        if (!map.has(s)) map.set(s, []);
+        map.get(s).push(m);
+      }
+      return map;
+    }
+
+    function fillTierSelect() {
+      const sel = $('tierSelect');
+      sel.innerHTML = '';
+      const groups = groupByRating();
+      const scores = [...groups.keys()].sort((a, b) => parseFloat(b) - parseFloat(a));
+      for (const s of scores) {
+        const list = groups.get(s);
+        if (list.length < 2) continue;
+        const opt = document.createElement('option');
+        opt.value = s;
+        opt.textContent = `${s} 分 · ${list.length} 部`;
+        sel.appendChild(opt);
+      }
+      refreshTierHint();
+    }
+
+    function refreshTierHint() {
+      const s = $('tierSelect').value;
+      if (!s) {
+        $('tierHint').textContent = '没有需要同分排序的档位（每档至少 2 部）。';
+        $('btnStart').disabled = true;
+        return;
+      }
+      const n = groupByRating().get(s).length;
+      const est = mergeSortEstimate(n);
+      const skipped = groupByRating().get(s).filter((m) => getHiddenIndex(m) !== DEFAULT_HIDDEN_INDEX).length;
+      $('tierHint').textContent =
+        `本档 ${n} 部，预计约 ${est} 次比较` +
+        (skipped ? `（其中 ${skipped} 部已有 hiddenIndex，可自动跳过部分比较）` : '') +
+        '。';
+      $('btnStart').disabled = false;
+    }
+
+    function applyHiddenIndices(sorted) {
+      sorted.forEach((m, i) => {
+        const idx = movies.findIndex((x) => x.id === m.id);
+        if (idx !== -1) movies[idx].hiddenIndex = i + 1;
+      });
+    }
+
+    function showDone(sorted) {
+      $('comparePanel').classList.remove('active');
+      $('donePanel').classList.add('active');
+      $('finalCount').textContent = compareCount;
+      $('finalMin').textContent = lowerBoundEstimate(sorted.length);
+      const ol = $('rankList');
+      ol.innerHTML = sorted
+        .map(
+          (m, i) =>
+            `<li><span class="idx">${i + 1}</span><span>${escapeHtml(m.title)}<span style="color:var(--muted)"> · hiddenIndex=${i + 1}</span></span></li>`
+        )
+        .join('');
+    }
+
+    function escapeHtml(s) {
+      return String(s)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    }
+
+    function downloadJson() {
+      const blob = new Blob([JSON.stringify(movies, null, 2) + '\n'], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'movies.json';
+      a.click();
+      URL.revokeObjectURL(a.href);
+    }
+
+    function onMoviesLoaded() {
+      $('loadStatus').textContent = `已加载 ${movies.length} 条记录`;
+      $('tierPanel').classList.remove('hidden');
+      fillTierSelect();
+    }
+
+    async function loadRemote() {
+      try {
+        const res = await fetch('data/movies.json');
+        if (!res.ok) throw new Error(res.statusText);
+        movies = await res.json();
+        onMoviesLoaded();
+      } catch (e) {
+        alert('加载失败：请用本地服务器打开此页，或用手动选择文件。\n' + e.message);
+      }
+    }
+
+    $('fileInput').addEventListener('change', (e) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          movies = JSON.parse(reader.result);
+          if (!Array.isArray(movies)) throw new Error('不是数组');
+          onMoviesLoaded();
+        } catch {
+          alert('JSON 解析失败');
+        }
+      };
+      reader.readAsText(file, 'utf-8');
+    });
+
+    $('btnLoadRemote').addEventListener('click', loadRemote);
+    $('tierSelect').addEventListener('change', refreshTierHint);
+
+    $('btnStart').addEventListener('click', async () => {
+      tierRating = $('tierSelect').value;
+      if (!tierRating) return;
+      tierMovies = groupByRating().get(tierRating).slice();
+      compareCount = 0;
+      estimatedTotal = mergeSortEstimate(tierMovies.length);
+      sorting = true;
+
+      $('setupPanel').classList.add('hidden');
+      $('tierPanel').classList.add('hidden');
+      $('donePanel').classList.remove('active');
+      $('comparePanel').classList.add('active');
+      updateStats();
+
+      try {
+        const sorted = await mergeSort(tierMovies);
+        applyHiddenIndices(sorted);
+        sorting = false;
+        showDone(sorted);
+      } catch {
+        sorting = false;
+        $('comparePanel').classList.remove('active');
+        $('setupPanel').classList.remove('hidden');
+        $('tierPanel').classList.remove('hidden');
+      }
+    });
+
+    $('pickA').addEventListener('click', () => pick('a'));
+    $('pickB').addEventListener('click', () => pick('b'));
+
+    $('btnDownload').addEventListener('click', downloadJson);
+    $('btnAnother').addEventListener('click', () => {
+      $('donePanel').classList.remove('active');
+      $('setupPanel').classList.remove('hidden');
+      $('tierPanel').classList.remove('hidden');
+      fillTierSelect();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (!resolveCompare) {
+        if (e.key === 'Escape' && sorting) {
+          sorting = false;
+          if (resolveCompare) resolveCompare = null;
+        }
+        return;
+      }
+      if (e.key === '1' || e.key === 'ArrowLeft') { e.preventDefault(); pick('a'); }
+      if (e.key === '2' || e.key === 'ArrowRight') { e.preventDefault(); pick('b'); }
+      if (e.key === 'Escape') {
+        sorting = false;
+        resolveCompare = null;
+        $('comparePanel').classList.remove('active');
+        $('setupPanel').classList.remove('hidden');
+        $('tierPanel').classList.remove('hidden');
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,5 +1,18 @@
 [
   {
+    "id": "m_green_snake",
+    "createdAt": 1781539200700,
+    "title": "青蛇",
+    "director": "徐克",
+    "year": "1993",
+    "watchDate": "2026-06-14",
+    "genre": "奇幻, 爱情, 剧情",
+    "poster": "",
+    "rating": "9.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_bohemian_rhapsody",
     "createdAt": 1781539200600,
     "title": "波西米亚狂想曲",
