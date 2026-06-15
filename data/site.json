@@ -67,7 +67,8 @@
       "sections": [
         { "id": "records", "label": "记录" },
         { "id": "best", "label": "最" },
-        { "id": "characters", "label": "喜欢的角色" }
+        { "id": "characters", "label": "喜欢的角色" },
+        { "id": "r18", "label": "R18" }
       ],
       "items": [
         { "id": "a_chainsaw", "title": "炎拳", "rating": "10.0" },
@@ -185,7 +186,19 @@
       "best": {
         "author": { "name": "藤本树" },
         "items": [{ "id": "a_chainsaw" }]
-      }
+      },
+      "doujins": [
+        {
+          "id": "dj_overfifty2",
+          "title": "俺の彼女は OverFifty -愛していると言っとくれ-",
+          "author": "ぜんまいこうろぎ",
+          "series": "俺の彼女は OverFifty（续作）",
+          "source": "DLsite 同人 – R18",
+          "pages": "50页（全彩）",
+          "category": "年增女教师",
+          "synopsis": "「俺の彼女は OverFifty」的续作。马场君虽不情愿(?)，却正与淫乱年增爆乳英语女教师牛岛龙子交往。心想「和五十多岁的阿姨交往真的好吗？」，最近却好像慢慢接受了。另一方面，牛岛老师超喜欢性欲绝伦的马场君！今天两人也还在学校里疯狂交尾。"
+        }
+      ]
     },
     "text": {
       "kicker": "Text Space",

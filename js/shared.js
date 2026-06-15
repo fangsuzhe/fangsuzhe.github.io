@@ -75,6 +75,7 @@ const MovieShared = (() => {
     ['mu_', 'images/music/'],
     ['ac_', 'images/idol/'],
     ['code_', 'images/porn/'],
+    ['dj_', 'images/doujin/'],
   ];
 
   function posterDirForId(id) {
@@ -557,6 +558,61 @@ const MovieShared = (() => {
       <div class="codes-list">${entriesHtml}</div>`;
   }
 
+  function renderDoujinMetaRows(item) {
+    const rows = [
+      ['系列', item.series],
+      ['作者', item.author],
+      ['来源', item.source],
+      ['页数', item.pages],
+      ['分类', item.category],
+    ].filter(([, value]) => value != null && value !== '');
+
+    const metaHtml = rows.map(([label, value]) => `
+      <div class="code-meta-row">
+        <span class="code-meta-label">${escapeHtml(label)}</span>
+        <span class="code-meta-value">${escapeHtml(String(value))}</span>
+      </div>`).join('');
+
+    const synopsis = String(item.synopsis || '').trim();
+    const synopsisHtml = synopsis
+      ? `<div class="doujin-synopsis"><span class="code-meta-label">简介</span><p>${escapeHtml(synopsis)}</p></div>`
+      : '';
+
+    return metaHtml + synopsisHtml;
+  }
+
+  function renderDoujinPanel(container, options = {}) {
+    if (!container) return;
+    const { doujins = [], kicker = 'Anime Space', title = 'R18' } = options;
+    const list = Array.isArray(doujins) ? doujins : [];
+
+    const entriesHtml = list.length
+      ? list.map((item, i) => {
+          const poster = resolvePoster(item);
+          return `
+          <article class="code-entry${poster ? ' code-entry--has-poster' : ''}" style="animation-delay:${Math.min(i * 0.05, 0.35)}s">
+            ${poster ? `<div class="code-entry-poster">${posterHtml(item, 'code-entry-poster-img')}</div>` : ''}
+            <div class="code-entry-body">
+              <div class="code-entry-head">
+                <div>
+                  <h3 class="code-entry-title">${escapeHtml(item.title || '未命名')}</h3>
+                </div>
+                ${item.rating ? `<span class="code-entry-rating">${escapeHtml(item.rating)}</span>` : ''}
+              </div>
+              <div class="code-meta">${renderDoujinMetaRows(item)}</div>
+            </div>
+          </article>`;
+        }).join('')
+      : '<p class="taste-empty">暂无</p>';
+
+    container.innerHTML = `
+      <section class="codes-hero">
+        <p class="catalog-kicker">${escapeHtml(kicker)}</p>
+        <h2 class="codes-title">${escapeHtml(title)}</h2>
+      </section>
+      <div class="codes-list">${entriesHtml}</div>`;
+  }
+
   function renderLinksPanel(container, options = {}) {
     if (!container) return;
     const { links = [], kicker = 'Idol Space', title = '网址记录' } = options;
@@ -977,7 +1033,7 @@ const MovieShared = (() => {
     escapeHtml, escapeAttr, renderTags, posterHtml, posterCandidates, resolvePoster, defaultPosterPath, tryPosterFallback, posterImgTag,
     RATING_TIERS, MOVIE_RATING_TIERS, DEFAULT_HIDDEN_INDEX, getHiddenIndex, getScore, matchRatingTier, countByTier, groupByTier,
     filterAndSort, calcStats, renderGrid, renderGrouped, renderDetail,
-    renderTastePanel, renderNotesPanel, renderCodesPanel, renderLinksPanel, renderBestPanel, renderSpaceBestPanel, renderSpacePlaceholder,
+    renderTastePanel, renderNotesPanel, renderCodesPanel, renderDoujinPanel, renderLinksPanel, renderBestPanel, renderSpaceBestPanel, renderSpacePlaceholder,
     renderSpacePicksPage, renderSpaceRecordsPanel, renderCharactersPanel, bindSpaceItemClicks,
     getBestItems,
     linesToList, listToLines, sha256,

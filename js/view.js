@@ -7,6 +7,7 @@ const {
   renderCharactersPanel,
   renderNotesPanel,
   renderCodesPanel,
+  renderDoujinPanel,
   renderLinksPanel,
   getBestItems,
 } = MovieShared;
@@ -25,29 +26,38 @@ const DEFAULT_SPACE_SECTIONS = [
 
 const HIDDEN_TAB_ID = 'idol';
 const HIDDEN_MOVIE_SUB = 'notes';
+const HIDDEN_ANIME_SUB = 'r18';
 const IDOL_UNLOCK_CLICKS = 15;
 const NOTES_UNLOCK_CLICKS = 10;
+const ANIME_R18_UNLOCK_CLICKS = 10;
 const IDOL_UNLOCK_KEY = 'site-idol-unlocked';
 const NOTES_UNLOCK_KEY = 'site-notes-unlocked';
+const ANIME_R18_UNLOCK_KEY = 'site-anime-r18-unlocked';
 const UNLOCK_CLICK_RESET_MS = 1500;
 
 let idolSpaceUnlocked = false;
 let notesUnlocked = false;
+let animeR18Unlocked = false;
 let idolClickCount = 0;
 let idolClickTimer = null;
 let notesClickCount = 0;
 let notesClickTimer = null;
+let animeR18ClickCount = 0;
+let animeR18ClickTimer = null;
 
 function loadHiddenUnlockState() {
   try {
     // 旧版用 localStorage 永久解锁，迁移后改为仅当前会话有效
     localStorage.removeItem(IDOL_UNLOCK_KEY);
     localStorage.removeItem(NOTES_UNLOCK_KEY);
+    localStorage.removeItem(ANIME_R18_UNLOCK_KEY);
     idolSpaceUnlocked = sessionStorage.getItem(IDOL_UNLOCK_KEY) === '1';
     notesUnlocked = sessionStorage.getItem(NOTES_UNLOCK_KEY) === '1';
+    animeR18Unlocked = sessionStorage.getItem(ANIME_R18_UNLOCK_KEY) === '1';
   } catch {
     idolSpaceUnlocked = false;
     notesUnlocked = false;
+    animeR18Unlocked = false;
   }
 }
 
@@ -57,6 +67,16 @@ function isIdolTabHidden(tabId) {
 
 function isNotesSubHidden(subId) {
   return subId === HIDDEN_MOVIE_SUB && !notesUnlocked;
+}
+
+function isAnimeR18SubHidden(subId) {
+  return subId === HIDDEN_ANIME_SUB && !animeR18Unlocked;
+}
+
+function isSpaceSubHidden(spaceId, subId) {
+  if (spaceId === 'movies') return isNotesSubHidden(subId);
+  if (spaceId === 'anime') return isAnimeR18SubHidden(subId);
+  return false;
 }
 
 function getVisibleTabs() {
@@ -77,6 +97,11 @@ function syncNotesVisibility() {
     ?.classList.toggle('hidden', !notesUnlocked);
 }
 
+function syncAnimeR18Visibility() {
+  document.getElementById('subPanelAnimeR18')
+    ?.classList.toggle('hidden', !animeR18Unlocked);
+}
+
 function unlockIdolSpace() {
   if (idolSpaceUnlocked) return;
   idolSpaceUnlocked = true;
@@ -94,6 +119,15 @@ function unlockNotes() {
   try { sessionStorage.setItem(NOTES_UNLOCK_KEY, '1'); } catch { /* ignore */ }
   syncNotesVisibility();
   renderSubTabs('movies');
+}
+
+function unlockAnimeR18() {
+  if (animeR18Unlocked) return;
+  animeR18Unlocked = true;
+  try { sessionStorage.setItem(ANIME_R18_UNLOCK_KEY, '1'); } catch { /* ignore */ }
+  syncAnimeR18Visibility();
+  renderSubTabs('anime');
+  renderContentSpaces();
 }
 
 function setupIdolUnlock() {
@@ -127,6 +161,24 @@ function setupNotesUnlock() {
       notesClickCount = 0;
       clearTimeout(notesClickTimer);
       unlockNotes();
+    }
+  });
+}
+
+function setupAnimeR18Unlock() {
+  const nav = els.siteTabs;
+  if (!nav || nav.dataset.animeR18UnlockBound) return;
+  nav.dataset.animeR18UnlockBound = '1';
+  nav.addEventListener('click', (e) => {
+    const tab = e.target.closest('.site-tab[data-tab="anime"]');
+    if (!tab || animeR18Unlocked) return;
+    animeR18ClickCount += 1;
+    clearTimeout(animeR18ClickTimer);
+    animeR18ClickTimer = setTimeout(() => { animeR18ClickCount = 0; }, UNLOCK_CLICK_RESET_MS);
+    if (animeR18ClickCount >= ANIME_R18_UNLOCK_CLICKS) {
+      animeR18ClickCount = 0;
+      clearTimeout(animeR18ClickTimer);
+      unlockAnimeR18();
     }
   });
 }
@@ -243,6 +295,12 @@ function ensureSpacePanels() {
         <div class="page-content links-page" id="${spaceId}_links"></div>
       </div>`;
     }
+    if (sections.some((s) => s.id === 'r18')) {
+      panel.innerHTML += `
+      <div class="sub-panel hidden" data-space="${spaceId}" data-sub="r18" id="${spaceId}_r18_panel">
+        <div class="page-content codes-page" id="${spaceId}_r18"></div>
+      </div>`;
+    }
     main.appendChild(panel);
   });
 
@@ -269,7 +327,9 @@ function getSections(tabId) {
     return list.filter((s) => !isNotesSubHidden(s.id));
   }
   const space = getSpaceConfig(tabId);
-  if (Array.isArray(space.sections) && space.sections.length) return space.sections;
+  if (Array.isArray(space.sections) && space.sections.length) {
+    return space.sections.filter((s) => !isSpaceSubHidden(tabId, s.id));
+  }
   return DEFAULT_SPACE_SECTIONS;
 }
 
@@ -479,6 +539,14 @@ function renderContentSpaces() {
         kicker,
       });
     }
+
+    if (space.doujins?.length || getSections(spaceId).some((s) => s.id === 'r18')) {
+      renderDoujinPanel($(`#${spaceId}_r18`), {
+        doujins: space.doujins || [],
+        kicker,
+        title: 'R18',
+      });
+    }
   });
 }
 
@@ -570,6 +638,7 @@ async function init() {
     ensureSpacePanels();
     syncIdolSpaceVisibility();
     syncNotesVisibility();
+    syncAnimeR18Visibility();
     renderSiteTabs();
     renderTaste();
     renderNotes();
@@ -589,6 +658,9 @@ async function init() {
     } else if (tabFromUrl === 'notes') {
       activeTab = 'movies';
       if (notesUnlocked) activeSubTabs.movies = 'notes';
+    } else if (subFromUrl === 'r18' && tabFromUrl === 'anime') {
+      activeTab = 'anime';
+      if (animeR18Unlocked) activeSubTabs.anime = 'r18';
     } else if (tabFromUrl && siteConfig.tabs.some((t) => t.id === tabFromUrl) && !isIdolTabHidden(tabFromUrl)) {
       activeTab = tabFromUrl;
     }
@@ -613,6 +685,7 @@ async function init() {
     render();
     setupIdolUnlock();
     setupNotesUnlock();
+    setupAnimeR18Unlock();
   } catch (err) {
     els.loading.innerHTML = `
       <div class="empty-icon">⚠️</div>

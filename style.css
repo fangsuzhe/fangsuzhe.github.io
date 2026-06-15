@@ -1760,6 +1760,27 @@ body {
   color: var(--text);
 }
 
+.doujin-synopsis {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border);
+}
+
+.doujin-synopsis .code-meta-label {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.doujin-synopsis p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--text);
+  white-space: pre-wrap;
+}
+
 /* Idol links / 网址记录 */
 .links-page {
   animation: fadeUp 0.45s ease both;
