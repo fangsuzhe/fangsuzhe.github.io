@@ -314,6 +314,7 @@
         { "id": "ac_aizawa_akari", "title": "愛沢あかり", "rating": "10.0" },
         { "id": "ac_radislava_bon", "title": "Radislava Bon", "rating": "10.0" },
         { "id": "ac_arisawa_misa", "title": "有泽实纱", "rating": "10.0" },
+        { "id": "ac_jogasaki_momose", "title": "城ヶ崎百瀬", "rating": "10.0" },
         { "id": "ac_hatano", "title": "波多野结衣", "rating": "9.0" },
         { "id": "ac_haruhara", "title": "春原未来", "rating": "9.0" },
         { "id": "ac_mitani", "title": "美谷朱里", "rating": "9.0" },
@@ -400,6 +401,18 @@
         { "id": "ac_miho", "title": "北条麻妃", "rating": "10.0" }
       ],
       "codes": [
+        {
+          "id": "code_jur560",
+          "title": "温泉之旅失控让岳母怀孕",
+          "code": "JUR-560",
+          "workId": "jur00560",
+          "cast": ["城ヶ崎百瀬"],
+          "maker": "MADONNA",
+          "label": "MADONNA",
+          "series": "不能告诉妻子我让岳母怀孕了……两天一夜温泉之旅中失去控制",
+          "category": "成人 > 人妻、岳母、温泉、中出、不伦",
+          "releaseDate": "2025-11-25"
+        },
         {
           "id": "code_pfes017",
           "title": "八王子oppub的K罩杯人妻",
