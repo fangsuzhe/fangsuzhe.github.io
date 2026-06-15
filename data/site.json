@@ -313,6 +313,7 @@
         { "id": "ac_otsu_alice", "title": "乙アリス", "rating": "10.0" },
         { "id": "ac_aizawa_akari", "title": "愛沢あかり", "rating": "10.0" },
         { "id": "ac_radislava_bon", "title": "Radislava Bon", "rating": "10.0" },
+        { "id": "ac_arisawa_misa", "title": "有泽实纱", "rating": "10.0" },
         { "id": "ac_hatano", "title": "波多野结衣", "rating": "9.0" },
         { "id": "ac_haruhara", "title": "春原未来", "rating": "9.0" },
         { "id": "ac_mitani", "title": "美谷朱里", "rating": "9.0" },
@@ -399,6 +400,30 @@
         { "id": "ac_miho", "title": "北条麻妃", "rating": "10.0" }
       ],
       "codes": [
+        {
+          "id": "code_pfes017",
+          "title": "八王子oppub的K罩杯人妻",
+          "code": "PFES-017",
+          "workId": "pfes00017",
+          "cast": ["有泽实纱"],
+          "maker": "OPPAI",
+          "label": "PFES",
+          "series": "店外约会OK的淫荡人妻——欲求不满的中出狂，体液满身直到清晨10发",
+          "category": "成人 > 人妻、巨乳、中出、不伦、荡妇",
+          "releaseDate": "2021-03-03"
+        },
+        {
+          "id": "code_hntrz012",
+          "title": "硬度比颜值重要的女学生后宫",
+          "code": "HNTRZ-012",
+          "workId": "hntrz00012",
+          "cast": ["皆月ひかる", "白石もも", "桑原せいら", "虹村ゆみ"],
+          "maker": "Hunter",
+          "label": "Hunter",
+          "series": "时代看重硬度而非颜值——用硬挺大肉棒为所欲为，性欲旺盛的女学生后宫",
+          "category": "成人 > 口交、骑乘、后宫、高清、女学生、荡妇、独占配信",
+          "releaseDate": "2025-05-23"
+        },
         {
           "id": "code_evis486",
           "title": "大量唾液颜面舔舐女同",
@@ -578,6 +603,12 @@
           "id": "link_heavy_r",
           "title": "Heavy-R",
           "url": "https://heavy-r.com/"
+        },
+        {
+          "id": "link_javdatabase",
+          "title": "JAV Database",
+          "url": "https://www.javdatabase.com/movies",
+          "note": "查番号"
         }
       ]
     }
