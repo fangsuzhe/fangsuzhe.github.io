@@ -214,6 +214,7 @@
         { "id": "t_sandalwood", "title": "檀香刑", "author": "莫言", "rating": "10.0" },
         { "id": "t_red_whisker", "title": "红拂夜奔", "author": "王小波", "rating": "9.0" },
         { "id": "t_luxun_essays", "title": "鲁迅杂文集", "author": "鲁迅", "rating": "9.0" },
+        { "id": "t_nahan", "title": "呐喊", "author": "鲁迅", "rating": "8.0" },
         { "id": "t_three_body", "title": "三体", "author": "刘慈欣", "rating": "9.0" },
         { "id": "t_golden_age", "title": "黄金时代", "author": "王小波", "rating": "8.0" },
         { "id": "t_pipilu", "title": "皮皮鲁", "author": "郑渊洁", "rating": "8.0" },
