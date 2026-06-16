@@ -34,7 +34,7 @@
     "watchDate": "2026-06-14",
     "genre": "剧情",
     "poster": "",
-    "rating": "4.0",
+    "rating": "3.0",
     "review": "",
     "hiddenIndex": 10000
   },
@@ -140,7 +140,7 @@
     "watchDate": "2026-06-13",
     "genre": "剧情, 家庭",
     "poster": "",
-    "rating": "4.0",
+    "rating": "3.0",
     "review": "",
     "hiddenIndex": 10000
   },
@@ -494,7 +494,7 @@
     "watchDate": "2026-06-05",
     "genre": "悬疑, 惊悚",
     "poster": "images/movies/m_exam.webp",
-    "rating": "2.0",
+    "rating": "0.0",
     "review": "",
     "hiddenIndex": 10000
   },
@@ -3595,7 +3595,7 @@
     "watchDate": "2026-02-25",
     "genre": "悬疑, 惊悚, 恐怖",
     "poster": "images/movies/m_get_out.webp",
-    "rating": "4.0",
+    "rating": "2.0",
     "review": "",
     "hiddenIndex": 10000
   },
@@ -5585,7 +5585,7 @@
     "watchDate": "2026-02-22",
     "genre": "剧情, 爱情, 同性",
     "poster": "images/movies/m_cmbyn.webp",
-    "rating": "4.0",
+    "rating": "3.0",
     "review": "",
     "hiddenIndex": 10000
   },
@@ -5598,7 +5598,7 @@
     "watchDate": "2026-02-22",
     "genre": "惊悚",
     "poster": "images/movies/m_eden_lake.webp",
-    "rating": "4.0",
+    "rating": "2.0",
     "review": "",
     "hiddenIndex": 10000
   },
@@ -5611,7 +5611,7 @@
     "watchDate": "2026-02-22",
     "genre": "喜剧, 爱情, 奇幻",
     "poster": "images/movies/m_about_time.webp",
-    "rating": "4.0",
+    "rating": "2.0",
     "review": "",
     "hiddenIndex": 10000
   },
