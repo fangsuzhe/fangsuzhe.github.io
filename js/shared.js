@@ -196,7 +196,7 @@ const MovieShared = (() => {
     { id: '6',  label: '6 · 可以看看' },
     { id: '5',  label: '5 · 存在硬伤' },
     { id: '4',  label: '4 · 不好看' },
-    { id: '3',  label: '3 · 是很不好看' },
+    { id: '3',  label: '3 · 很不好看' },
     { id: '2',  label: '2 · 也许有优点' },
     { id: '1',  label: '1 · 比0分好' },
     { id: '0',  label: '0 · 浪费时间的垃圾' },
