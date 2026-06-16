@@ -1,5 +1,31 @@
 [
   {
+    "id": "m_blind_detective",
+    "createdAt": 1781539201100,
+    "title": "盲探",
+    "director": "杜琪峰",
+    "year": "2013",
+    "watchDate": "2026-06-16",
+    "genre": "喜剧, 爱情, 犯罪",
+    "poster": "",
+    "rating": "7.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
+    "id": "m_under_tuscan_sun",
+    "createdAt": 1781539201000,
+    "title": "托斯卡纳艳阳下",
+    "director": "奥黛丽·威尔斯",
+    "year": "2003",
+    "watchDate": "2026-06-16",
+    "genre": "剧情, 喜剧, 爱情",
+    "poster": "",
+    "rating": "5.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_dogville",
     "createdAt": 1781539200900,
     "title": "狗镇",
@@ -61,7 +87,7 @@
     "watchDate": "2026-06-06",
     "genre": "动画, 亲情",
     "poster": "",
-    "rating": "8.0",
+    "rating": "7.0",
     "review": "",
     "hiddenIndex": 10000
   },
@@ -74,7 +100,7 @@
     "watchDate": "2026-06-14",
     "genre": "剧情",
     "poster": "",
-    "rating": "6.0",
+    "rating": "5.0",
     "review": "",
     "bookmark": "这样去保护野生动物即使搭上自己的命，这样做得有什么原因吧，如果是纪录片，这样的人确实有，这样的事确实发生，我可以不去追求原因。但是这是电影，我就要知道原因",
     "hiddenIndex": 10000
@@ -140,7 +166,7 @@
     "watchDate": "2026-06-10",
     "genre": "恐怖",
     "poster": "",
-    "rating": "6.0",
+    "rating": "5.0",
     "review": "",
     "hiddenIndex": 10000
   },
@@ -153,7 +179,7 @@
     "watchDate": "2026-06-10",
     "genre": "爱情, 剧情",
     "poster": "",
-    "rating": "6.0",
+    "rating": "5.0",
     "review": "",
     "hiddenIndex": 10000
   },
@@ -180,7 +206,7 @@
     "watchDate": "2026-06-10",
     "genre": "动画, 喜剧, 冒险, 音乐",
     "poster": "",
-    "rating": "6.0",
+    "rating": "5.0",
     "review": "",
     "hiddenIndex": 10000
   },
@@ -219,7 +245,7 @@
     "watchDate": "2026-06-10",
     "genre": "剧情, 家庭",
     "poster": "",
-    "rating": "6.0",
+    "rating": "5.0",
     "review": "",
     "hiddenIndex": 10000
   },
@@ -284,7 +310,7 @@
     "watchDate": "2026-06-09",
     "genre": "动画, 喜剧, 冒险",
     "poster": "",
-    "rating": "6.0",
+    "rating": "5.0",
     "review": "",
     "hiddenIndex": 10000
   },
@@ -297,7 +323,7 @@
     "watchDate": "2026-06-09",
     "genre": "动作, 动画, 武侠",
     "poster": "",
-    "rating": "7.0",
+    "rating": "6.0",
     "review": "",
     "hiddenIndex": 10000
   },
@@ -402,7 +428,7 @@
     "watchDate": "2026-06-06",
     "genre": "剧情, 悬疑, 犯罪",
     "poster": "images/movies/m_jana_gana_mana.webp",
-    "rating": "6.0",
+    "rating": "5.0",
     "review": "",
     "hiddenIndex": 10000
   },
@@ -428,7 +454,7 @@
     "watchDate": "2026-06-06",
     "genre": "剧情, 传记, 历史, 战争",
     "poster": "images/movies/m_hotel_rwanda.webp",
-    "rating": "6.0",
+    "rating": "5.0",
     "bookmark": "感觉又看了一遍辛德勒名单",
     "review": "",
     "hiddenIndex": 10000
@@ -442,7 +468,7 @@
     "watchDate": "2026-06-06",
     "genre": "动画, 喜剧, 冒险",
     "poster": "images/movies/m_wreck_it_ralph.webp",
-    "rating": "6.0",
+    "rating": "5.0",
     "review": "",
     "hiddenIndex": 10000
   },
@@ -455,7 +481,7 @@
     "watchDate": "2026-06-05",
     "genre": "剧情, 爱情",
     "poster": "images/movies/m_first_love.webp",
-    "rating": "6.0",
+    "rating": "5.0",
     "review": "",
     "hiddenIndex": 10000
   },
@@ -559,7 +585,7 @@
     "watchDate": "2026-06-01",
     "genre": "剧情, 家庭",
     "poster": "images/movies/m_our_little_sister.webp",
-    "rating": "6.0",
+    "rating": "5.0",
     "review": "",
     "hiddenIndex": 10000
   },
@@ -923,7 +949,7 @@
     "watchDate": "2026-05-22",
     "genre": "喜剧, 动画, 冒险",
     "poster": "images/movies/m_despicable.webp",
-    "rating": "7.0",
+    "rating": "6.0",
     "review": "",
     "hiddenIndex": 10000
   },
@@ -1808,7 +1834,7 @@
     "watchDate": "2026-04-19",
     "genre": "剧情, 传记, 爱情, 歌舞",
     "poster": "images/movies/m_sound_music.webp",
-    "rating": "7.0",
+    "rating": "6.0",
     "review": "",
     "hiddenIndex": 10000
   },
@@ -2748,7 +2774,7 @@
     "watchDate": "2026-03-27",
     "genre": "犯罪, 剧情, 惊悚",
     "poster": "images/movies/m_no_country.webp",
-    "rating": "9.0",
+    "rating": "8.0",
     "review": "",
     "hiddenIndex": 10000
   },
@@ -3777,7 +3803,7 @@
     "watchDate": "2026-02-22",
     "genre": "剧情, 犯罪",
     "poster": "images/movies/m_taxi_driver.webp",
-    "rating": "9.0",
+    "rating": "8.0",
     "review": "",
     "hiddenIndex": 10000
   },
@@ -3908,7 +3934,7 @@
     "watchDate": "2026-02-22",
     "genre": "剧情, 喜剧, 犯罪",
     "poster": "images/movies/m_lock_stock.webp",
-    "rating": "9.0",
+    "rating": "8.0",
     "review": "",
     "hiddenIndex": 10000
   },
