@@ -1,5 +1,18 @@
 [
   {
+    "id": "m_red_lantern",
+    "createdAt": 1781539200800,
+    "title": "大红灯笼高高挂",
+    "director": "张艺谋",
+    "year": "1991",
+    "watchDate": "2026-06-14",
+    "genre": "剧情",
+    "poster": "",
+    "rating": "8.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_green_snake",
     "createdAt": 1781539200700,
     "title": "青蛇",
