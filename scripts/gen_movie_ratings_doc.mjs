@@ -7,6 +7,21 @@ const ROOT = join(__dirname, "..");
 const MOVIES_PATH = join(ROOT, "data", "movies.json");
 const DOC_PATH = join(ROOT, "data", "movie-ratings-for-ai.md");
 
+/** 个人评分标准（仅写入 movie-ratings-for-ai.md，不接入站点 UI） */
+const RATING_SCALE = [
+  { score: "10", title: "塑造了你的某一部分", note: "生命体验、不可复制" },
+  { score: "9", title: "极致完成度 + 个人偏爱", note: "无可挑剔、偏爱" },
+  { score: "8", title: "极好的类型片/商业片，或强烈共鸣", note: "非常好、被击中" },
+  { score: "7", title: "看得挺有意思，没大毛病", note: "有趣、顺畅" },
+  { score: "6", title: "没浪费时间，及格了", note: "平庸但能看" },
+  { score: "5", title: "在想怎么还没结束", note: "煎熬但没烂透" },
+  { score: "4", title: "讨厌", note: "反感" },
+  { score: "3", title: "不知所云", note: "迷惑" },
+  { score: "2", title: "恶心人", note: "恶意" },
+  { score: "1", title: "为了区分0分的存在", note: "垃圾" },
+  { score: "0", title: "质疑其存在意义", note: "不可思议的烂" },
+];
+
 const movies = JSON.parse(readFileSync(MOVIES_PATH, "utf-8"));
 
 function ratingOf(m) {
@@ -73,6 +88,16 @@ for (const r of Object.keys(ratingCounts).map(Number).sort((a, b) => b - a)) {
   lines.push(`- ${r} 分：${count} 部 ${bar}`);
 }
 lines.push("");
+
+if (RATING_SCALE.length) {
+  lines.push("## 评分标准", "");
+  lines.push("| 分 | 含义 | 体感 |");
+  lines.push("| --- | --- | --- |");
+  for (const item of RATING_SCALE) {
+    lines.push(`| ${item.score || ""} | ${item.title || ""} | ${item.note || ""} |`);
+  }
+  lines.push("");
+}
 
 const groups = [
   [9, 10, "9-10 分（极爱）"],
