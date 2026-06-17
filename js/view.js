@@ -10,6 +10,7 @@ const {
   renderDoujinPanel,
   renderLinksPanel,
   getBestItems,
+  bindDeferredPosters,
 } = MovieShared;
 
 const DEFAULT_MOVIE_SECTIONS = [
@@ -458,6 +459,8 @@ function switchSubTab(tabId, subId, updateUrl = true) {
     panel.querySelectorAll('.sub-panel').forEach((subPanel) => {
       subPanel.classList.toggle('active', subPanel.dataset.sub === subId);
     });
+    const activeSub = panel.querySelector('.sub-panel.active');
+    if (activeSub) bindDeferredPosters(activeSub);
   }
 
   if (updateUrl) updateRouteUrl();

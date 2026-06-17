@@ -66,6 +66,9 @@ const MovieShared = (() => {
 
   const POSTER_EXTENSIONS = ['webp', 'jpg', 'jpeg', 'png'];
 
+  /** 已统一为 webp 的本地目录：不再尝试 jpg/png 回退，减少无效 404 */
+  const WEBP_ONLY_DIR_RE = /^images\/(movies|drama|anime|text|music|idol|porn|doujin)\//;
+
   const POSTER_DIRS = [
     ['m_', 'images/movies/'],
     ['d_', 'images/drama/'],
@@ -92,6 +95,7 @@ const MovieShared = (() => {
     const match = path.match(/^(.+\/[^/.]+)\.([a-zA-Z0-9]+)$/);
     if (!match) return [path];
     const base = match[1];
+    if (WEBP_ONLY_DIR_RE.test(`${base}/`)) return [`${base}.webp`];
     const ext = match[2].toLowerCase();
     const ordered = [ext, ...POSTER_EXTENSIONS.filter((e) => e !== ext)];
     const seen = new Set();
@@ -109,6 +113,7 @@ const MovieShared = (() => {
     if (explicit) return expandPosterCandidates(explicit);
     const dir = posterDirForId(item.id);
     if (!dir || !item.id) return [];
+    if (WEBP_ONLY_DIR_RE.test(dir)) return [`${dir}${item.id}.webp`];
     return POSTER_EXTENSIONS.map((ext) => `${dir}${item.id}.${ext}`);
   }
 
@@ -120,6 +125,134 @@ const MovieShared = (() => {
     return posterCandidates(item)[0] || '';
   }
 
+  const PosterLoader = (() => {
+    const MAX_ACTIVE = 8;
+    let active = 0;
+    const waitQueue = [];
+    let io = null;
+
+    function finish(img) {
+      if (img.dataset.posterLoading !== '1') return;
+      img.dataset.posterLoading = '0';
+      active = Math.max(0, active - 1);
+      drain();
+    }
+
+    function drain() {
+      while (active < MAX_ACTIVE && waitQueue.length) {
+        const img = waitQueue.shift();
+        if (!img?.isConnected || img.dataset.posterLoaded === '1') continue;
+        startLoad(img);
+      }
+    }
+
+    function startLoad(img) {
+      const src = img.dataset.posterSrc;
+      if (!src) return;
+      img.dataset.posterLoading = '1';
+      active += 1;
+
+      const onLoad = () => {
+        img.removeEventListener('error', onError);
+        img.dataset.posterLoaded = '1';
+        img.classList.add('poster-loaded');
+        img.classList.remove('poster-defer');
+        finish(img);
+      };
+      const onError = () => {
+        img.removeEventListener('load', onLoad);
+        finish(img);
+        tryPosterFallback(img);
+      };
+
+      img.addEventListener('load', onLoad, { once: true });
+      img.addEventListener('error', onError, { once: true });
+      img.src = cdnUrl(src);
+    }
+
+    function schedule(img) {
+      if (!img || img.dataset.posterLoaded === '1' || img.dataset.posterLoading === '1') return;
+      waitQueue.push(img);
+      drain();
+    }
+
+    function observe(root = document) {
+      const scope = root === document ? document : root;
+      const imgs = [...scope.querySelectorAll('img.poster-defer')].filter(
+        (img) => img.dataset.posterLoaded !== '1' && img.dataset.posterLoading !== '1',
+      );
+      if (!imgs.length) return;
+
+      if (root !== document) {
+        imgs.forEach((img) => {
+          delete img.dataset.posterObserved;
+          io?.unobserve(img);
+        });
+      }
+
+      const needIo = [];
+
+      imgs.forEach((img) => {
+        const rect = img.getBoundingClientRect();
+        const inView = rect.width > 0 && rect.height > 0
+          && rect.bottom >= -480 && rect.top <= window.innerHeight + 480;
+        if (inView) {
+          schedule(img);
+          return;
+        }
+        if (!img.dataset.posterObserved) {
+          img.dataset.posterObserved = '1';
+          needIo.push(img);
+        }
+      });
+
+      if (!needIo.length) return;
+
+      if (!('IntersectionObserver' in window)) {
+        needIo.forEach(schedule);
+        return;
+      }
+
+      if (!io) {
+        io = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            io.unobserve(entry.target);
+            schedule(entry.target);
+          });
+        }, { rootMargin: '480px 0px', threshold: 0 });
+      }
+
+      needIo.forEach((img) => io.observe(img));
+    }
+
+    return { observe, schedule };
+  })();
+
+  function bindDeferredPosters(root = document) {
+    PosterLoader.observe(root);
+  }
+
+  function showPosterPlaceholder(img) {
+    img.onerror = null;
+    if (img.classList.contains('detail-poster')) {
+      img.remove();
+      img.nextElementSibling?.classList.add('detail-inner--no-poster');
+      return;
+    }
+    if (img.classList.contains('character-card-photo')) {
+      const initial = (img.alt || '?').charAt(0);
+      img.replaceWith(Object.assign(document.createElement('div'), {
+        className: 'character-card-photo character-card-photo--fallback',
+        textContent: initial,
+      }));
+      return;
+    }
+    if (img.parentElement?.classList.contains('poster-wrap')) {
+      img.parentElement.innerHTML = '<div class=\'poster-placeholder\'>🎬</div>';
+    }
+  }
+
   function tryPosterFallback(img) {
     let fallbacks = [];
     try {
@@ -127,43 +260,63 @@ const MovieShared = (() => {
     } catch {
       fallbacks = [];
     }
+
     if (!fallbacks.length) {
-      img.onerror = null;
-      if (img.classList.contains('detail-poster')) {
-        img.remove();
-        img.nextElementSibling?.classList.add('detail-inner--no-poster');
-        return;
+      if (img.dataset.posterRetried !== '1') {
+        const retrySrc = img.dataset.posterSrc || img.getAttribute('src');
+        if (retrySrc && !/^data:/i.test(retrySrc)) {
+          img.dataset.posterRetried = '1';
+          img.dataset.posterLoaded = '0';
+          img.dataset.posterLoading = '0';
+          setTimeout(() => {
+            if (!img.isConnected) return;
+            if (img.classList.contains('poster-defer')) {
+              PosterLoader.schedule(img);
+            } else {
+              img.src = cdnUrl(retrySrc);
+            }
+          }, 700);
+          return;
+        }
       }
-      if (img.classList.contains('character-card-photo')) {
-        const initial = (img.alt || '?').charAt(0);
-        img.replaceWith(Object.assign(document.createElement('div'), {
-          className: 'character-card-photo character-card-photo--fallback',
-          textContent: initial,
-        }));
-        return;
-      }
-      if (img.parentElement?.classList.contains('poster-wrap')) {
-        img.parentElement.innerHTML = '<div class=\'poster-placeholder\'>🎬</div>';
-      }
+      showPosterPlaceholder(img);
       return;
     }
+
     const next = fallbacks.shift();
     img.dataset.posterFallbacks = JSON.stringify(fallbacks);
-    img.src = cdnUrl(next);
+    img.dataset.posterSrc = next;
+    img.dataset.posterLoaded = '0';
+    img.dataset.posterLoading = '0';
+    img.dataset.posterRetried = '0';
+
+    if (img.classList.contains('poster-defer')) {
+      PosterLoader.schedule(img);
+    } else {
+      img.src = cdnUrl(next);
+    }
   }
 
   function posterImgTag(candidates, cls = '', options = {}) {
     if (!candidates.length) return '';
     const [primary, ...fallbacks] = candidates;
-    const src = cdnUrl(primary);
+    const eager = options.eager === true || (cls && cls.includes('detail-poster'));
     const ref = /^https?:\/\//i.test(primary) ? ' referrerpolicy="no-referrer"' : '';
     const fallbackAttr = fallbacks.length
       ? ` data-poster-fallbacks="${escapeAttr(JSON.stringify(fallbacks))}"`
       : '';
     const alt = options.alt != null ? ` alt="${escapeAttr(options.alt)}"` : ' alt=""';
     const sizes = options.sizes ? ` sizes="${escapeAttr(options.sizes)}"` : '';
-    const klass = cls ? ` class="${cls}"` : '';
-    return `<img${klass} src="${escapeAttr(src)}"${alt}${sizes} loading="lazy" decoding="async"${ref}${fallbackAttr} onerror="MovieShared.tryPosterFallback(this)">`;
+    const klass = cls ? ` class="${escapeAttr(cls)}"` : '';
+    const onerror = ' onerror="MovieShared.tryPosterFallback(this)"';
+
+    if (eager) {
+      const src = cdnUrl(primary);
+      return `<img${klass} src="${escapeAttr(src)}"${alt}${sizes} loading="eager" fetchpriority="high" decoding="async"${ref}${fallbackAttr}${onerror}>`;
+    }
+
+    const deferCls = cls ? `${cls} poster-defer` : 'poster-defer';
+    return `<img class="${escapeAttr(deferCls)}" data-poster-src="${escapeAttr(primary)}"${alt}${sizes} decoding="async"${ref}${fallbackAttr}${onerror}>`;
   }
 
   function posterHtml(posterOrItem, cls = '') {
@@ -355,6 +508,7 @@ const MovieShared = (() => {
   function renderGrid(movies, gridEl, onCardClick) {
     gridEl.innerHTML = movies.map((m, i) => renderMovieCard(m, i)).join('');
     bindCardClicks(gridEl, onCardClick);
+    bindDeferredPosters(gridEl);
   }
 
   function renderGrouped(movies, containerEl, onCardClick, tiers = RATING_TIERS) {
@@ -374,6 +528,7 @@ const MovieShared = (() => {
       </section>
     `).join('');
     bindCardClicks(containerEl, onCardClick);
+    bindDeferredPosters(containerEl);
   }
 
   function renderDetail(m, detailContentEl, options = {}) {
@@ -556,6 +711,7 @@ const MovieShared = (() => {
         <h2 class="codes-title">${escapeHtml(title)}</h2>
       </section>
       <div class="codes-list">${entriesHtml}</div>`;
+    bindDeferredPosters(container);
   }
 
   function renderDoujinMetaRows(item) {
@@ -611,6 +767,7 @@ const MovieShared = (() => {
         <h2 class="codes-title">${escapeHtml(title)}</h2>
       </section>
       <div class="codes-list">${entriesHtml}</div>`;
+    bindDeferredPosters(container);
   }
 
   function renderLinksPanel(container, options = {}) {
@@ -861,6 +1018,7 @@ const MovieShared = (() => {
     }
 
     bindSpaceItemClicks(container, onItemClick);
+    bindDeferredPosters(container);
   }
 
   function bindSpaceItemClicks(container, onItemClick) {
@@ -936,6 +1094,7 @@ const MovieShared = (() => {
           ? list.map((ch, i) => renderCharacterCard(ch, i)).join('')
           : '<p class="taste-empty">暂无</p>'}
       </div>`;
+    bindDeferredPosters(container);
   }
 
   function getBestItems(best) {
@@ -1030,7 +1189,7 @@ const MovieShared = (() => {
 
   return {
     $, uid, ratingFromSlider, sliderFromRating, ratingColor, formatDate,
-    escapeHtml, escapeAttr, renderTags, posterHtml, posterCandidates, resolvePoster, defaultPosterPath, tryPosterFallback, posterImgTag,
+    escapeHtml, escapeAttr, renderTags, posterHtml, posterCandidates, resolvePoster, defaultPosterPath, tryPosterFallback, posterImgTag, bindDeferredPosters,
     RATING_TIERS, MOVIE_RATING_TIERS, DEFAULT_HIDDEN_INDEX, getHiddenIndex, getScore, matchRatingTier, countByTier, groupByTier,
     filterAndSort, calcStats, renderGrid, renderGrouped, renderDetail,
     renderTastePanel, renderNotesPanel, renderCodesPanel, renderDoujinPanel, renderLinksPanel, renderBestPanel, renderSpaceBestPanel, renderSpacePlaceholder,

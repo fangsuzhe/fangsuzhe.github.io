@@ -937,7 +937,15 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.4s;
+  transition: transform 0.4s, opacity 0.28s ease;
+}
+
+.poster-wrap img.poster-defer {
+  opacity: 0;
+}
+
+.poster-wrap img.poster-loaded {
+  opacity: 1;
 }
 .movie-card:hover .poster-wrap img { transform: scale(1.04); }
 
