@@ -1,5 +1,18 @@
 [
   {
+    "id": "m_terminator",
+    "createdAt": 1781539201500,
+    "title": "终结者",
+    "director": "詹姆斯·卡梅隆",
+    "year": "1984",
+    "watchDate": "2026-06-06",
+    "genre": "动作, 科幻",
+    "poster": "",
+    "rating": "6.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_xiyang_longnian",
     "createdAt": 1781539201400,
     "title": "喜羊羊与灰太狼之开心闯龙年",
@@ -4209,6 +4222,7 @@
     "poster": "images/movies/m_hitler_back.webp",
     "rating": "8.0",
     "review": "",
+    "bookmark": "很少在西方电影里看到群众路线",
     "hiddenIndex": 10000
   },
   {
