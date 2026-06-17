@@ -30,7 +30,7 @@ const SiteAssets = (() => {
     document.head.appendChild(link);
   }
 
-  function bindWallpaper(imgSelector, path = 'images/site/wallpaper.jpg') {
+  function bindWallpaper(imgSelector, path = 'images/site/wallpaper.webp') {
     const img = document.querySelector(imgSelector);
     if (!img) return;
     const url = cdnUrl(path);
