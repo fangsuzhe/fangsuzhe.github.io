@@ -1,5 +1,44 @@
 [
   {
+    "id": "m_love_actually",
+    "createdAt": 1781625602100,
+    "title": "真爱至上",
+    "director": "理查德·柯蒂斯",
+    "year": "2003",
+    "watchDate": "2026-06-18",
+    "genre": "喜剧, 爱情, 剧情",
+    "poster": "",
+    "rating": "5.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
+    "id": "m_new_dragon_inn",
+    "createdAt": 1781625602000,
+    "title": "新龙门客栈",
+    "director": "李惠民",
+    "year": "1992",
+    "watchDate": "2026-06-18",
+    "genre": "动作, 武侠, 爱情",
+    "poster": "",
+    "rating": "6.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
+    "id": "m_the_others",
+    "createdAt": 1781625601900,
+    "title": "小岛惊魂",
+    "director": "亚历杭德罗·阿梅纳瓦尔",
+    "year": "2001",
+    "watchDate": "2026-06-18",
+    "genre": "剧情, 悬疑, 恐怖, 惊悚",
+    "poster": "",
+    "rating": "5.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_ashes_time",
     "createdAt": 1781539201900,
     "title": "东邪西毒",
@@ -3401,7 +3440,7 @@
     "watchDate": "2026-02-27",
     "genre": "恐怖",
     "poster": "images/movies/m_hereditary.webp",
-    "rating": "6.0",
+    "rating": "7.0",
     "review": "",
     "hiddenIndex": 10000
   },
