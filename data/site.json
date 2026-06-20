@@ -239,7 +239,16 @@
         { "id": "t_iron_age", "title": "黑铁时代", "author": "王小波", "rating": "6.0" },
         { "id": "t_shadow_thief", "title": "偷影子的人", "author": "马克·李维", "rating": "6.0" },
         { "id": "t_throne_seal", "title": "神印王座", "author": "唐家三少", "rating": "6.0" },
-        { "id": "t_martial_universe", "title": "武动乾坤", "author": "天蚕土豆", "rating": "6.0" }
+        { "id": "t_martial_universe", "title": "武动乾坤", "author": "天蚕土豆", "rating": "6.0" },
+        { "id": "t_charlie_nine", "title": "查理九世", "author": "雷欧幻像", "rating": "6.0" },
+        { "id": "t_tiger_team", "title": "冒险小虎队", "author": "托马斯·布热齐纳", "rating": "8.0" },
+        { "id": "t_goosebumps", "title": "鸡皮疙瘩", "author": "R·L·斯坦", "rating": "8.0" },
+        { "id": "t_gulliver", "title": "格列佛游记", "author": "乔纳森·斯威夫特", "rating": "7.0" },
+        { "id": "t_yashe", "title": "哑舍", "author": "玄色", "rating": "6.0" },
+        { "id": "t_zhaohua", "title": "朝花夕拾", "author": "鲁迅", "rating": "6.0" },
+        { "id": "t_poe", "title": "爱伦坡小说集", "author": "埃德加·爱伦·坡", "rating": "6.0" },
+        { "id": "t_hitchcock", "title": "希区柯克小说集", "author": "阿尔弗雷德·希区柯克", "rating": "7.0" },
+        { "id": "t_sherlock", "title": "福尔摩斯", "author": "阿瑟·柯南·道尔", "rating": "7.0" }
       ],
       "best": {
         "author": { "name": "王小波" },
