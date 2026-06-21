@@ -1,5 +1,18 @@
 [
   {
+    "id": "m_buried",
+    "createdAt": 1781625602400,
+    "title": "活埋",
+    "director": "罗德里戈·科尔特斯",
+    "year": "2010",
+    "watchDate": "2026-06-18",
+    "genre": "剧情, 悬疑, 惊悚",
+    "poster": "",
+    "rating": "6.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_ai",
     "createdAt": 1781625602300,
     "title": "人工智能",
