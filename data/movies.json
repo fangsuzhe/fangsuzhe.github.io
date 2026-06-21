@@ -1,5 +1,18 @@
 [
   {
+    "id": "m_ai",
+    "createdAt": 1781625602300,
+    "title": "人工智能",
+    "director": "史蒂文·斯皮尔伯格",
+    "year": "2001",
+    "watchDate": "2026-06-18",
+    "genre": "科幻, 剧情, 冒险",
+    "poster": "",
+    "rating": "6.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_gattaca",
     "createdAt": 1781625602200,
     "title": "千钧一发",
