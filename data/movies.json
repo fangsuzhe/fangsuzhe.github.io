@@ -1,5 +1,18 @@
 [
   {
+    "id": "m_hands_up",
+    "createdAt": 1781625602600,
+    "title": "举起手来",
+    "director": "冯小宁",
+    "year": "2003",
+    "watchDate": "2026-06-18",
+    "genre": "喜剧, 战争",
+    "poster": "",
+    "rating": "6.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_grande_vadrouille",
     "createdAt": 1781625602500,
     "title": "虎口脱险",
