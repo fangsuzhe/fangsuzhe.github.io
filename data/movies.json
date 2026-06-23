@@ -1,5 +1,18 @@
 [
   {
+    "id": "m_rain_man",
+    "createdAt": 1781625602700,
+    "title": "雨人",
+    "director": "巴瑞·莱文森",
+    "year": "1988",
+    "watchDate": "2026-06-18",
+    "genre": "剧情",
+    "poster": "",
+    "rating": "6.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_hands_up",
     "createdAt": 1781625602600,
     "title": "举起手来",
