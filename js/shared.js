@@ -651,6 +651,32 @@ const MovieShared = (() => {
       <div class="notes-list">${entriesHtml}</div>`;
   }
 
+  function renderDiaryPanel(container, diaries, options = {}) {
+    if (!container) return;
+    const { kicker = 'Hidden Space', title = '隐藏空间' } = options;
+    const list = (Array.isArray(diaries) ? diaries : [])
+      .slice()
+      .sort((a, b) => (b.date || '').localeCompare(a.date || '') || (b.createdAt || 0) - (a.createdAt || 0));
+
+    const entriesHtml = list.length
+      ? list.map((entry, i) => `
+          <article class="diary-entry" style="animation-delay:${Math.min(i * 0.06, 0.4)}s">
+            <header class="diary-entry-head">
+              <h3 class="diary-title">${escapeHtml(entry.title || '无题')}</h3>
+              ${entry.date ? `<time class="diary-date" datetime="${escapeAttr(entry.date)}">${escapeHtml(formatDate(entry.date) || entry.date)}</time>` : ''}
+            </header>
+            <div class="diary-content">${escapeHtml(entry.content || '')}</div>
+          </article>`).join('')
+      : '<p class="taste-empty">暂无</p>';
+
+    container.innerHTML = `
+      <section class="diary-hero">
+        <p class="catalog-kicker">${escapeHtml(kicker)}</p>
+        <h2 class="diary-page-title">${escapeHtml(title)}</h2>
+      </section>
+      <div class="diary-list">${entriesHtml}</div>`;
+  }
+
   function renderCodeMetaRows(item) {
     const cast = Array.isArray(item.cast) ? item.cast.join('、') : (item.cast || '');
     const rows = [
@@ -1192,7 +1218,7 @@ const MovieShared = (() => {
     escapeHtml, escapeAttr, renderTags, posterHtml, posterCandidates, resolvePoster, defaultPosterPath, tryPosterFallback, posterImgTag, bindDeferredPosters,
     RATING_TIERS, MOVIE_RATING_TIERS, DEFAULT_HIDDEN_INDEX, getHiddenIndex, getScore, matchRatingTier, countByTier, groupByTier,
     filterAndSort, calcStats, renderGrid, renderGrouped, renderDetail,
-    renderTastePanel, renderNotesPanel, renderCodesPanel, renderDoujinPanel, renderLinksPanel, renderBestPanel, renderSpaceBestPanel, renderSpacePlaceholder,
+    renderTastePanel, renderNotesPanel, renderDiaryPanel, renderCodesPanel, renderDoujinPanel, renderLinksPanel, renderBestPanel, renderSpaceBestPanel, renderSpacePlaceholder,
     renderSpacePicksPage, renderSpaceRecordsPanel, renderCharactersPanel, bindSpaceItemClicks,
     getBestItems,
     linesToList, listToLines, sha256,

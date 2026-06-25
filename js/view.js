@@ -6,6 +6,7 @@ const {
   renderSpacePlaceholder, renderSpaceBestPanel, renderSpaceRecordsPanel,
   renderCharactersPanel,
   renderNotesPanel,
+  renderDiaryPanel,
   renderCodesPanel,
   renderDoujinPanel,
   renderLinksPanel,
@@ -25,22 +26,23 @@ const DEFAULT_SPACE_SECTIONS = [
   { id: 'best', label: '最' },
 ];
 
-const HIDDEN_TAB_ID = 'idol';
+const HIDDEN_TAB_IDS = new Set(['idol', 'diary']);
 const HIDDEN_MOVIE_SUB = 'notes';
 const HIDDEN_ANIME_SUB = 'r18';
-const IDOL_UNLOCK_CLICKS = 15;
+const HIDDEN_UNLOCK_CLICKS = 15;
 const NOTES_UNLOCK_CLICKS = 10;
 const ANIME_R18_UNLOCK_CLICKS = 10;
+const HIDDEN_UNLOCK_KEY = 'site-hidden-unlocked';
 const IDOL_UNLOCK_KEY = 'site-idol-unlocked';
 const NOTES_UNLOCK_KEY = 'site-notes-unlocked';
 const ANIME_R18_UNLOCK_KEY = 'site-anime-r18-unlocked';
 const UNLOCK_CLICK_RESET_MS = 1500;
 
-let idolSpaceUnlocked = false;
+let hiddenSpacesUnlocked = false;
 let notesUnlocked = false;
 let animeR18Unlocked = false;
-let idolClickCount = 0;
-let idolClickTimer = null;
+let hiddenUnlockClickCount = 0;
+let hiddenUnlockClickTimer = null;
 let notesClickCount = 0;
 let notesClickTimer = null;
 let animeR18ClickCount = 0;
@@ -48,22 +50,23 @@ let animeR18ClickTimer = null;
 
 function loadHiddenUnlockState() {
   try {
-    // 旧版用 localStorage 永久解锁，迁移后改为仅当前会话有效
     localStorage.removeItem(IDOL_UNLOCK_KEY);
+    localStorage.removeItem(HIDDEN_UNLOCK_KEY);
     localStorage.removeItem(NOTES_UNLOCK_KEY);
     localStorage.removeItem(ANIME_R18_UNLOCK_KEY);
-    idolSpaceUnlocked = sessionStorage.getItem(IDOL_UNLOCK_KEY) === '1';
+    hiddenSpacesUnlocked = sessionStorage.getItem(HIDDEN_UNLOCK_KEY) === '1'
+      || sessionStorage.getItem(IDOL_UNLOCK_KEY) === '1';
     notesUnlocked = sessionStorage.getItem(NOTES_UNLOCK_KEY) === '1';
     animeR18Unlocked = sessionStorage.getItem(ANIME_R18_UNLOCK_KEY) === '1';
   } catch {
-    idolSpaceUnlocked = false;
+    hiddenSpacesUnlocked = false;
     notesUnlocked = false;
     animeR18Unlocked = false;
   }
 }
 
-function isIdolTabHidden(tabId) {
-  return tabId === HIDDEN_TAB_ID && !idolSpaceUnlocked;
+function isHiddenTab(tabId) {
+  return HIDDEN_TAB_IDS.has(tabId) && !hiddenSpacesUnlocked;
 }
 
 function isNotesSubHidden(subId) {
@@ -81,16 +84,18 @@ function isSpaceSubHidden(spaceId, subId) {
 }
 
 function getVisibleTabs() {
-  return (siteConfig.tabs || []).filter((tab) => !isIdolTabHidden(tab.id));
+  return (siteConfig.tabs || []).filter((tab) => !isHiddenTab(tab.id));
 }
 
 function getContentSpaces() {
-  return Object.keys(siteConfig.spaces || {}).filter((id) => !isIdolTabHidden(id));
+  return Object.keys(siteConfig.spaces || {}).filter((id) => !isHiddenTab(id));
 }
 
-function syncIdolSpaceVisibility() {
-  document.querySelector(`.tab-panel[data-tab="${HIDDEN_TAB_ID}"]`)
-    ?.classList.toggle('hidden', !idolSpaceUnlocked);
+function syncHiddenTabsVisibility() {
+  HIDDEN_TAB_IDS.forEach((tabId) => {
+    document.querySelector(`.tab-panel[data-tab="${tabId}"]`)
+      ?.classList.toggle('hidden', !hiddenSpacesUnlocked);
+  });
 }
 
 function syncNotesVisibility() {
@@ -103,14 +108,18 @@ function syncAnimeR18Visibility() {
     ?.classList.toggle('hidden', !animeR18Unlocked);
 }
 
-function unlockIdolSpace() {
-  if (idolSpaceUnlocked) return;
-  idolSpaceUnlocked = true;
-  try { sessionStorage.setItem(IDOL_UNLOCK_KEY, '1'); } catch { /* ignore */ }
+function unlockHiddenSpaces() {
+  if (hiddenSpacesUnlocked) return;
+  hiddenSpacesUnlocked = true;
+  try {
+    sessionStorage.setItem(HIDDEN_UNLOCK_KEY, '1');
+    sessionStorage.setItem(IDOL_UNLOCK_KEY, '1');
+  } catch { /* ignore */ }
   ensureSpaceState();
   buildSpaceItemIndex();
-  syncIdolSpaceVisibility();
+  syncHiddenTabsVisibility();
   renderContentSpaces();
+  renderDiary();
   renderSiteTabs();
 }
 
@@ -131,19 +140,19 @@ function unlockAnimeR18() {
   renderContentSpaces();
 }
 
-function setupIdolUnlock() {
+function setupHiddenUnlock() {
   const avatar = $('#brandAvatar');
   if (!avatar) return;
   avatar.style.cursor = 'pointer';
   avatar.addEventListener('click', () => {
-    if (idolSpaceUnlocked) return;
-    idolClickCount += 1;
-    clearTimeout(idolClickTimer);
-    idolClickTimer = setTimeout(() => { idolClickCount = 0; }, UNLOCK_CLICK_RESET_MS);
-    if (idolClickCount >= IDOL_UNLOCK_CLICKS) {
-      idolClickCount = 0;
-      clearTimeout(idolClickTimer);
-      unlockIdolSpace();
+    if (hiddenSpacesUnlocked) return;
+    hiddenUnlockClickCount += 1;
+    clearTimeout(hiddenUnlockClickTimer);
+    hiddenUnlockClickTimer = setTimeout(() => { hiddenUnlockClickCount = 0; }, UNLOCK_CLICK_RESET_MS);
+    if (hiddenUnlockClickCount >= HIDDEN_UNLOCK_CLICKS) {
+      hiddenUnlockClickCount = 0;
+      clearTimeout(hiddenUnlockClickTimer);
+      unlockHiddenSpaces();
     }
   });
 }
@@ -322,6 +331,7 @@ function buildSpaceItemIndex() {
 }
 
 function getSections(tabId) {
+  if (tabId === 'diary') return [];
   if (tabId === 'movies') {
     const sections = getTabConfig('movies')?.sections;
     const list = Array.isArray(sections) && sections.length ? sections : DEFAULT_MOVIE_SECTIONS;
@@ -403,7 +413,7 @@ function renderSubTabs(tabId) {
 function renderSiteTabs() {
   if (!els.siteTabs) return;
   const tabs = getVisibleTabs();
-  if (isIdolTabHidden(activeTab)) {
+  if (isHiddenTab(activeTab)) {
     activeTab = siteConfig.defaultTab || 'movies';
   }
   if (!tabs.some((t) => t.id === activeTab)) {
@@ -442,6 +452,7 @@ function switchTab(tabId, updateUrl = true) {
   }
 
   if (updateUrl) updateRouteUrl();
+  if (tabId === 'diary') renderDiary();
 }
 
 function switchSubTab(tabId, subId, updateUrl = true) {
@@ -492,6 +503,16 @@ function renderTaste() {
 function renderNotes() {
   if (!els.notesContent) return;
   renderNotesPanel(els.notesContent, siteConfig.notes);
+}
+
+function renderDiary() {
+  const container = $('#diaryContent');
+  if (!container) return;
+  const tab = getTabConfig('diary');
+  renderDiaryPanel(container, siteConfig.diaries, {
+    kicker: 'Hidden Space',
+    title: tab?.label || '隐藏空间',
+  });
 }
 
 function renderBest() {
@@ -639,12 +660,13 @@ async function init() {
     await loadPublicData();
     loadHiddenUnlockState();
     ensureSpacePanels();
-    syncIdolSpaceVisibility();
+    syncHiddenTabsVisibility();
     syncNotesVisibility();
     syncAnimeR18Visibility();
     renderSiteTabs();
     renderTaste();
     renderNotes();
+    renderDiary();
     renderBest();
     renderContentSpaces();
     renderPlaceholderSpaces();
@@ -664,7 +686,7 @@ async function init() {
     } else if (subFromUrl === 'r18' && tabFromUrl === 'anime') {
       activeTab = 'anime';
       if (animeR18Unlocked) activeSubTabs.anime = 'r18';
-    } else if (tabFromUrl && siteConfig.tabs.some((t) => t.id === tabFromUrl) && !isIdolTabHidden(tabFromUrl)) {
+    } else if (tabFromUrl && siteConfig.tabs.some((t) => t.id === tabFromUrl) && !isHiddenTab(tabFromUrl)) {
       activeTab = tabFromUrl;
     }
 
@@ -686,7 +708,7 @@ async function init() {
     els.pageContent.classList.remove('hidden');
     renderFilterChips();
     render();
-    setupIdolUnlock();
+    setupHiddenUnlock();
     setupNotesUnlock();
     setupAnimeR18Unlock();
   } catch (err) {

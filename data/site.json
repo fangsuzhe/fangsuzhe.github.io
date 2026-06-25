@@ -18,7 +18,8 @@
     { "id": "anime", "label": "动漫空间" },
     { "id": "text", "label": "文字空间" },
     { "id": "music", "label": "音乐空间" },
-    { "id": "idol", "label": "女优空间" }
+    { "id": "idol", "label": "女优空间" },
+    { "id": "diary", "label": "隐藏空间" }
   ],
   "spaces": {
     "drama": {
@@ -126,6 +127,7 @@
         { "id": "a_idinvaded", "title": "异度侵入", "rating": "7.0" },
         { "id": "a_doraemon", "title": "哆啦A梦", "rating": "7.0" },
         { "id": "a_fsn", "title": "Fate/stay night", "rating": "7.0" },
+        { "id": "a_love_death_robots", "title": "爱，死亡和机器人", "rating": "7.0" },
         { "id": "a_danshi_nichijou", "title": "男子高中生的日常", "rating": "9.0" },
         { "id": "a_rezero", "title": "从零开始的异世界生活", "rating": "6.0" },
         { "id": "a_madoka", "title": "魔法少女小圆", "rating": "6.0" },
@@ -673,6 +675,14 @@
       ]
     }
   },
+  "diaries": [
+    {
+      "id": "diary_evil_wizard_weekend",
+      "title": "初三的一个周末",
+      "date": "2026-06-18",
+      "content": "初三的一个周末，我在书房玩邪恶小法师，q中人就能永久加一点法强，像攒钱一样，我很喜欢这种感觉。20分钟左右的时候，我妈回来了，喊我吃东西，我说等我打好，我妈没催我。很快结束了，来到客厅，这是我第一次吃麻辣烫，以前没吃过这么好吃的里脊肉，不过以后再也没吃过这么好吃的麻辣烫了。杨国福真难吃"
+    }
+  ],
   "notes": [
     {
       "id": "n_20260623",
