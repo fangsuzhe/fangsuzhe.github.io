@@ -1,5 +1,19 @@
 [
   {
+    "id": "m_hidden_figures",
+    "createdAt": 1781625602800,
+    "title": "隐藏人物",
+    "director": "西奥多·梅尔菲",
+    "year": "2016",
+    "watchDate": "2026-06-18",
+    "genre": "剧情, 传记, 历史",
+    "poster": "",
+    "rating": "8.0",
+    "review": "",
+    "bookmark": "这世界有太多理所应当的歧视",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_rain_man",
     "createdAt": 1781625602700,
     "title": "雨人",
