@@ -1,5 +1,18 @@
 [
   {
+    "id": "m_ghost_in_the_shell",
+    "createdAt": 1781625603200,
+    "title": "攻壳机动队",
+    "director": "押井守",
+    "year": "1995",
+    "watchDate": "2026-06-18",
+    "genre": "科幻, 动画, 动作, 惊悚",
+    "poster": "",
+    "rating": "6.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_waterloo_bridge",
     "createdAt": 1781625603100,
     "title": "魂断蓝桥",
