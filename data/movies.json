@@ -1,5 +1,18 @@
 [
   {
+    "id": "m_lord_of_war",
+    "createdAt": 1781625603500,
+    "title": "战争之王",
+    "director": "安德鲁·尼科尔",
+    "year": "2005",
+    "watchDate": "2026-06-28",
+    "genre": "剧情, 犯罪",
+    "poster": "",
+    "rating": "5.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_the_notebook",
     "createdAt": 1781625603400,
     "title": "恋恋笔记本",
