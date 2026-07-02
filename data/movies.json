@@ -1,5 +1,18 @@
 [
   {
+    "id": "m_blood_buddha",
+    "createdAt": 1781625603700,
+    "title": "血观音",
+    "director": "杨雅喆",
+    "year": "2017",
+    "watchDate": "2026-06-28",
+    "genre": "剧情, 悬疑",
+    "poster": "",
+    "rating": "6.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_the_handmaiden",
     "createdAt": 1781625603600,
     "title": "小姐",
