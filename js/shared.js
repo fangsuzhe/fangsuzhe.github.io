@@ -661,10 +661,7 @@ const MovieShared = (() => {
     const entriesHtml = list.length
       ? list.map((entry, i) => `
           <article class="diary-entry" style="animation-delay:${Math.min(i * 0.06, 0.4)}s">
-            <header class="diary-entry-head">
-              <h3 class="diary-title">${escapeHtml(entry.title || '无题')}</h3>
-              ${entry.date ? `<time class="diary-date" datetime="${escapeAttr(entry.date)}">${escapeHtml(formatDate(entry.date) || entry.date)}</time>` : ''}
-            </header>
+            ${entry.date ? `<time class="diary-date" datetime="${escapeAttr(entry.date)}">${escapeHtml(formatDate(entry.date) || entry.date)}</time>` : ''}
             <div class="diary-content">${escapeHtml(entry.content || '')}</div>
           </article>`).join('')
       : '<p class="taste-empty">暂无</p>';

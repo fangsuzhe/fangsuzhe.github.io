@@ -1694,24 +1694,12 @@ body {
   animation: fadeUp 0.45s ease both;
 }
 
-.diary-entry-head {
-  margin-bottom: 1rem;
-  padding-bottom: 0.85rem;
-  border-bottom: 1px solid rgba(212, 168, 83, 0.12);
-}
-
-.diary-title {
-  font-family: var(--font-display);
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 0.35rem;
-}
-
 .diary-date {
   display: block;
   font-size: 0.78rem;
   letter-spacing: 0.08em;
   color: var(--accent);
+  margin-bottom: 0.85rem;
 }
 
 .diary-content {
