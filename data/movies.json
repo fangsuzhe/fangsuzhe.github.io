@@ -1,5 +1,18 @@
 [
   {
+    "id": "m_sonatine",
+    "createdAt": 1781625604000,
+    "title": "奏鸣曲",
+    "director": "北野武",
+    "year": "1993",
+    "watchDate": "2026-07-05",
+    "genre": "剧情, 犯罪",
+    "poster": "",
+    "rating": "6.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_akamedaka",
     "createdAt": 1781625603900,
     "title": "红鳉鱼",
