@@ -1,5 +1,18 @@
 [
   {
+    "id": "m_good_bad_ugly",
+    "createdAt": 1781625604500,
+    "title": "黄金三镖客",
+    "director": "赛尔乔·莱昂内",
+    "year": "1966",
+    "watchDate": "2026-07-09",
+    "genre": "西部, 冒险",
+    "poster": "",
+    "rating": "6.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_marguerite_afternoon",
     "createdAt": 1781625604400,
     "title": "与玛格丽特的午后",
