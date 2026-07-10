@@ -1,5 +1,18 @@
 [
   {
+    "id": "m_star_wars_hope",
+    "createdAt": 1781625604700,
+    "title": "星球大战：新希望",
+    "director": "乔治·卢卡斯",
+    "year": "1977",
+    "watchDate": "2026-07-10",
+    "genre": "科幻, 冒险, 动作",
+    "poster": "",
+    "rating": "4.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_flying_colors",
     "createdAt": 1781625604600,
     "title": "垫底辣妹",
