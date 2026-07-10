@@ -445,6 +445,9 @@ function switchTab(tabId, updateUrl = true) {
     panel.classList.toggle('active', panel.dataset.tab === tabId);
   });
 
+  const activePanel = document.querySelector(`.tab-panel[data-tab="${tabId}"]`);
+  if (activePanel) bindDeferredPosters(activePanel);
+
   const sections = getSections(tabId);
   if (sections.length) {
     switchSubTab(tabId, activeSubTabs[tabId] || getDefaultSubTab(tabId), updateUrl);

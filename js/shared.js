@@ -126,21 +126,64 @@ const MovieShared = (() => {
   }
 
   const PosterLoader = (() => {
-    const MAX_ACTIVE = 8;
+    const MAX_ACTIVE = (() => {
+      const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+      if (conn?.saveData) return 2;
+      if (conn?.effectiveType === 'slow-2g' || conn?.effectiveType === '2g') return 2;
+      if (conn?.effectiveType === '3g') return 3;
+      return 4;
+    })();
+    const LOAD_TIMEOUT_MS = 18000;
+    const IO_MARGIN = '200px 0px';
+
     let active = 0;
+    const waitSet = new Set();
     const waitQueue = [];
+    const timers = new WeakMap();
     let io = null;
+    let resortTimer = null;
+
+    function viewportPriority(img) {
+      const rect = img.getBoundingClientRect();
+      if (rect.width <= 0 && rect.height <= 0) return 1e6;
+      if (rect.bottom < 0) return 5000 + Math.min(-rect.bottom, 4000);
+      if (rect.top > window.innerHeight) return 5000 + Math.min(rect.top - window.innerHeight, 4000);
+      return Math.max(0, rect.top);
+    }
+
+    function clearTimer(img) {
+      const t = timers.get(img);
+      if (t) {
+        clearTimeout(t);
+        timers.delete(img);
+      }
+    }
 
     function finish(img) {
+      clearTimer(img);
       if (img.dataset.posterLoading !== '1') return;
       img.dataset.posterLoading = '0';
       active = Math.max(0, active - 1);
       drain();
     }
 
+    function purgeQueue() {
+      for (let i = waitQueue.length - 1; i >= 0; i -= 1) {
+        const img = waitQueue[i];
+        if (!img.isConnected || img.dataset.posterLoaded === '1') {
+          waitQueue.splice(i, 1);
+          waitSet.delete(img);
+        }
+      }
+    }
+
     function drain() {
+      purgeQueue();
+      waitQueue.sort((a, b) => viewportPriority(a) - viewportPriority(b));
+
       while (active < MAX_ACTIVE && waitQueue.length) {
         const img = waitQueue.shift();
+        waitSet.delete(img);
         if (!img?.isConnected || img.dataset.posterLoaded === '1') continue;
         startLoad(img);
       }
@@ -148,30 +191,49 @@ const MovieShared = (() => {
 
     function startLoad(img) {
       const src = img.dataset.posterSrc;
-      if (!src) return;
+      if (!src || !img.isConnected || img.dataset.posterLoading === '1') return;
+
       img.dataset.posterLoading = '1';
       active += 1;
 
-      const onLoad = () => {
+      let settled = false;
+      const settle = (cb) => {
+        if (settled) return;
+        settled = true;
+        clearTimer(img);
+        img.removeEventListener('load', onLoad);
         img.removeEventListener('error', onError);
+        finish(img);
+        cb();
+      };
+
+      const onLoad = () => {
+        if (!img.isConnected) return settle(() => {});
         img.dataset.posterLoaded = '1';
         img.classList.add('poster-loaded');
         img.classList.remove('poster-defer');
-        finish(img);
+        settle(() => {});
       };
+
       const onError = () => {
-        img.removeEventListener('load', onLoad);
-        finish(img);
-        tryPosterFallback(img);
+        settle(() => tryPosterFallback(img));
       };
 
       img.addEventListener('load', onLoad, { once: true });
       img.addEventListener('error', onError, { once: true });
+
+      timers.set(img, setTimeout(() => {
+        img.removeAttribute('src');
+        onError();
+      }, LOAD_TIMEOUT_MS));
+
       img.src = cdnUrl(src);
     }
 
     function schedule(img) {
-      if (!img || img.dataset.posterLoaded === '1' || img.dataset.posterLoading === '1') return;
+      if (!img?.isConnected || img.dataset.posterLoaded === '1' || img.dataset.posterLoading === '1') return;
+      if (waitSet.has(img)) return;
+      waitSet.add(img);
       waitQueue.push(img);
       drain();
     }
@@ -195,7 +257,7 @@ const MovieShared = (() => {
       imgs.forEach((img) => {
         const rect = img.getBoundingClientRect();
         const inView = rect.width > 0 && rect.height > 0
-          && rect.bottom >= -480 && rect.top <= window.innerHeight + 480;
+          && rect.bottom >= -200 && rect.top <= window.innerHeight + 200;
         if (inView) {
           schedule(img);
           return;
@@ -218,15 +280,27 @@ const MovieShared = (() => {
           entries.forEach((entry) => {
             if (!entry.isIntersecting) return;
             io.unobserve(entry.target);
+            delete entry.target.dataset.posterObserved;
             schedule(entry.target);
           });
-        }, { rootMargin: '480px 0px', threshold: 0 });
+        }, { rootMargin: IO_MARGIN, threshold: 0 });
       }
 
       needIo.forEach((img) => io.observe(img));
     }
 
-    return { observe, schedule };
+    function onViewportChange() {
+      clearTimeout(resortTimer);
+      resortTimer = setTimeout(drain, 120);
+    }
+
+    window.addEventListener('scroll', onViewportChange, { passive: true });
+    window.addEventListener('resize', onViewportChange, { passive: true });
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') drain();
+    });
+
+    return { observe, schedule, drain };
   })();
 
   function bindDeferredPosters(root = document) {
@@ -262,22 +336,22 @@ const MovieShared = (() => {
     }
 
     if (!fallbacks.length) {
-      if (img.dataset.posterRetried !== '1') {
-        const retrySrc = img.dataset.posterSrc || img.getAttribute('src');
-        if (retrySrc && !/^data:/i.test(retrySrc)) {
-          img.dataset.posterRetried = '1';
-          img.dataset.posterLoaded = '0';
-          img.dataset.posterLoading = '0';
-          setTimeout(() => {
-            if (!img.isConnected) return;
-            if (img.classList.contains('poster-defer')) {
-              PosterLoader.schedule(img);
-            } else {
-              img.src = cdnUrl(retrySrc);
-            }
-          }, 700);
-          return;
-        }
+      const retryCount = Number(img.dataset.posterRetryCount || '0');
+      const retrySrc = img.dataset.posterSrc || img.getAttribute('src');
+      if (retrySrc && !/^data:/i.test(retrySrc) && retryCount < 2) {
+        img.dataset.posterRetryCount = String(retryCount + 1);
+        img.dataset.posterLoaded = '0';
+        img.dataset.posterLoading = '0';
+        img.removeAttribute('src');
+        setTimeout(() => {
+          if (!img.isConnected) return;
+          if (img.classList.contains('poster-defer')) {
+            PosterLoader.schedule(img);
+          } else {
+            img.src = cdnUrl(retrySrc);
+          }
+        }, 900 * (retryCount + 1));
+        return;
       }
       showPosterPlaceholder(img);
       return;
@@ -288,7 +362,8 @@ const MovieShared = (() => {
     img.dataset.posterSrc = next;
     img.dataset.posterLoaded = '0';
     img.dataset.posterLoading = '0';
-    img.dataset.posterRetried = '0';
+    img.dataset.posterRetryCount = '0';
+    img.removeAttribute('src');
 
     if (img.classList.contains('poster-defer')) {
       PosterLoader.schedule(img);
