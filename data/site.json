@@ -39,6 +39,7 @@
         { "id": "d_report_boss", "title": "报告老板", "rating": "9.0" },
         { "id": "d_xianjian3", "title": "仙剑奇侠传3", "rating": "9.0" },
         { "id": "d_the_boys", "title": "黑袍纠察队", "rating": "8.0" },
+        { "id": "d_and_then_none", "title": "无人生还", "rating": "8.0" },
         { "id": "d_suitang_hero", "title": "隋唐演义", "rating": "8.0" },
         { "id": "d_huanzhugege", "title": "还珠格格", "rating": "8.0" },
         { "id": "d_demigods_huang", "title": "天龙八部", "rating": "8.0" },
@@ -301,6 +302,12 @@
           "rating": "10.0"
         },
         {
+          "id": "mu_karen_mok",
+          "title": "莫文蔚",
+          "artist": "莫文蔚",
+          "rating": "10.0"
+        },
+        {
           "id": "mu_david_tao",
           "title": "陶喆",
           "artist": "陶喆",
@@ -310,6 +317,12 @@
           "id": "mu_jay_chou",
           "title": "周杰伦",
           "artist": "周杰伦",
+          "rating": "9.0"
+        },
+        {
+          "id": "mu_yoga_lin",
+          "title": "林宥嘉",
+          "artist": "林宥嘉",
           "rating": "9.0"
         }
       ],
