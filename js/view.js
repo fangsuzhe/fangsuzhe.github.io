@@ -197,7 +197,7 @@ let movies = [];
 let spaceItemIndex = new Map();
 let activeTier = 'all';
 let siteConfig = {
-  title: '口味档案',
+  title: '我的精神家园',
   subtitle: '记录 · 分享 · 留存',
   defaultTab: 'movies',
   defaultSubTab: 'records',
