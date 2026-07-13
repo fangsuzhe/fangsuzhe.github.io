@@ -1,5 +1,31 @@
 [
   {
+    "id": "m_cube",
+    "createdAt": 1781625605100,
+    "title": "心慌方",
+    "director": "文森佐·纳塔利",
+    "year": "1997",
+    "watchDate": "2026-07-13",
+    "genre": "科幻, 悬疑, 惊悚",
+    "poster": "",
+    "rating": "5.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
+    "id": "m_wood_job",
+    "createdAt": 1781625605000,
+    "title": "哪啊哪啊神去村",
+    "director": "田中光敏",
+    "year": "2014",
+    "watchDate": "2026-07-13",
+    "genre": "喜剧, 剧情",
+    "poster": "",
+    "rating": "7.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_double_vision",
     "createdAt": 1781625604900,
     "title": "双瞳",
