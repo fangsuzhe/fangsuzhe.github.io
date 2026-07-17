@@ -1,5 +1,18 @@
 [
   {
+    "id": "m_god_of_cookery",
+    "createdAt": 1781625605600,
+    "title": "食神",
+    "director": "周星驰, 李力持",
+    "year": "1996",
+    "watchDate": "2026-07-17",
+    "genre": "喜剧",
+    "poster": "",
+    "rating": "8.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_blue_valentine",
     "createdAt": 1781625605500,
     "title": "蓝色情人节",
