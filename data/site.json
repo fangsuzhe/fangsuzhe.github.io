@@ -149,6 +149,12 @@
       ],
       "characters": [
         {
+          "id": "ch_verso",
+          "name": "维尔索",
+          "nameJp": "Verso",
+          "from": "光与影：33号远征队"
+        },
+        {
           "id": "ch_ryo_yamada",
           "name": "山田凉",
           "nameJp": "山田リョウ",
