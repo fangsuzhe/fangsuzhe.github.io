@@ -1,5 +1,18 @@
 [
   {
+    "id": "m_harakiri",
+    "createdAt": 1781625606700,
+    "title": "切腹",
+    "director": "小林正树",
+    "year": "1962",
+    "watchDate": "2026-07-23",
+    "genre": "剧情, 动作",
+    "poster": "",
+    "rating": "8.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_grave_of_the_fireflies",
     "createdAt": 1781625606600,
     "title": "萤火虫之墓",
