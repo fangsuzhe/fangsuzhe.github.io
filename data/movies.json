@@ -1,5 +1,18 @@
 [
   {
+    "id": "m_american_history_x",
+    "createdAt": 1781625606900,
+    "title": "美国X档案",
+    "director": "托尼·凯耶",
+    "year": "1998",
+    "watchDate": "2026-07-25",
+    "genre": "剧情, 犯罪",
+    "poster": "",
+    "rating": "6.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_the_departed",
     "createdAt": 1781625606800,
     "title": "无间行者",
