@@ -1,5 +1,18 @@
 [
   {
+    "id": "m_alien",
+    "createdAt": 1781625607200,
+    "title": "异形",
+    "director": "雷德利·斯科特",
+    "year": "1979",
+    "watchDate": "2026-07-27",
+    "genre": "科幻, 恐怖, 惊悚",
+    "poster": "",
+    "rating": "8.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_rear_window",
     "createdAt": 1781625607100,
     "title": "后窗",
