@@ -1526,7 +1526,7 @@ body {
 
 .taste-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
 }
 
@@ -1539,6 +1539,11 @@ body {
   min-height: 220px;
   display: flex;
   flex-direction: column;
+}
+
+.taste-card--criteria {
+  border-color: rgba(168, 196, 220, 0.22);
+  background: linear-gradient(160deg, rgba(168, 196, 220, 0.07), var(--bg-glass));
 }
 
 .taste-card--directors {

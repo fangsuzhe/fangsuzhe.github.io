@@ -95,6 +95,7 @@ let siteConfig = {
   },
   taste: {
     intro: '',
+    criteria: [],
     favoriteDirectors: [],
     favoriteStyles: [],
     dislikes: [],
@@ -455,6 +456,7 @@ function importData(file) {
 function openTasteModal() {
   const taste = siteConfig.taste || {};
   $('#inputTasteIntro').value = taste.intro || '';
+  $('#inputCriteria').value = listToLines(taste.criteria);
   $('#inputFavoriteDirectors').value = listToLines(taste.favoriteDirectors);
   $('#inputFavoriteStyles').value = listToLines(taste.favoriteStyles);
   $('#inputDislikes').value = listToLines(taste.dislikes);
@@ -465,6 +467,7 @@ function saveTaste(e) {
   e.preventDefault();
   siteConfig.taste = {
     intro: $('#inputTasteIntro').value.trim(),
+    criteria: linesToList($('#inputCriteria').value),
     favoriteDirectors: linesToList($('#inputFavoriteDirectors').value),
     favoriteStyles: linesToList($('#inputFavoriteStyles').value),
     dislikes: linesToList($('#inputDislikes').value),

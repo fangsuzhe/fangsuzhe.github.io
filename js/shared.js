@@ -664,6 +664,7 @@ const MovieShared = (() => {
     if (!container) return;
     const data = taste || {};
     const intro = data.intro || '';
+    const criteria = Array.isArray(data.criteria) ? data.criteria : [];
     const favoriteDirectors = Array.isArray(data.favoriteDirectors) ? data.favoriteDirectors : [];
     const favoriteStyles = Array.isArray(data.favoriteStyles) ? data.favoriteStyles : [];
     const dislikes = Array.isArray(data.dislikes) ? data.dislikes : [];
@@ -689,6 +690,10 @@ const MovieShared = (() => {
         ${intro ? `<p class="taste-intro">${escapeHtml(intro)}</p>` : ''}
       </section>
       <div class="taste-grid">
+        <article class="taste-card taste-card--criteria">
+          <h3 class="taste-card-title">评价标准</h3>
+          ${renderList(criteria, 'taste-list--criteria')}
+        </article>
         <article class="taste-card taste-card--directors">
           <h3 class="taste-card-title">喜欢的导演</h3>
           ${renderTags(favoriteDirectors, 'gold')}
