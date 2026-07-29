@@ -1,5 +1,18 @@
 [
   {
+    "id": "m_sinners",
+    "createdAt": 1781625607400,
+    "title": "罪人",
+    "director": "瑞恩·库格勒",
+    "year": "2025",
+    "watchDate": "2026-07-29",
+    "genre": "恐怖, 惊悚, 音乐",
+    "poster": "",
+    "rating": "5.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_toto_the_hero",
     "createdAt": 1781625607300,
     "title": "小英雄托托",
