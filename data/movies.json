@@ -1,5 +1,18 @@
 [
   {
+    "id": "m_merry_christmas_mr_lawrence",
+    "createdAt": 1781625607500,
+    "title": "圣诞快乐，劳伦斯先生",
+    "director": "大岛渚",
+    "year": "1983",
+    "watchDate": "2026-07-31",
+    "genre": "剧情, 战争",
+    "poster": "",
+    "rating": "6.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_sinners",
     "createdAt": 1781625607400,
     "title": "罪人",
