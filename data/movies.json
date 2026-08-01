@@ -1,5 +1,18 @@
 [
   {
+    "id": "m_once_upon_a_time_west",
+    "createdAt": 1781625607600,
+    "title": "西部往事",
+    "director": "赛尔乔·莱昂内",
+    "year": "1968",
+    "watchDate": "2026-08-01",
+    "genre": "西部, 剧情",
+    "poster": "",
+    "rating": "5.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_merry_christmas_mr_lawrence",
     "createdAt": 1781625607500,
     "title": "圣诞快乐，劳伦斯先生",
