@@ -792,6 +792,11 @@
   },
   "diaries": [
     {
+      "id": "diary_melancholy_prince",
+      "date": "2026-08-04",
+      "content": "我怎么这么忧郁啊，我是忧郁王子还是一个忧郁的傻逼，还是昨天撸多了导致激素什么的问题"
+    },
+    {
       "id": "diary_alone_acceptance",
       "date": "2026-08-04",
       "content": "我的痛苦就在于清楚只有我自己能接纳我，而我又无法一个人。希望大家都能幸福吧"
