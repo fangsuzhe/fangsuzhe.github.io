@@ -1,5 +1,18 @@
 [
   {
+    "id": "m_autumn_sonata",
+    "createdAt": 1781625608000,
+    "title": "秋日奏鸣曲",
+    "director": "英格玛·伯格曼",
+    "year": "1978",
+    "watchDate": "2026-08-06",
+    "genre": "剧情, 家庭",
+    "poster": "",
+    "rating": "8.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_passion_joan_arc",
     "createdAt": 1781625607900,
     "title": "圣女贞德蒙难记",
