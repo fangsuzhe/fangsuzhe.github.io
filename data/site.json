@@ -792,6 +792,16 @@
   },
   "diaries": [
     {
+      "id": "diary_expression_here",
+      "date": "2026-08-06",
+      "content": "我少的可怜的表达欲大概都留在这了"
+    },
+    {
+      "id": "diary_sad_hormones",
+      "date": "2026-08-06",
+      "content": "我好悲伤啊，身体里激素什么的肯定不对劲了，有一种要得个什么抑郁症的感觉"
+    },
+    {
       "id": "diary_feeling_broken",
       "date": "2026-08-06",
       "content": "不过确实感觉自己有点坏掉了"
