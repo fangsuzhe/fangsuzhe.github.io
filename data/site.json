@@ -792,6 +792,16 @@
   },
   "diaries": [
     {
+      "id": "diary_feeling_broken",
+      "date": "2026-08-06",
+      "content": "不过确实感觉自己有点坏掉了"
+    },
+    {
+      "id": "diary_stupid_chant_pain",
+      "date": "2026-08-06",
+      "content": "我傻逼的时候就会开始念我感觉很痛苦"
+    },
+    {
       "id": "diary_melancholy_prince",
       "date": "2026-08-04",
       "content": "我怎么这么忧郁啊，我是忧郁王子还是一个忧郁的傻逼，还是昨天撸多了导致激素什么的问题"
