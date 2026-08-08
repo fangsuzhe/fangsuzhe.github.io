@@ -1,5 +1,18 @@
 [
   {
+    "id": "m_my_father_my_son",
+    "createdAt": 1781625608100,
+    "title": "我的父亲，我的儿子",
+    "director": "查恩·厄尔马克",
+    "year": "2005",
+    "watchDate": "2026-08-08",
+    "genre": "剧情, 家庭",
+    "poster": "",
+    "rating": "6.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_autumn_sonata",
     "createdAt": 1781625608000,
     "title": "秋日奏鸣曲",
