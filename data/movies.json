@@ -1,5 +1,18 @@
 [
   {
+    "id": "m_battle_of_algiers",
+    "createdAt": 1781625608200,
+    "title": "阿尔及尔之战",
+    "director": "吉洛·彭泰科沃",
+    "year": "1966",
+    "watchDate": "2026-08-08",
+    "genre": "剧情, 历史, 战争",
+    "poster": "",
+    "rating": "5.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_my_father_my_son",
     "createdAt": 1781625608100,
     "title": "我的父亲，我的儿子",
