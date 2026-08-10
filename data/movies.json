@@ -1,5 +1,31 @@
 [
   {
+    "id": "m_wizard_of_oz",
+    "createdAt": 1781625608400,
+    "title": "绿野仙踪",
+    "director": "维克多·弗莱明",
+    "year": "1939",
+    "watchDate": "2026-08-10",
+    "genre": "歌舞, 奇幻, 冒险",
+    "poster": "",
+    "rating": "9.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
+    "id": "m_stand_by_me",
+    "createdAt": 1781625608300,
+    "title": "伴我同行",
+    "director": "罗伯·莱纳",
+    "year": "1986",
+    "watchDate": "2026-08-10",
+    "genre": "剧情, 冒险",
+    "poster": "",
+    "rating": "9.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_battle_of_algiers",
     "createdAt": 1781625608200,
     "title": "阿尔及尔之战",
