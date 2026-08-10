@@ -1,5 +1,18 @@
 [
   {
+    "id": "m_rush",
+    "createdAt": 1781625608500,
+    "title": "极速风流",
+    "director": "朗·霍华德",
+    "year": "2013",
+    "watchDate": "2026-08-10",
+    "genre": "剧情, 传记, 运动",
+    "poster": "",
+    "rating": "8.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_wizard_of_oz",
     "createdAt": 1781625608400,
     "title": "绿野仙踪",
