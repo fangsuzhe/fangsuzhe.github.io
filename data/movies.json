@@ -1,5 +1,31 @@
 [
   {
+    "id": "m_seventh_seal",
+    "createdAt": 1781625608800,
+    "title": "第七封印",
+    "director": "英格玛·伯格曼",
+    "year": "1957",
+    "watchDate": "2026-08-14",
+    "genre": "剧情, 奇幻",
+    "poster": "",
+    "rating": "5.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
+    "id": "m_platoon",
+    "createdAt": 1781625608700,
+    "title": "野战排",
+    "director": "奥利弗·斯通",
+    "year": "1986",
+    "watchDate": "2026-08-14",
+    "genre": "剧情, 战争, 动作",
+    "poster": "",
+    "rating": "5.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_iron_giant",
     "createdAt": 1781625608600,
     "title": "钢铁巨人",
