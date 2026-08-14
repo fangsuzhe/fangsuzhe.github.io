@@ -792,6 +792,11 @@
   },
   "diaries": [
     {
+      "id": "diary_chaotic_neutral",
+      "date": "2026-08-14",
+      "content": "那种阵营九宫格，我应该是在混乱中立里面吧"
+    },
+    {
       "id": "diary_self_cleanse_fate",
       "date": "2026-08-14",
       "content": "我其实觉得我在自我清洁，命运会指引我"
