@@ -792,6 +792,11 @@
   },
   "diaries": [
     {
+      "id": "diary_self_cleanse_fate",
+      "date": "2026-08-14",
+      "content": "我其实觉得我在自我清洁，命运会指引我"
+    },
+    {
       "id": "diary_tired_excited",
       "date": "2026-08-14",
       "content": "我一直处于很困但是又睁着眼睛的亢奋状态"
