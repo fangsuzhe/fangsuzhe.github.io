@@ -792,6 +792,11 @@
   },
   "diaries": [
     {
+      "id": "diary_step_out",
+      "date": "2026-08-14",
+      "content": "不迈出那一步真的不知道自己想要什么，真是没办法从胡思乱想中得到进化"
+    },
+    {
       "id": "diary_stop_judging_self",
       "date": "2026-08-12",
       "content": "我不想反复审判自己了"
