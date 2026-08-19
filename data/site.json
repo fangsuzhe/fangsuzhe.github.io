@@ -792,6 +792,11 @@
   },
   "diaries": [
     {
+      "id": "diary_truth_smell",
+      "date": "2026-08-19",
+      "content": "把自己当作真理的人味太冲了"
+    },
+    {
       "id": "diary_hate_packaging",
       "date": "2026-08-19",
       "content": "我就是讨厌包装自己这件事，我讨厌不真，我讨厌自己像个等人光顾的商品"
