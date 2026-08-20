@@ -1,5 +1,18 @@
 [
   {
+    "id": "m_obsession",
+    "createdAt": 1781625609400,
+    "title": "痴迷",
+    "director": "库里·巴克",
+    "year": "2025",
+    "watchDate": "2026-08-20",
+    "genre": "恐怖, 奇幻",
+    "poster": "",
+    "rating": "7.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_a_foggy_tale",
     "createdAt": 1781625609300,
     "title": "大濛",
