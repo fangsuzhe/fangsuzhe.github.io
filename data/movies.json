@@ -1,5 +1,18 @@
 [
   {
+    "id": "m_across_the_spiderverse",
+    "createdAt": 1781625609500,
+    "title": "蜘蛛侠：纵横宇宙",
+    "director": "乔伊姆·多斯·桑托斯 / 凯普·鲍尔斯 / 贾斯汀·汤普森",
+    "year": "2023",
+    "watchDate": "2026-08-20",
+    "genre": "动作, 科幻, 动画, 冒险",
+    "poster": "",
+    "rating": "8.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_obsession",
     "createdAt": 1781625609400,
     "title": "痴迷",
