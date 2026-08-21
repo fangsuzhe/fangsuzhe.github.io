@@ -1,5 +1,18 @@
 [
   {
+    "id": "m_apocalypse_now",
+    "createdAt": 1781625609600,
+    "title": "现代启示录",
+    "director": "弗朗西斯·福特·科波拉",
+    "year": "1979",
+    "watchDate": "2026-08-21",
+    "genre": "剧情, 战争",
+    "poster": "",
+    "rating": "4.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_across_the_spiderverse",
     "createdAt": 1781625609500,
     "title": "蜘蛛侠：纵横宇宙",
