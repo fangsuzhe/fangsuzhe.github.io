@@ -1,5 +1,18 @@
 [
   {
+    "id": "m_golden_era",
+    "createdAt": 1781625609700,
+    "title": "黄金时代",
+    "director": "威廉·惠勒",
+    "year": "1946",
+    "watchDate": "2026-08-22",
+    "genre": "剧情, 爱情, 战争",
+    "poster": "",
+    "rating": "4.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_apocalypse_now",
     "createdAt": 1781625609600,
     "title": "现代启示录",
