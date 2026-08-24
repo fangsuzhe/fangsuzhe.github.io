@@ -792,6 +792,11 @@
   },
   "diaries": [
     {
+      "id": "diary_reheat_past",
+      "date": "2026-08-24",
+      "content": "就像和高中的同学聊天会反复聊当初的那些事情，我和自己聊天也只不过给往事加点汤汤水水然后反复审判自己"
+    },
+    {
       "id": "diary_impotence_blessing",
       "date": "2026-08-24",
       "content": "阳痿是福报"
