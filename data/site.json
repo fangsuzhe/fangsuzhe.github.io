@@ -792,6 +792,11 @@
   },
   "diaries": [
     {
+      "id": "diary_pain_not_enough",
+      "date": "2026-08-24",
+      "content": "在足够开心的事到来之前，我都认为是痛苦积攒的还不够"
+    },
+    {
       "id": "diary_think_impotent",
       "date": "2026-08-22",
       "content": "一思考，就阳痿"
