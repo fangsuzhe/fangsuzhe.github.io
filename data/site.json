@@ -740,6 +740,12 @@
       ],
       "links": [
         {
+          "id": "link_huangguoai",
+          "title": "黄果短剧",
+          "url": "https://huangguoai.com/",
+          "note": "AI成人短剧"
+        },
+        {
           "id": "link_yandex_images",
           "title": "Yandex Images",
           "url": "https://yandex.com/images/",
