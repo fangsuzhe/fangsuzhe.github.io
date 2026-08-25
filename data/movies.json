@@ -1,5 +1,18 @@
 [
   {
+    "id": "m_spiderman_brand_new_day",
+    "createdAt": 1781625610000,
+    "title": "蜘蛛侠：崭新之日",
+    "director": "德斯汀·丹尼尔·克雷顿",
+    "year": "2026",
+    "watchDate": "2026-08-25",
+    "genre": "动作, 科幻, 冒险",
+    "poster": "",
+    "rating": "6.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_dune2",
     "createdAt": 1781625609900,
     "title": "沙丘2",
