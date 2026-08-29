@@ -1,5 +1,18 @@
 [
   {
+    "id": "m_great_dictator",
+    "createdAt": 1781625610500,
+    "title": "大独裁者",
+    "director": "查理·卓别林",
+    "year": "1940",
+    "watchDate": "2026-08-29",
+    "genre": "剧情, 喜剧, 战争",
+    "poster": "",
+    "rating": "6.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_paths_of_glory",
     "createdAt": 1781625610400,
     "title": "光荣之路",
