@@ -1,5 +1,18 @@
 [
   {
+    "id": "m_paths_of_glory",
+    "createdAt": 1781625610400,
+    "title": "光荣之路",
+    "director": "斯坦利·库布里克",
+    "year": "1957",
+    "watchDate": "2026-08-29",
+    "genre": "剧情, 战争",
+    "poster": "",
+    "rating": "6.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_sunset_blvd",
     "createdAt": 1781625610300,
     "title": "日落大道",
