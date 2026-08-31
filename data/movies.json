@@ -1,5 +1,18 @@
 [
   {
+    "id": "m_aliens",
+    "createdAt": 1781625610600,
+    "title": "异形2",
+    "director": "詹姆斯·卡梅隆",
+    "year": "1986",
+    "watchDate": "2026-08-31",
+    "genre": "动作, 科幻, 惊悚",
+    "poster": "",
+    "rating": "7.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_great_dictator",
     "createdAt": 1781625610500,
     "title": "大独裁者",
