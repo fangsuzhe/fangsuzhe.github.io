@@ -1,5 +1,18 @@
 [
   {
+    "id": "m_12th_fail",
+    "createdAt": 1781625610700,
+    "title": "12年级的失败",
+    "director": "维德胡·维诺德·乔普拉",
+    "year": "2023",
+    "watchDate": "2026-09-01",
+    "genre": "剧情, 传记",
+    "poster": "",
+    "rating": "5.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_aliens",
     "createdAt": 1781625610600,
     "title": "异形2",
