@@ -798,6 +798,11 @@
   },
   "diaries": [
     {
+      "id": "diary_curiosity_cured",
+      "date": "2026-09-04",
+      "content": "我的猎奇终于在社交中被治好了"
+    },
+    {
       "id": "diary_hate_walkthroughs",
       "date": "2026-09-02",
       "content": "我抗拒去了解攻略，我讨厌公式化，而且我明白最美妙的时刻就是误以为自己是第一个明白解法的人"
