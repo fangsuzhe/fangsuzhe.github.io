@@ -1,5 +1,31 @@
 [
   {
+    "id": "m_amadeus",
+    "createdAt": 1781625611000,
+    "title": "莫扎特传",
+    "director": "米洛斯·福尔曼",
+    "year": "1984",
+    "watchDate": "2026-09-08",
+    "genre": "剧情, 音乐, 传记",
+    "poster": "",
+    "rating": "6.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
+    "id": "m_xiao_wu",
+    "createdAt": 1781625610900,
+    "title": "小武",
+    "director": "贾樟柯",
+    "year": "1998",
+    "watchDate": "2026-09-08",
+    "genre": "剧情",
+    "poster": "",
+    "rating": "9.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_high_and_low",
     "createdAt": 1781625610800,
     "title": "天国与地狱",
