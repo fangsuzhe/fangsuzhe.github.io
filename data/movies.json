@@ -1,5 +1,18 @@
 [
   {
+    "id": "m_das_boot",
+    "createdAt": 1781625611100,
+    "title": "从海底出击",
+    "director": "沃尔夫冈·彼德森",
+    "year": "1981",
+    "watchDate": "2026-09-12",
+    "genre": "剧情, 历史, 战争, 冒险",
+    "poster": "",
+    "rating": "4.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_amadeus",
     "createdAt": 1781625611000,
     "title": "莫扎特传",
