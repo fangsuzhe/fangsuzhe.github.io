@@ -1,5 +1,31 @@
 [
   {
+    "id": "m_dr_strangelove",
+    "createdAt": 1781625611400,
+    "title": "奇爱博士",
+    "director": "斯坦利·库布里克",
+    "year": "1964",
+    "watchDate": "2026-09-14",
+    "genre": "剧情, 喜剧, 战争",
+    "poster": "",
+    "rating": "4.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
+    "id": "m_american_beauty",
+    "createdAt": 1781625611300,
+    "title": "美国丽人",
+    "director": "萨姆·门德斯",
+    "year": "1999",
+    "watchDate": "2026-09-14",
+    "genre": "剧情, 爱情, 家庭",
+    "poster": "",
+    "rating": "10.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_oldboy",
     "createdAt": 1781625611200,
     "title": "老男孩",
