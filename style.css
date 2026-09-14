@@ -1482,7 +1482,7 @@ body {
   font-size: 1.2rem;
   line-height: 1.65;
   color: var(--text);
-  font-style: italic;
+  font-style: normal;
   white-space: pre-wrap;
 }
 
@@ -2017,8 +2017,8 @@ body {
   font-family: var(--font-display);
   font-size: 1.05rem;
   line-height: 1.65;
-  font-style: italic;
   color: var(--text);
+  font-style: normal;
 }
 
 /* Other spaces */
@@ -2152,7 +2152,7 @@ body {
   font-size: 0.92rem;
   line-height: 1.6;
   color: var(--text);
-  font-style: italic;
+  font-style: normal;
 }
 
 .space-records-page {
