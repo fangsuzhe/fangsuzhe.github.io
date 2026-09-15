@@ -1,5 +1,18 @@
 [
   {
+    "id": "m_come_and_see",
+    "createdAt": 1781625611500,
+    "title": "自己去看",
+    "director": "依莱姆·克里莫夫",
+    "year": "1985",
+    "watchDate": "2026-09-15",
+    "genre": "剧情, 战争",
+    "poster": "",
+    "rating": "8.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_dr_strangelove",
     "createdAt": 1781625611400,
     "title": "奇爱博士",
