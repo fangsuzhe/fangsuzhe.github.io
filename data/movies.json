@@ -1,5 +1,18 @@
 [
   {
+    "id": "m_aot_live_action",
+    "createdAt": 1781625611800,
+    "title": "进击的巨人真人版",
+    "director": "樋口真嗣",
+    "year": "2015",
+    "watchDate": "2026-09-16",
+    "genre": "动作, 科幻, 奇幻",
+    "poster": "",
+    "rating": "6.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_requiem_for_a_dream",
     "createdAt": 1781625611700,
     "title": "梦之安魂曲",
