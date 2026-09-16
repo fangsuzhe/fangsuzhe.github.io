@@ -1,5 +1,18 @@
 [
   {
+    "id": "m_requiem_for_a_dream",
+    "createdAt": 1781625611700,
+    "title": "梦之安魂曲",
+    "director": "达伦·阿伦诺夫斯基",
+    "year": "2000",
+    "watchDate": "2026-09-16",
+    "genre": "剧情, 惊悚",
+    "poster": "",
+    "rating": "7.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_star_wars_jedi",
     "createdAt": 1781625611600,
     "title": "星球大战：绝地归来",
