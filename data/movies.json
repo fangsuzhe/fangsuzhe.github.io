@@ -1,5 +1,18 @@
 [
   {
+    "id": "m_ikiru",
+    "createdAt": 1781625612000,
+    "title": "生之欲",
+    "director": "黑泽明",
+    "year": "1952",
+    "watchDate": "2026-09-17",
+    "genre": "剧情",
+    "poster": "",
+    "rating": "10.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_aot_last_attack",
     "createdAt": 1781625611900,
     "title": "进击的巨人剧场版：完结篇 最后的进击",
