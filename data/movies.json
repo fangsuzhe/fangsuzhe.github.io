@@ -1,5 +1,18 @@
 [
   {
+    "id": "m_aot_last_attack",
+    "createdAt": 1781625611900,
+    "title": "进击的巨人剧场版：完结篇 最后的进击",
+    "director": "林祐一郎",
+    "year": "2024",
+    "watchDate": "2026-09-17",
+    "genre": "动作, 动画, 奇幻",
+    "poster": "",
+    "rating": "7.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_aot_live_action",
     "createdAt": 1781625611800,
     "title": "进击的巨人真人版",
