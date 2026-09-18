@@ -1,5 +1,18 @@
 [
   {
+    "id": "m_incendies",
+    "createdAt": 1781625612100,
+    "title": "焦土之城",
+    "director": "丹尼斯·维伦纽瓦",
+    "year": "2010",
+    "watchDate": "2026-09-18",
+    "genre": "剧情, 战争, 悬疑",
+    "poster": "",
+    "rating": "6.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_ikiru",
     "createdAt": 1781625612000,
     "title": "生之欲",
@@ -47,7 +60,7 @@
     "watchDate": "2026-09-16",
     "genre": "剧情, 惊悚",
     "poster": "",
-    "rating": "7.0",
+    "rating": "6.0",
     "review": "",
     "hiddenIndex": 10000
   },
