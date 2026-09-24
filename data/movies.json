@@ -1,5 +1,18 @@
 [
   {
+    "id": "m_scarface",
+    "createdAt": 1781625612700,
+    "title": "疤面煞星",
+    "director": "布莱恩·德·帕尔玛",
+    "year": "1983",
+    "watchDate": "2026-09-24",
+    "genre": "剧情, 惊悚, 犯罪",
+    "poster": "",
+    "rating": "6.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_reservoir_dogs",
     "createdAt": 1781625612600,
     "title": "落水狗",
