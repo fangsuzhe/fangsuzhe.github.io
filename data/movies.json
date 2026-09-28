@@ -1,5 +1,18 @@
 [
   {
+    "id": "m_i_swear",
+    "createdAt": 1781625613200,
+    "title": "妥瑞氏与我",
+    "director": "柯克·琼斯",
+    "year": "2025",
+    "watchDate": "2026-09-28",
+    "genre": "剧情, 传记",
+    "poster": "",
+    "rating": "7.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_full_metal_jacket",
     "createdAt": 1781625613100,
     "title": "全金属外壳",
