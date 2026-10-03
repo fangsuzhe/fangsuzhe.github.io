@@ -67,7 +67,7 @@ const MovieShared = (() => {
   const POSTER_EXTENSIONS = ['webp', 'jpg', 'jpeg', 'png'];
 
   /** 已统一为 webp 的本地目录：不再尝试 jpg/png 回退，减少无效 404 */
-  const WEBP_ONLY_DIR_RE = /^images\/(movies|drama|anime|text|music|idol|porn|doujin)\//;
+  const WEBP_ONLY_DIR_RE = /^images\/(movies|drama|anime|text|music|game|idol|porn|doujin)\//;
 
   const POSTER_DIRS = [
     ['m_', 'images/movies/'],
@@ -76,6 +76,7 @@ const MovieShared = (() => {
     ['ch_', 'images/characters/'],
     ['t_', 'images/text/'],
     ['mu_', 'images/music/'],
+    ['g_', 'images/games/'],
     ['ac_', 'images/idol/'],
     ['code_', 'images/porn/'],
     ['dj_', 'images/doujin/'],

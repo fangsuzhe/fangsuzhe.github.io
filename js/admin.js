@@ -34,6 +34,7 @@ let siteConfig = {
     { id: 'anime', label: '动漫空间' },
     { id: 'text', label: '文字空间' },
     { id: 'music', label: '音乐空间' },
+    { id: 'game', label: '游戏空间' },
     { id: 'idol', label: '女优空间' },
   ],
   spaces: {
@@ -77,6 +78,14 @@ let siteConfig = {
       sections: [{ id: 'records', label: '记录' }, { id: 'best', label: '最' }],
       items: [{ id: 'mu_fishmans', title: 'fishmans', artist: 'fishmans', rating: '10.0' }],
       best: [{ id: 'mu_fishmans', title: 'fishmans', artist: 'fishmans', rating: '10.0' }],
+    },
+    game: {
+      kicker: 'Game Space',
+      statLabel: '已玩游戏',
+      defaultSubTab: 'records',
+      sections: [{ id: 'records', label: '记录' }, { id: 'best', label: '最' }],
+      items: [],
+      best: [],
     },
     idol: {
       kicker: 'Idol Space',
