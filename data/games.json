@@ -372,12 +372,12 @@
   {
     "id": "g_curious_expedition2",
     "title": "奇妙探险队2",
-    "rating": "7.0"
+    "rating": "5.0"
   },
   {
     "id": "g_dave",
     "title": "潜水员戴夫",
-    "rating": "7.0"
+    "rating": "5.0"
   },
   {
     "id": "g_astrea",
@@ -788,5 +788,250 @@
     "id": "g_lucky_few",
     "title": "少数幸运儿",
     "rating": "6.0"
+  },
+  {
+    "id": "g_backpack_battles",
+    "title": "背包乱斗：福西法的宝藏",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_rimworld",
+    "title": "rimworld",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_frostpunk",
+    "title": "冰汽时代",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_ac_valhalla",
+    "title": "刺客信条：英灵殿",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_blood_revenge",
+    "title": "嗜血复仇",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_paranormal_hk",
+    "title": "港诡实录",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_guigubahuang",
+    "title": "鬼谷八荒",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_crimson_desert",
+    "title": "红色沙漠",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_mirror_edge",
+    "title": "镜之边缘",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_shark_duel",
+    "title": "猎鲨对决",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_octopath2",
+    "title": "歧路旅人2",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_mahjong_soul",
+    "title": "雀魂麻将",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_drg",
+    "title": "深岩银河",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_blasphemous2",
+    "title": "神之亵渎2",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_bioshock_infinite",
+    "title": "生化奇兵：无限",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_kcd2",
+    "title": "天国拯救2",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_pedro",
+    "title": "我的朋友佩德罗",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_witcher3",
+    "title": "巫师3：狂猎",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_arma3",
+    "title": "武装突袭3",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_skul",
+    "title": "小骨：英雄杀手",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_little_nightmares",
+    "title": "小小梦魇",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_another_crab",
+    "title": "蟹蟹寻宝奇遇",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_jedi_fallen",
+    "title": "星球大战 绝地：陨落的武士团",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_naraka",
+    "title": "永劫无间",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_alan_wake",
+    "title": "alan wake",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_beholder",
+    "title": "beholder",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_chivalry2",
+    "title": "chivalry2",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_dead_cells",
+    "title": "死亡细胞",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_disco_elysium",
+    "title": "极乐迪斯科",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_ddlc",
+    "title": "心跳文学部",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_doom_eternal",
+    "title": "doom eternal",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_escape_backrooms",
+    "title": "逃离后室",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_grounder",
+    "title": "grounder",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_backrooms",
+    "title": "后室",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_l4d",
+    "title": "left4dead",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_overcooked",
+    "title": "胡闹厨房",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_overcooked2",
+    "title": "胡闹厨房2",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_scorn",
+    "title": "蔑视",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_payday2",
+    "title": "payday2",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_peak_en",
+    "title": "peak",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_phasmophobia",
+    "title": "恐鬼症",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_project_winter",
+    "title": "project winter",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_re7",
+    "title": "生化危机7",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_raft",
+    "title": "木筏",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_sekiro",
+    "title": "只狼",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_toem",
+    "title": "toem",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_rogue_trader",
+    "title": "战锤：行商浪人",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_watch_dogs",
+    "title": "看门狗",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_the_finals",
+    "title": "the finals",
+    "rating": "5.0"
   }
 ]
