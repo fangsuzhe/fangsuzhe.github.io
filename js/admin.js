@@ -11,9 +11,13 @@ const CONFIG_KEY = 'movie-admin-config';
 const SESSION_KEY = 'movie-admin-session';
 const DATA_PATH = 'data/movies.json';
 const SITE_PATH = 'data/site.json';
+const GAMES_PATH = 'data/games.json';
 const DEFAULT_REPO = 'fangsuzhe/fangsuzhe.github.io';
 
 let movies = [];
+let games = [];
+let gamesFileSha = null;
+let gamesLoaded = false;
 let siteConfig = {
   title: '我的精神家园',
   subtitle: '记录 · 分享 · 留存',
@@ -225,18 +229,25 @@ async function handleLogin(e) {
 async function loadMoviesFromGitHub() {
   setStatus('正在加载…', 'info');
   try {
-    await Promise.all([loadMoviesFile(), loadSiteFile()]);
+    await Promise.all([loadMoviesFile(), loadSiteFile(), loadGamesFile()]);
+    attachGames();
     setStatus(`已加载 ${movies.length} 部电影`, 'ok');
     render();
   } catch (err) {
     setStatus(err.message, 'error');
     try {
-      const [localMovies, localSite] = await Promise.all([
+      const [localMovies, localSite, localGames] = await Promise.all([
         fetch(DATA_PATH),
         fetch(SITE_PATH),
+        fetch(GAMES_PATH),
       ]);
       if (localMovies.ok) movies = await localMovies.json();
       if (localSite.ok) siteConfig = { ...siteConfig, ...(await localSite.json()) };
+      if (localGames.ok) {
+        games = await localGames.json();
+        gamesLoaded = Array.isArray(games);
+      }
+      attachGames();
       render();
     } catch { /* ignore */ }
   }
@@ -272,6 +283,42 @@ async function loadSiteFile() {
   const data = await res.json();
   siteFileSha = data.sha;
   siteConfig = { ...siteConfig, ...JSON.parse(atob(data.content.replace(/\n/g, ''))) };
+}
+
+async function loadGamesFile() {
+  const repo = adminConfig.repo || DEFAULT_REPO;
+  const branch = adminConfig.branch || 'main';
+  const url = `https://api.github.com/repos/${repo}/contents/${GAMES_PATH}?ref=${branch}`;
+
+  const res = await fetch(url, {
+    headers: { Authorization: `Bearer ${adminConfig.githubToken}`, Accept: 'application/vnd.github+json' },
+  });
+
+  if (res.status === 404) {
+    const local = await fetch(GAMES_PATH);
+    if (local.ok) games = await local.json();
+    gamesLoaded = Array.isArray(games);
+    gamesFileSha = null;
+    return;
+  }
+
+  if (!res.ok) throw new Error('加载游戏记录失败');
+
+  const data = await res.json();
+  gamesFileSha = data.sha;
+  games = JSON.parse(atob(data.content.replace(/\n/g, '')));
+  gamesLoaded = Array.isArray(games);
+}
+
+function attachGames() {
+  if (!Array.isArray(games) || !siteConfig.spaces?.game) return;
+  siteConfig.spaces.game.items = games;
+}
+
+function siteConfigForPublish() {
+  const copy = JSON.parse(JSON.stringify(siteConfig));
+  if (copy.spaces?.game) delete copy.spaces.game.items;
+  return copy;
 }
 
 async function publishFile(path, payload, sha, message) {
@@ -315,10 +362,18 @@ async function publishToGitHub() {
     );
     siteFileSha = await publishFile(
       SITE_PATH,
-      siteConfig,
+      siteConfigForPublish(),
       siteFileSha,
       `更新站点配置 (${stamp})`
     );
+    if (gamesLoaded) {
+      gamesFileSha = await publishFile(
+        GAMES_PATH,
+        games,
+        gamesFileSha,
+        `更新游戏记录 (${stamp})`
+      );
+    }
     setStatus('✓ 已发布！访客刷新主页即可看到更新（约 1 分钟内生效）', 'ok');
   } catch (err) {
     setStatus('发布失败：' + err.message, 'error');

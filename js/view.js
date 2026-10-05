@@ -356,15 +356,20 @@ function initActiveSubTabs() {
 
 async function loadPublicData() {
   const ts = Date.now();
-  const [moviesRes, siteRes] = await Promise.all([
+  const [moviesRes, siteRes, gamesRes] = await Promise.all([
     fetch(`data/movies.json?t=${ts}`),
     fetch(`data/site.json?t=${ts}`),
+    fetch(`data/games.json?t=${ts}`),
   ]);
 
   if (!moviesRes.ok) throw new Error('无法加载片单数据');
   const data = await moviesRes.json();
   if (!Array.isArray(data)) throw new Error('片单数据格式错误');
   movies = data;
+
+  if (!gamesRes.ok) throw new Error('无法加载游戏数据');
+  const games = await gamesRes.json();
+  if (!Array.isArray(games)) throw new Error('游戏数据格式错误');
 
   if (siteRes.ok) {
     siteConfig = { ...siteConfig, ...(await siteRes.json()) };
@@ -377,6 +382,19 @@ async function loadPublicData() {
     }
     if (!siteConfig.spaces) siteConfig.spaces = {};
     normalizeSiteConfig();
+    if (!siteConfig.spaces.game) {
+      siteConfig.spaces.game = {
+        kicker: 'Game Space',
+        statLabel: '已玩游戏',
+        defaultSubTab: 'records',
+        sections: [
+          { id: 'records', label: '记录' },
+          { id: 'best', label: '最' },
+        ],
+        best: [],
+      };
+    }
+    siteConfig.spaces.game.items = games;
     buildSpaceItemIndex();
     document.title = siteConfig.title || document.title;
     if (els.pageTitle) els.pageTitle.textContent = siteConfig.title;

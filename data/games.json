@@ -1,0 +1,792 @@
+[
+  {
+    "id": "g_elden_ring",
+    "title": "艾尔登法环",
+    "rating": "10.0"
+  },
+  {
+    "id": "g_bg3",
+    "title": "博德之门3",
+    "rating": "10.0"
+  },
+  {
+    "id": "g_expedition33",
+    "title": "光与影：33号远征队",
+    "rating": "10.0"
+  },
+  {
+    "id": "g_wukong",
+    "title": "黑神话：悟空",
+    "rating": "10.0"
+  },
+  {
+    "id": "g_destiny2",
+    "title": "命运2",
+    "rating": "10.0"
+  },
+  {
+    "id": "g_human_fall_flat",
+    "title": "人类一败涂地",
+    "rating": "10.0"
+  },
+  {
+    "id": "g_nioh2",
+    "title": "仁王2",
+    "rating": "10.0"
+  },
+  {
+    "id": "g_dos2",
+    "title": "神界：原罪2",
+    "rating": "10.0"
+  },
+  {
+    "id": "g_cod",
+    "title": "使命召唤",
+    "rating": "10.0"
+  },
+  {
+    "id": "g_overwatch",
+    "title": "守望先锋",
+    "rating": "10.0"
+  },
+  {
+    "id": "g_remnant2",
+    "title": "遗迹2",
+    "rating": "10.0"
+  },
+  {
+    "id": "g_csgo",
+    "title": "csgo",
+    "rating": "10.0"
+  },
+  {
+    "id": "g_dont_feed_monkeys",
+    "title": "不要喂猴子",
+    "rating": "10.0"
+  },
+  {
+    "id": "g_nightreign",
+    "title": "艾尔登法环 黑夜君临",
+    "rating": "9.0"
+  },
+  {
+    "id": "g_dst",
+    "title": "饥荒联机版",
+    "rating": "9.0"
+  },
+  {
+    "id": "g_plague_tale",
+    "title": "瘟疫传说：无罪",
+    "rating": "9.0"
+  },
+  {
+    "id": "g_apex",
+    "title": "Apex英雄",
+    "rating": "9.0"
+  },
+  {
+    "id": "g_ac_odyssey",
+    "title": "刺客信条奥德赛",
+    "rating": "9.0"
+  },
+  {
+    "id": "g_btd6",
+    "title": "气球塔防6",
+    "rating": "9.0"
+  },
+  {
+    "id": "g_prototype",
+    "title": "武装原型",
+    "rating": "9.0"
+  },
+  {
+    "id": "g_danganronpa2",
+    "title": "弹丸论破2",
+    "rating": "9.0"
+  },
+  {
+    "id": "g_dying_light",
+    "title": "消逝的光芒",
+    "rating": "9.0"
+  },
+  {
+    "id": "g_mh_rise",
+    "title": "怪物猎人崛起",
+    "rating": "9.0"
+  },
+  {
+    "id": "g_kena",
+    "title": "精灵与萤火意志",
+    "rating": "9.0"
+  },
+  {
+    "id": "g_rdr2",
+    "title": "荒野大镖客2",
+    "rating": "9.0"
+  },
+  {
+    "id": "g_re2",
+    "title": "生化危机2",
+    "rating": "9.0"
+  },
+  {
+    "id": "g_7dtd",
+    "title": "七日杀",
+    "rating": "8.0"
+  },
+  {
+    "id": "g_r6",
+    "title": "彩虹六号围攻",
+    "rating": "8.0"
+  },
+  {
+    "id": "g_superliminal",
+    "title": "超阈限空间",
+    "rating": "8.0"
+  },
+  {
+    "id": "g_detention",
+    "title": "返校",
+    "rating": "8.0"
+  },
+  {
+    "id": "g_storm4",
+    "title": "火影忍者疾风传究极风暴4",
+    "rating": "8.0"
+  },
+  {
+    "id": "g_dbd",
+    "title": "黎明杀机",
+    "rating": "8.0"
+  },
+  {
+    "id": "g_p5",
+    "title": "女神异闻录5",
+    "rating": "8.0"
+  },
+  {
+    "id": "g_qiangdouren",
+    "title": "枪豆人",
+    "rating": "8.0"
+  },
+  {
+    "id": "g_nioh",
+    "title": "仁王",
+    "rating": "8.0"
+  },
+  {
+    "id": "g_cp2077",
+    "title": "赛博朋克2077",
+    "rating": "8.0"
+  },
+  {
+    "id": "g_lost_castle2",
+    "title": "失落城堡2",
+    "rating": "8.0"
+  },
+  {
+    "id": "g_sultan",
+    "title": "苏丹的游戏",
+    "rating": "8.0"
+  },
+  {
+    "id": "g_summer_rhapsody",
+    "title": "夏日狂想曲",
+    "rating": "8.0"
+  },
+  {
+    "id": "g_star_warrior",
+    "title": "星界战士",
+    "rating": "8.0"
+  },
+  {
+    "id": "g_unheard",
+    "title": "疑案追声",
+    "rating": "8.0"
+  },
+  {
+    "id": "g_yijian",
+    "title": "逸剑风云决",
+    "rating": "8.0"
+  },
+  {
+    "id": "g_ror2",
+    "title": "雨中冒险2",
+    "rating": "8.0"
+  },
+  {
+    "id": "g_bf6",
+    "title": "战地风云6",
+    "rating": "8.0"
+  },
+  {
+    "id": "g_blood_code",
+    "title": "嗜血代码",
+    "rating": "8.0"
+  },
+  {
+    "id": "g_dmc5",
+    "title": "鬼泣5",
+    "rating": "8.0"
+  },
+  {
+    "id": "g_draw_guess",
+    "title": "你画我猜",
+    "rating": "8.0"
+  },
+  {
+    "id": "g_fc6",
+    "title": "孤岛惊魂6",
+    "rating": "8.0"
+  },
+  {
+    "id": "g_hades",
+    "title": "哈迪斯",
+    "rating": "8.0"
+  },
+  {
+    "id": "g_hollow_knight",
+    "title": "空洞骑士",
+    "rating": "8.0"
+  },
+  {
+    "id": "g_mhw",
+    "title": "怪物猎人世界",
+    "rating": "8.0"
+  },
+  {
+    "id": "g_onesixth",
+    "title": "我的六分之一爱人",
+    "rating": "8.0"
+  },
+  {
+    "id": "g_spirit_forest",
+    "title": "精灵与黑暗森林",
+    "rating": "8.0"
+  },
+  {
+    "id": "g_palworld",
+    "title": "幻兽帕鲁",
+    "rating": "8.0"
+  },
+  {
+    "id": "g_picopark",
+    "title": "picopark",
+    "rating": "8.0"
+  },
+  {
+    "id": "g_pvz",
+    "title": "植物大战僵尸",
+    "rating": "8.0"
+  },
+  {
+    "id": "g_pubg",
+    "title": "绝地求生",
+    "rating": "8.0"
+  },
+  {
+    "id": "g_pummel",
+    "title": "揍击派对",
+    "rating": "8.0"
+  },
+  {
+    "id": "g_raging_loop",
+    "title": "人狼村之谜",
+    "rating": "8.0"
+  },
+  {
+    "id": "g_re3",
+    "title": "生化危机3",
+    "rating": "8.0"
+  },
+  {
+    "id": "g_re4",
+    "title": "生化危机4",
+    "rating": "8.0"
+  },
+  {
+    "id": "g_tomb_raider",
+    "title": "古墓丽影崛起",
+    "rating": "8.0"
+  },
+  {
+    "id": "g_sts",
+    "title": "杀戮尖塔",
+    "rating": "8.0"
+  },
+  {
+    "id": "g_sf6",
+    "title": "街头霸王6",
+    "rating": "8.0"
+  },
+  {
+    "id": "g_terraria",
+    "title": "泰拉瑞亚",
+    "rating": "8.0"
+  },
+  {
+    "id": "g_gow4",
+    "title": "战神4",
+    "rating": "8.0"
+  },
+  {
+    "id": "g_detroit",
+    "title": "底特律：化身为人",
+    "rating": "7.0"
+  },
+  {
+    "id": "g_unceasing_evil",
+    "title": "恶意不息",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_monster_sanctuary",
+    "title": "怪物圣所",
+    "rating": "7.0"
+  },
+  {
+    "id": "g_volcano_daughter",
+    "title": "火山的女儿",
+    "rating": "7.0"
+  },
+  {
+    "id": "g_card_shop",
+    "title": "卡牌点模拟器多人联机版",
+    "rating": "7.0"
+  },
+  {
+    "id": "g_cage_dream",
+    "title": "笼中窥梦",
+    "rating": "7.0"
+  },
+  {
+    "id": "g_mist_detective",
+    "title": "迷雾侦探",
+    "rating": "7.0"
+  },
+  {
+    "id": "g_warm_snow",
+    "title": "暖雪",
+    "rating": "7.0"
+  },
+  {
+    "id": "g_curious_expedition2",
+    "title": "奇妙探险队2",
+    "rating": "7.0"
+  },
+  {
+    "id": "g_dave",
+    "title": "潜水员戴夫",
+    "rating": "7.0"
+  },
+  {
+    "id": "g_astrea",
+    "title": "神之天平",
+    "rating": "7.0"
+  },
+  {
+    "id": "g_split_fiction",
+    "title": "双影奇境",
+    "rating": "7.0"
+  },
+  {
+    "id": "g_bl3",
+    "title": "无主之地3",
+    "rating": "7.0"
+  },
+  {
+    "id": "g_midnight_shift",
+    "title": "午夜轮班",
+    "rating": "7.0"
+  },
+  {
+    "id": "g_dying_light2",
+    "title": "消逝的光芒2",
+    "rating": "7.0"
+  },
+  {
+    "id": "g_yanhuo",
+    "title": "烟火",
+    "rating": "7.0"
+  },
+  {
+    "id": "g_v_rising",
+    "title": "夜族崛起",
+    "rating": "7.0"
+  },
+  {
+    "id": "g_bf2042",
+    "title": "战地风云2042",
+    "rating": "7.0"
+  },
+  {
+    "id": "g_bf1",
+    "title": "战地1",
+    "rating": "7.0"
+  },
+  {
+    "id": "g_dw_origins",
+    "title": "真三国无双起源",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_block_theater",
+    "title": "方块剧场",
+    "rating": "7.0"
+  },
+  {
+    "id": "g_chained",
+    "title": "链在一起",
+    "rating": "7.0"
+  },
+  {
+    "id": "g_gta5",
+    "title": "gta5",
+    "rating": "7.0"
+  },
+  {
+    "id": "g_lethal_company",
+    "title": "致命公司",
+    "rating": "7.0"
+  },
+  {
+    "id": "g_lies_of_p",
+    "title": "匹诺曹的谎言",
+    "rating": "7.0"
+  },
+  {
+    "id": "g_lords_fallen",
+    "title": "堕落之主",
+    "rating": "7.0"
+  },
+  {
+    "id": "g_shadow_war",
+    "title": "中土世界战争之影",
+    "rating": "7.0"
+  },
+  {
+    "id": "g_mk11",
+    "title": "真人快打11",
+    "rating": "7.0"
+  },
+  {
+    "id": "g_opw4",
+    "title": "海贼无双4",
+    "rating": "7.0"
+  },
+  {
+    "id": "g_obra_dinn",
+    "title": "奥博拉丁的回归",
+    "rating": "7.0"
+  },
+  {
+    "id": "g_cheeky",
+    "title": "俏皮脸",
+    "rating": "7.0"
+  },
+  {
+    "id": "g_sts2",
+    "title": "杀戮尖塔2",
+    "rating": "7.0"
+  },
+  {
+    "id": "g_supermarket",
+    "title": "一起开超市",
+    "rating": "7.0"
+  },
+  {
+    "id": "g_kof14",
+    "title": "拳皇14",
+    "rating": "7.0"
+  },
+  {
+    "id": "g_escape_trial",
+    "title": "逃生试炼",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_galaxy_breaker",
+    "title": "银河破裂者",
+    "rating": "7.0"
+  },
+  {
+    "id": "g_thief_sim",
+    "title": "小偷模拟器",
+    "rating": "7.0"
+  },
+  {
+    "id": "g_walking_dead",
+    "title": "行尸走肉",
+    "rating": "7.0"
+  },
+  {
+    "id": "g_titanfall2",
+    "title": "泰坦陨落2",
+    "rating": "7.0"
+  },
+  {
+    "id": "g_unrailed",
+    "title": "一起开火车",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_vampire_survivors",
+    "title": "吸血鬼幸存者",
+    "rating": "7.0"
+  },
+  {
+    "id": "g_wardog",
+    "title": "战狗",
+    "rating": "7.0"
+  },
+  {
+    "id": "g_vermintide",
+    "title": "战锤末世鼠疫",
+    "rating": "7.0"
+  },
+  {
+    "id": "g_edith_finch",
+    "title": "艾迪芬奇的记忆",
+    "rating": "7.0"
+  },
+  {
+    "id": "g_adofai",
+    "title": "冰与火之舞",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_scarlet_nexus",
+    "title": "绯红结系",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_control",
+    "title": "控制 - 终极合辑",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_green_hell",
+    "title": "绿色地狱",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_party_animals",
+    "title": "猛兽派对",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_nv_diao",
+    "title": "女吊",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_queen_game",
+    "title": "女王的游戏：盛世天下 媚娘篇",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_curious_expedition",
+    "title": "奇妙探险队",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_high_energy",
+    "title": "前方高能",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_brotato",
+    "title": "土豆兄弟",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_little_nightmares2",
+    "title": "小小梦魇2",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_desktop_pet",
+    "title": "虚拟桌宠模拟器",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_picnic",
+    "title": "野餐大冒险",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_invisible_guardian",
+    "title": "隐形守护者",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_shadow_warrior2",
+    "title": "影子武士2",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_shadow_warrior3",
+    "title": "影子武士3",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_fishing",
+    "title": "渔力全开",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_atomic_heart",
+    "title": "原子之心",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_darktide",
+    "title": "战锤40k：暗潮",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_bf5",
+    "title": "战地风云5",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_crimson_ritual",
+    "title": "赤痕：血之仪式",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_cuphead",
+    "title": "茶杯头",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_ds3",
+    "title": "黑暗之魂3",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_ddnet",
+    "title": "ddnet",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_devour",
+    "title": "吞噬",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_firewatch",
+    "title": "看火人",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_goose_duck",
+    "title": "鹅鸭杀",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_grim_dawn",
+    "title": "恐怖黎明",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_l4d2",
+    "title": "求生之路2",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_pick_love",
+    "title": "拣爱",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_mh_wilds",
+    "title": "怪物猎人荒野",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_monster_train",
+    "title": "怪物火车",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_orc_must_die3",
+    "title": "兽人必须死3",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_papers_please",
+    "title": "请出示证件",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_plague_inc",
+    "title": "瘟疫公司",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_sea_of_thieves",
+    "title": "盗贼之海",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_civ6",
+    "title": "文明6",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_sons_of_forest",
+    "title": "森林之子",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_stick_fight",
+    "title": "火柴人乱斗",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_peak",
+    "title": "极限巅峰",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_tbh",
+    "title": "tbh：塔斯克吧英雄",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_the_forest",
+    "title": "森林",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_this_war",
+    "title": "这是我的战争",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_goose",
+    "title": "模拟大鹅",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_vrchat",
+    "title": "vrchat",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_wd2",
+    "title": "看门狗2",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_wwz",
+    "title": "僵尸世界大战",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_lucky_few",
+    "title": "少数幸运儿",
+    "rating": "6.0"
+  }
+]
