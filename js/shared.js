@@ -431,6 +431,20 @@ const MovieShared = (() => {
     { id: '0',  label: '0 · 浪费时间的垃圾' },
   ];
 
+  const GAME_RATING_TIERS = [
+    { id: '10', label: '10 · 主观满分' },
+    { id: '9',  label: '9 · 非常好' },
+    { id: '8',  label: '8 · 感觉还可以' },
+    { id: '7',  label: '7 · 瑕不掩瑜' },
+    { id: '6',  label: '6 · 也能玩玩' },
+    { id: '5',  label: '5 · 可能通关可能没通关反正玩的很痛苦' },
+    { id: '4',  label: '4 · 玩个十分钟就下线' },
+    { id: '3',  label: '3 · 完全不对我的胃口' },
+    { id: '2',  label: '2 · 比一分强但还是不喜欢' },
+    { id: '1',  label: '1 · 制作差玩法差' },
+    { id: '0',  label: '0 · 不打算玩' },
+  ];
+
   function getScore(movie) {
     return parseFloat(movie.rating) || 0;
   }
@@ -1029,14 +1043,20 @@ const MovieShared = (() => {
       activeTier = 'all',
       onTierChange,
       onItemClick,
+      tiers = RATING_TIERS,
     } = options;
 
     const FILTER_LABELS = [
       { id: 'all', label: '全部' },
-      ...RATING_TIERS.map((t) => ({ id: t.id, label: t.label })),
+      ...tiers.map((t) => ({ id: t.id, label: t.label })),
     ];
 
-    const counts = countByTier(items);
+    const counts = countByTier(items, tiers);
+    const tenTier = tiers.find((t) => t.id === '10');
+    const tenMeaning = tenTier?.label?.includes('·')
+      ? tenTier.label.split('·').slice(1).join('·').trim()
+      : '';
+    const perfectLabel = tenMeaning ? `${tenMeaning} · 10 分` : '10 分';
     const tierMeta = FILTER_LABELS.find((f) => f.id === activeTier);
     const filtered = activeTier === 'all'
       ? [...items].sort((a, b) => getScore(b) - getScore(a))
@@ -1062,7 +1082,7 @@ const MovieShared = (() => {
           <p>试试切换评分档位</p>
         </div>`;
     } else if (showGrouped) {
-      listHtml = groupByTier(items).map(({ tier, movies: list }) => `
+      listHtml = groupByTier(items, tiers).map(({ tier, movies: list }) => `
         <section class="rating-section" data-tier="${tier.id}">
           <div class="section-header">
             <div class="section-title-wrap">
@@ -1088,7 +1108,7 @@ const MovieShared = (() => {
             <span class="stat-num">${items.length}</span>
           </div>
           <div class="stat-card stat-card--highlight">
-            <span class="stat-label">10 分</span>
+            <span class="stat-label">${escapeHtml(perfectLabel)}</span>
             <span class="stat-num">${counts['10'] || 0}</span>
           </div>
         </div>
@@ -1294,7 +1314,7 @@ const MovieShared = (() => {
   return {
     $, uid, ratingFromSlider, sliderFromRating, ratingColor, formatDate,
     escapeHtml, escapeAttr, renderTags, posterHtml, posterCandidates, resolvePoster, defaultPosterPath, tryPosterFallback, posterImgTag, bindDeferredPosters,
-    RATING_TIERS, MOVIE_RATING_TIERS, DEFAULT_HIDDEN_INDEX, getHiddenIndex, getScore, matchRatingTier, countByTier, groupByTier,
+    RATING_TIERS, MOVIE_RATING_TIERS, GAME_RATING_TIERS, DEFAULT_HIDDEN_INDEX, getHiddenIndex, getScore, matchRatingTier, countByTier, groupByTier,
     filterAndSort, calcStats, renderGrid, renderGrouped, renderDetail,
     renderTastePanel, renderNotesPanel, renderDiaryPanel, renderCodesPanel, renderDoujinPanel, renderLinksPanel, renderBestPanel, renderSpaceBestPanel, renderSpacePlaceholder,
     renderSpacePicksPage, renderSpaceRecordsPanel, renderCharactersPanel, bindSpaceItemClicks,

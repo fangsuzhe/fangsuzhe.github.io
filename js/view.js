@@ -1,7 +1,7 @@
 /* 公开主页 — 只读，按评分分区展示 */
 
 const {
-  $, escapeHtml, MOVIE_RATING_TIERS, filterAndSort, calcStats, countByTier,
+  $, escapeHtml, MOVIE_RATING_TIERS, GAME_RATING_TIERS, RATING_TIERS, filterAndSort, calcStats, countByTier,
   renderGrid, renderGrouped, renderDetail, renderTastePanel, renderBestPanel,
   renderSpacePlaceholder, renderSpaceBestPanel, renderSpaceRecordsPanel,
   renderCharactersPanel,
@@ -551,6 +551,7 @@ function renderContentSpaces() {
       items,
       kicker,
       statLabel: space.statLabel || '已记录',
+      tiers: spaceId === 'game' ? GAME_RATING_TIERS : RATING_TIERS,
       activeTier: spaceTierState[spaceId] || 'all',
       onTierChange: (tierId) => {
         spaceTierState[spaceId] = tierId;
