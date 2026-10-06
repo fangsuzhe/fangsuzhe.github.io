@@ -65,6 +65,16 @@
     "rating": "10.0"
   },
   {
+    "id": "g_wallpaper_engine",
+    "title": "壁纸引擎",
+    "rating": "10.0"
+  },
+  {
+    "id": "g_call_of_duty_modern_warfare_ii",
+    "title": "使命召唤：现代战争 II 2022",
+    "rating": "10.0"
+  },
+  {
     "id": "g_nightreign",
     "title": "艾尔登法环 黑夜君临",
     "rating": "9.0"
@@ -130,6 +140,11 @@
     "rating": "9.0"
   },
   {
+    "id": "g_detention",
+    "title": "返校",
+    "rating": "9.0"
+  },
+  {
     "id": "g_7dtd",
     "title": "七日杀",
     "rating": "8.0"
@@ -142,11 +157,6 @@
   {
     "id": "g_superliminal",
     "title": "超阈限空间",
-    "rating": "8.0"
-  },
-  {
-    "id": "g_detention",
-    "title": "返校",
     "rating": "8.0"
   },
   {
@@ -315,11 +325,6 @@
     "rating": "8.0"
   },
   {
-    "id": "g_sf6",
-    "title": "街头霸王6",
-    "rating": "8.0"
-  },
-  {
     "id": "g_terraria",
     "title": "泰拉瑞亚",
     "rating": "8.0"
@@ -333,11 +338,6 @@
     "id": "g_detroit",
     "title": "底特律：化身为人",
     "rating": "7.0"
-  },
-  {
-    "id": "g_unceasing_evil",
-    "title": "恶意不息",
-    "rating": "6.0"
   },
   {
     "id": "g_monster_sanctuary",
@@ -368,16 +368,6 @@
     "id": "g_warm_snow",
     "title": "暖雪",
     "rating": "7.0"
-  },
-  {
-    "id": "g_curious_expedition2",
-    "title": "奇妙探险队2",
-    "rating": "5.0"
-  },
-  {
-    "id": "g_dave",
-    "title": "潜水员戴夫",
-    "rating": "5.0"
   },
   {
     "id": "g_astrea",
@@ -423,11 +413,6 @@
     "id": "g_bf1",
     "title": "战地1",
     "rating": "7.0"
-  },
-  {
-    "id": "g_dw_origins",
-    "title": "真三国无双起源",
-    "rating": "6.0"
   },
   {
     "id": "g_block_theater",
@@ -500,11 +485,6 @@
     "rating": "7.0"
   },
   {
-    "id": "g_escape_trial",
-    "title": "逃生试炼",
-    "rating": "6.0"
-  },
-  {
     "id": "g_galaxy_breaker",
     "title": "银河破裂者",
     "rating": "7.0"
@@ -525,11 +505,6 @@
     "rating": "7.0"
   },
   {
-    "id": "g_unrailed",
-    "title": "一起开火车",
-    "rating": "6.0"
-  },
-  {
     "id": "g_vampire_survivors",
     "title": "吸血鬼幸存者",
     "rating": "7.0"
@@ -548,6 +523,56 @@
     "id": "g_edith_finch",
     "title": "艾迪芬奇的记忆",
     "rating": "7.0"
+  },
+  {
+    "id": "g_castle_crashers",
+    "title": "城堡破坏者",
+    "rating": "7.0"
+  },
+  {
+    "id": "g_crime_scene_cleaner_prologue",
+    "title": "犯罪现场清洁工：序章",
+    "rating": "7.0"
+  },
+  {
+    "id": "g_dead_or_alive_6",
+    "title": "死或生6",
+    "rating": "7.0"
+  },
+  {
+    "id": "g_repo",
+    "title": "R.E.P.O.",
+    "rating": "7.0"
+  },
+  {
+    "id": "g_ibb_obb",
+    "title": "ibb & obb",
+    "rating": "7.0"
+  },
+  {
+    "id": "g_sf6",
+    "title": "街头霸王6",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_unceasing_evil",
+    "title": "恶意不息",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_dw_origins",
+    "title": "真三国无双起源",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_escape_trial",
+    "title": "逃生试炼",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_unrailed",
+    "title": "一起开火车",
+    "rating": "6.0"
   },
   {
     "id": "g_adofai",
@@ -788,6 +813,31 @@
     "id": "g_lucky_few",
     "title": "少数幸运儿",
     "rating": "6.0"
+  },
+  {
+    "id": "g_dead_or_alive_xtreme_venus_vacation",
+    "title": "死或生：维纳斯假期",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_rebirth_mr_wang",
+    "title": "Rebirth:Mr Wang",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_tmodloader",
+    "title": "tModLoader",
+    "rating": "6.0"
+  },
+  {
+    "id": "g_curious_expedition2",
+    "title": "奇妙探险队2",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_dave",
+    "title": "潜水员戴夫",
+    "rating": "5.0"
   },
   {
     "id": "g_backpack_battles",
@@ -1033,5 +1083,475 @@
     "id": "g_the_finals",
     "title": "the finals",
     "rating": "5.0"
+  },
+  {
+    "id": "g_pacify",
+    "title": "Pacify",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_quantum_break",
+    "title": "量子破碎",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_shadow_tactics_blades_of_the_shogun",
+    "title": "影子战术：将军之刃",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_sniper_elite_4",
+    "title": "狙击精英4",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_warframe",
+    "title": "星际战甲",
+    "rating": "5.0"
+  },
+  {
+    "id": "g_60_seconds",
+    "title": "60 Seconds!",
+    "rating": "4.0"
+  },
+  {
+    "id": "g_60_seconds_reatomized",
+    "title": "60 Seconds! Reatomized",
+    "rating": "4.0"
+  },
+  {
+    "id": "g_alien_isolation",
+    "title": "异形：隔离",
+    "rating": "4.0"
+  },
+  {
+    "id": "g_barotrauma",
+    "title": "潜渊症",
+    "rating": "4.0"
+  },
+  {
+    "id": "g_death_stranding",
+    "title": "死亡搁浅",
+    "rating": "4.0"
+  },
+  {
+    "id": "g_deadlock",
+    "title": "Deadlock",
+    "rating": "4.0"
+  },
+  {
+    "id": "g_death_road_to_canada",
+    "title": "死亡之路：加拿大",
+    "rating": "4.0"
+  },
+  {
+    "id": "g_final_fantasy_vii_remake_intergrade",
+    "title": "最终幻想7 重制版",
+    "rating": "4.0"
+  },
+  {
+    "id": "g_final_fantasy_xv_windows_edition",
+    "title": "最终幻想15",
+    "rating": "4.0"
+  },
+  {
+    "id": "g_fallout_76",
+    "title": "辐射76",
+    "rating": "4.0"
+  },
+  {
+    "id": "g_gears_5",
+    "title": "战争机器5",
+    "rating": "4.0"
+  },
+  {
+    "id": "g_ghostwire_tokyo",
+    "title": "幽灵线：东京",
+    "rating": "4.0"
+  },
+  {
+    "id": "g_helldivers",
+    "title": "绝地潜兵",
+    "rating": "4.0"
+  },
+  {
+    "id": "g_hand_simulator",
+    "title": "手部模拟器",
+    "rating": "4.0"
+  },
+  {
+    "id": "g_king_of_crabs",
+    "title": "King of Crabs",
+    "rating": "4.0"
+  },
+  {
+    "id": "g_nier_automata",
+    "title": "尼尔：机械纪元",
+    "rating": "4.0"
+  },
+  {
+    "id": "g_noita",
+    "title": "Noita",
+    "rating": "4.0"
+  },
+  {
+    "id": "g_pvz_gw2",
+    "title": "植物大战僵尸：花园战争2",
+    "rating": "4.0"
+  },
+  {
+    "id": "g_portal_knights",
+    "title": "传送门骑士",
+    "rating": "4.0"
+  },
+  {
+    "id": "g_steins_gate",
+    "title": "命运石之门",
+    "rating": "4.0"
+  },
+  {
+    "id": "g_sudoku_universe",
+    "title": "Sudoku Universe",
+    "rating": "4.0"
+  },
+  {
+    "id": "g_the_big_journey",
+    "title": "The Big Journey",
+    "rating": "4.0"
+  },
+  {
+    "id": "g_the_binding_of_isaac",
+    "title": "以撒的结合",
+    "rating": "4.0"
+  },
+  {
+    "id": "g_the_elder_scrolls_v_skyrim_special_edition",
+    "title": "上古卷轴5：天际",
+    "rating": "4.0"
+  },
+  {
+    "id": "g_the_escapists_2",
+    "title": "脱逃者2",
+    "rating": "4.0"
+  },
+  {
+    "id": "g_the_sims_4",
+    "title": "模拟人生4",
+    "rating": "4.0"
+  },
+  {
+    "id": "g_tomb_raider_203160",
+    "title": "古墓丽影",
+    "rating": "4.0"
+  },
+  {
+    "id": "g_turmoil",
+    "title": "石油骚动",
+    "rating": "4.0"
+  },
+  {
+    "id": "g_unravel_two",
+    "title": "毛线小精灵2",
+    "rating": "4.0"
+  },
+  {
+    "id": "g_xcom_2",
+    "title": "幽浮2",
+    "rating": "4.0"
+  },
+  {
+    "id": "g_touhou_mystia_s_izakaya",
+    "title": "东方夜雀食堂",
+    "rating": "4.0"
+  },
+  {
+    "id": "g_planet_zoo",
+    "title": "动物园之星",
+    "rating": "4.0"
+  },
+  {
+    "id": "g_bloody_spell",
+    "title": "嗜血印",
+    "rating": "4.0"
+  },
+  {
+    "id": "g_sneak_out",
+    "title": "城堡惊魂",
+    "rating": "4.0"
+  },
+  {
+    "id": "g_richman_10",
+    "title": "大富翁10",
+    "rating": "4.0"
+  },
+  {
+    "id": "g_the_scroll_of_taiwu_beyond_the_dome",
+    "title": "太吾绘卷：天幕心帷",
+    "rating": "4.0"
+  },
+  {
+    "id": "g_the_survivalists",
+    "title": "岛屿生存者",
+    "rating": "4.0"
+  },
+  {
+    "id": "g_home_behind_2",
+    "title": "归家异途2",
+    "rating": "4.0"
+  },
+  {
+    "id": "g_dyson_sphere_program",
+    "title": "戴森球计划",
+    "rating": "4.0"
+  },
+  {
+    "id": "g_house_flipper",
+    "title": "房产达人",
+    "rating": "4.0"
+  },
+  {
+    "id": "g_darkest_dungeon",
+    "title": "暗黑地牢",
+    "rating": "4.0"
+  },
+  {
+    "id": "g_white_day_a_labyrinth_named_school",
+    "title": "白色情人节：恐怖学校",
+    "rating": "4.0"
+  },
+  {
+    "id": "g_for_honor",
+    "title": "荣耀战魂",
+    "rating": "4.0"
+  },
+  {
+    "id": "g_neon_abyss",
+    "title": "霓虹深渊",
+    "rating": "4.0"
+  },
+  {
+    "id": "g_monster_prom",
+    "title": "魔物学园：毕业舞会大作战",
+    "rating": "4.0"
+  },
+  {
+    "id": "g_borderlands_2",
+    "title": "无主之地2",
+    "rating": "3.0"
+  },
+  {
+    "id": "g_muse_dash",
+    "title": "喵斯快跑",
+    "rating": "3.0"
+  },
+  {
+    "id": "g_totally_accurate_battlegrounds",
+    "title": "全面吃鸡模拟器",
+    "rating": "3.0"
+  },
+  {
+    "id": "g_my_time_at_portia",
+    "title": "波西亚时光",
+    "rating": "3.0"
+  },
+  {
+    "id": "g_subnautica_below_zero",
+    "title": "深海迷航：冰点之下",
+    "rating": "3.0"
+  },
+  {
+    "id": "g_oxygen_not_included",
+    "title": "缺氧",
+    "rating": "3.0"
+  },
+  {
+    "id": "g_heros_land",
+    "title": "英勇之地",
+    "rating": "3.0"
+  },
+  {
+    "id": "g_euro_truck_simulator_2",
+    "title": "欧洲卡车模拟2",
+    "rating": "2.0"
+  },
+  {
+    "id": "g_paunch",
+    "title": "Paunch",
+    "rating": "2.0"
+  },
+  {
+    "id": "g_sudoku_killer",
+    "title": "Sudoku Killer",
+    "rating": "2.0"
+  },
+  {
+    "id": "g_the_mean_greens_plastic_warfare",
+    "title": "The Mean Greens - Plastic Warfare",
+    "rating": "2.0"
+  },
+  {
+    "id": "g_fragpunk",
+    "title": "界外狂潮",
+    "rating": "2.0"
+  },
+  {
+    "id": "g_planet_coaster",
+    "title": "过山车之星",
+    "rating": "2.0"
+  },
+  {
+    "id": "g_hss_reload",
+    "title": "重装岚影:重生",
+    "rating": "2.0"
+  },
+  {
+    "id": "g_dont_starve",
+    "title": "饥荒",
+    "rating": "2.0"
+  },
+  {
+    "id": "g_absolver",
+    "title": "Absolver",
+    "rating": "1.0"
+  },
+  {
+    "id": "g_achievement_hunter_pharaoh",
+    "title": "Achievement Hunter: Pharaoh",
+    "rating": "1.0"
+  },
+  {
+    "id": "g_crap_attack",
+    "title": "Crap Attack",
+    "rating": "1.0"
+  },
+  {
+    "id": "g_deiland",
+    "title": "Deiland",
+    "rating": "1.0"
+  },
+  {
+    "id": "g_flotsam",
+    "title": "Flotsam",
+    "rating": "1.0"
+  },
+  {
+    "id": "g_god_eater_3",
+    "title": "噬神者3",
+    "rating": "1.0"
+  },
+  {
+    "id": "g_genital_jousting",
+    "title": "Genital Jousting",
+    "rating": "1.0"
+  },
+  {
+    "id": "g_just_cause_3",
+    "title": "正当防卫3",
+    "rating": "1.0"
+  },
+  {
+    "id": "g_kurtzpel",
+    "title": "KurtzPel",
+    "rating": "1.0"
+  },
+  {
+    "id": "g_lost",
+    "title": "Lost",
+    "rating": "1.0"
+  },
+  {
+    "id": "g_seek_girl",
+    "title": "Seek Girl",
+    "rating": "1.0"
+  },
+  {
+    "id": "g_seek_girl_v",
+    "title": "Seek Girl V",
+    "rating": "1.0"
+  },
+  {
+    "id": "g_seek_girl_ii",
+    "title": "Seek Girl Ⅱ",
+    "rating": "1.0"
+  },
+  {
+    "id": "g_seek_girl_iii",
+    "title": "Seek Girl Ⅲ",
+    "rating": "1.0"
+  },
+  {
+    "id": "g_seek_girl_iv",
+    "title": "Seek Girl Ⅳ",
+    "rating": "1.0"
+  },
+  {
+    "id": "g_seek_girl_vi",
+    "title": "Seek Girl Ⅵ",
+    "rating": "1.0"
+  },
+  {
+    "id": "g_seek_girl_fog_i",
+    "title": "Seek Girl:Fog Ⅰ",
+    "rating": "1.0"
+  },
+  {
+    "id": "g_snail_bob_2",
+    "title": "Snail Bob 2",
+    "rating": "1.0"
+  },
+  {
+    "id": "g_streets_of_rogue",
+    "title": "Streets of Rogue",
+    "rating": "1.0"
+  },
+  {
+    "id": "g_sudoku_jigsaw",
+    "title": "Sudoku Jigsaw",
+    "rating": "1.0"
+  },
+  {
+    "id": "g_taboos_cracks",
+    "title": "Taboos: Cracks",
+    "rating": "1.0"
+  },
+  {
+    "id": "g_the_binding_of_isaac_rebirth",
+    "title": "以撒的结合：重生",
+    "rating": "1.0"
+  },
+  {
+    "id": "g_wayout",
+    "title": "WayOut",
+    "rating": "1.0"
+  },
+  {
+    "id": "g_wayout_2_hex",
+    "title": "WayOut 2: Hex",
+    "rating": "1.0"
+  },
+  {
+    "id": "g_traveler_arena",
+    "title": "旅人竞技场",
+    "rating": "1.0"
+  },
+  {
+    "id": "g_castle_morihisa",
+    "title": "森久城物语",
+    "rating": "1.0"
+  },
+  {
+    "id": "g_shawarma_legend",
+    "title": "沙威玛传奇",
+    "rating": "1.0"
+  },
+  {
+    "id": "g_pleasure_puzzle_portrait",
+    "title": "趣拼拼：肖像画",
+    "rating": "1.0"
+  },
+  {
+    "id": "g_albion_online",
+    "title": "阿尔比恩",
+    "rating": "1.0"
   }
 ]
