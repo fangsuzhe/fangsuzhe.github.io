@@ -386,21 +386,20 @@ const MovieShared = (() => {
     const klass = cls ? ` class="${escapeAttr(cls)}"` : '';
     const onerror = ' onerror="MovieShared.tryPosterFallback(this)"';
 
+    const src = cdnUrl(primary);
     if (eager) {
-      const src = cdnUrl(primary);
       return `<img${klass} src="${escapeAttr(src)}"${alt}${sizes} loading="eager" fetchpriority="high" decoding="async"${ref}${fallbackAttr}${onerror}>`;
     }
 
-    const deferCls = cls ? `${cls} poster-defer` : 'poster-defer';
-    return `<img class="${escapeAttr(deferCls)}" data-poster-src="${escapeAttr(primary)}"${alt}${sizes} decoding="async"${ref}${fallbackAttr}${onerror}>`;
+    return `<img${klass} src="${escapeAttr(src)}"${alt}${sizes} loading="lazy" decoding="async"${ref}${fallbackAttr}${onerror}>`;
   }
 
-  function posterHtml(posterOrItem, cls = '') {
+  function posterHtml(posterOrItem, cls = '', options = {}) {
     const candidates = typeof posterOrItem === 'string'
       ? posterCandidates(posterOrItem)
       : posterCandidates(posterOrItem);
     if (!candidates.length) return `<div class="poster-placeholder">🎬</div>`;
-    return posterImgTag(candidates, cls);
+    return posterImgTag(candidates, cls, options);
   }
 
   const RATING_TIERS = [
@@ -544,17 +543,18 @@ const MovieShared = (() => {
     };
   }
 
-  function renderMovieCard(m, i = 0) {
+  function renderMovieCard(m, i = 0, options = {}) {
     const meta = [m.year, m.director].filter(Boolean).join(' · ');
     const score = getScore(m);
     const poster = resolvePoster(m);
     const hasPoster = Boolean(poster);
+    const posterOptions = options.eager ? { eager: true } : {};
 
     if (hasPoster) {
       return `
-        <article class="movie-card" data-id="${m.id}" style="animation-delay:${Math.min(i * 0.05, 0.5)}s">
+        <article class="movie-card" data-id="${m.id}">
           <div class="poster-wrap">
-            ${posterHtml(m)}
+            ${posterHtml(m, '', posterOptions)}
             <span class="rating-badge rating-badge--${tierClass(score)}" style="color:${ratingColor(m.rating)}">${m.rating}</span>
           </div>
           <div class="card-body">
@@ -568,7 +568,7 @@ const MovieShared = (() => {
     }
 
     return `
-      <article class="movie-card movie-card--text" data-id="${m.id}" data-tier="${tierClass(score)}" style="animation-delay:${Math.min(i * 0.04, 0.48)}s">
+      <article class="movie-card movie-card--text" data-id="${m.id}" data-tier="${tierClass(score)}">
         <div class="card-accent" aria-hidden="true"></div>
         <div class="card-body">
           <div class="card-head">
@@ -595,14 +595,24 @@ const MovieShared = (() => {
     });
   }
 
+  function mapWithEagerPosters(list, renderCard) {
+    let eagerLeft = 12;
+    return list.map((item, i) => {
+      const eager = eagerLeft > 0;
+      if (eager) eagerLeft -= 1;
+      return renderCard(item, i, { eager });
+    }).join('');
+  }
+
   function renderGrid(movies, gridEl, onCardClick) {
-    gridEl.innerHTML = movies.map((m, i) => renderMovieCard(m, i)).join('');
+    gridEl.innerHTML = mapWithEagerPosters(movies, renderMovieCard);
     bindCardClicks(gridEl, onCardClick);
     bindDeferredPosters(gridEl);
   }
 
   function renderGrouped(movies, containerEl, onCardClick, tiers = RATING_TIERS) {
     const groups = groupByTier(movies, tiers);
+    const eagerState = { left: 12 };
     containerEl.innerHTML = groups.map(({ tier, movies: list }) => `
       <section class="rating-section" data-tier="${tier.id}">
         <div class="section-header">
@@ -613,7 +623,11 @@ const MovieShared = (() => {
           <span class="section-count">${list.length} 部</span>
         </div>
         <div class="movie-grid">
-          ${list.map((m, i) => renderMovieCard(m, i)).join('')}
+          ${list.map((m, i) => {
+            const eager = eagerState.left > 0;
+            if (eager) eagerState.left -= 1;
+            return renderMovieCard(m, i, { eager });
+          }).join('')}
         </div>
       </section>
     `).join('');
@@ -998,18 +1012,19 @@ const MovieShared = (() => {
     best: { title: '最', kicker: 'The Best' },
   };
 
-  function renderSpaceItemCard(item, i = 0) {
+  function renderSpaceItemCard(item, i = 0, options = {}) {
     const meta = [item.year, item.author, item.artist, item.creator, item.director].filter(Boolean).join(' · ');
     const score = getScore(item);
     const candidates = posterCandidates(item);
     const idAttr = item.id ? ` data-space-item="${escapeAttr(item.id)}"` : '';
     const interact = item.id ? ' tabindex="0" role="button"' : '';
+    const posterOptions = options.eager ? { eager: true } : {};
 
     if (candidates.length) {
       return `
-        <article class="movie-card"${idAttr}${interact} style="animation-delay:${Math.min(i * 0.05, 0.5)}s">
+        <article class="movie-card"${idAttr}${interact}>
           <div class="poster-wrap">
-            ${posterHtml(item)}
+            ${posterHtml(item, '', posterOptions)}
             <span class="rating-badge rating-badge--${tierClass(score)}" style="color:${ratingColor(item.rating)}">${escapeHtml(item.rating || '')}</span>
           </div>
           <div class="card-body">
@@ -1021,7 +1036,7 @@ const MovieShared = (() => {
     }
 
     return `
-      <article class="movie-card movie-card--text"${idAttr}${interact} style="animation-delay:${Math.min(i * 0.04, 0.48)}s">
+      <article class="movie-card movie-card--text"${idAttr}${interact}>
         <div class="card-accent" aria-hidden="true" data-tier="${tierClass(score)}"></div>
         <div class="card-body">
           <div class="card-head">
@@ -1082,6 +1097,13 @@ const MovieShared = (() => {
       </button>`;
     }).join('');
 
+    let eagerLeft = 12;
+    const spaceCard = (item, i) => {
+      const eager = eagerLeft > 0;
+      if (eager) eagerLeft -= 1;
+      return renderSpaceItemCard(item, i, { eager });
+    };
+
     let listHtml = '';
     if (!filtered.length) {
       listHtml = `
@@ -1101,12 +1123,12 @@ const MovieShared = (() => {
             <span class="section-count">${list.length} 条</span>
           </div>
           <div class="movie-grid">
-            ${list.map((item, i) => renderSpaceItemCard(item, i)).join('')}
+            ${list.map((item, i) => spaceCard(item, i)).join('')}
           </div>
         </section>
       `).join('');
     } else {
-      listHtml = `<div class="movie-grid">${filtered.map((item, i) => renderSpaceItemCard(item, i)).join('')}</div>`;
+      listHtml = `<div class="movie-grid">${filtered.map((item, i) => spaceCard(item, i)).join('')}</div>`;
     }
 
     container.innerHTML = `

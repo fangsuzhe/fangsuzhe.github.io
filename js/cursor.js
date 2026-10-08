@@ -52,12 +52,11 @@ const SiteCursor = (() => {
     if (!raf) {
       raf = requestAnimationFrame(() => {
         applyTransform();
+        const hit = document.elementFromPoint(x, y);
+        if (!hit?.closest('.site-cursor')) setVariant(detectVariant(hit));
         raf = 0;
       });
     }
-    const hit = document.elementFromPoint(x, y);
-    if (hit?.closest('.site-cursor')) return;
-    setVariant(detectVariant(hit));
   }
 
   function mountCursor() {

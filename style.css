@@ -25,7 +25,7 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
   overflow-x: hidden;
   max-width: 100%;
 }
@@ -905,16 +905,12 @@ body {
 
 .movie-card {
   position: relative;
-  background: var(--bg-glass);
+  background: rgba(18, 17, 24, 0.94);
   border: 1px solid var(--border);
   border-radius: calc(var(--radius) - 2px);
   overflow: hidden;
   cursor: pointer;
-  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease, background 0.22s ease;
-  animation: fadeUp 0.45s ease both;
-  backdrop-filter: blur(10px);
-  content-visibility: auto;
-  contain-intrinsic-size: auto 320px;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
 }
 
 @keyframes fadeUp {
@@ -970,8 +966,7 @@ body {
   position: absolute;
   top: 0.65rem;
   right: 0.65rem;
-  background: rgba(12, 11, 15, 0.88);
-  backdrop-filter: blur(8px);
+  background: rgba(12, 11, 15, 0.92);
   border: 1px solid rgba(212, 168, 83, 0.35);
   color: var(--accent);
   font-family: var(--font-display);

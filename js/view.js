@@ -209,6 +209,7 @@ let activeSubTabs = { movies: 'records' };
 
 const spaceTierState = {};
 const spaceQueryState = {};
+const renderedSpaces = new Set();
 
 const FILTER_LABELS = [
   { id: 'all', label: '全部' },
@@ -464,6 +465,8 @@ function switchTab(tabId, updateUrl = true) {
     panel.classList.toggle('active', panel.dataset.tab === tabId);
   });
 
+  ensureContentSpace(tabId);
+
   const activePanel = document.querySelector(`.tab-panel[data-tab="${tabId}"]`);
   if (activePanel) bindDeferredPosters(activePanel);
 
@@ -566,47 +569,57 @@ function renderSpaceRecords(spaceId) {
   });
 }
 
+function renderOneContentSpace(spaceId) {
+  renderedSpaces.add(spaceId);
+  const space = getSpaceConfig(spaceId);
+  const items = space.items || [];
+  const kicker = space.kicker || '';
+
+  renderSpaceRecords(spaceId);
+
+  renderSpaceBestPanel($(`#${spaceId}_best`), space.best, items, {
+    spaceKicker: kicker,
+    onItemClick: openSpaceDetail,
+  });
+
+  if (space.characters?.length || getSections(spaceId).some((s) => s.id === 'characters')) {
+    renderCharactersPanel($(`#${spaceId}_characters`), {
+      characters: space.characters || [],
+      kicker,
+    });
+  }
+
+  if (space.codes?.length || getSections(spaceId).some((s) => s.id === 'codes')) {
+    renderCodesPanel($(`#${spaceId}_codes`), {
+      codes: space.codes || [],
+      kicker,
+    });
+  }
+
+  if (space.links?.length || getSections(spaceId).some((s) => s.id === 'links')) {
+    renderLinksPanel($(`#${spaceId}_links`), {
+      links: space.links || [],
+      kicker,
+    });
+  }
+
+  if (space.doujins?.length || getSections(spaceId).some((s) => s.id === 'r18')) {
+    renderDoujinPanel($(`#${spaceId}_r18`), {
+      doujins: space.doujins || [],
+      kicker,
+      title: 'R18',
+    });
+  }
+}
+
+function ensureContentSpace(spaceId) {
+  if (!spaceId || renderedSpaces.has(spaceId) || !getContentSpaces().includes(spaceId)) return;
+  renderOneContentSpace(spaceId);
+}
+
 function renderContentSpaces() {
   getContentSpaces().forEach((spaceId) => {
-    const space = getSpaceConfig(spaceId);
-    const items = space.items || [];
-    const kicker = space.kicker || '';
-
-    renderSpaceRecords(spaceId);
-
-    renderSpaceBestPanel($(`#${spaceId}_best`), space.best, items, {
-      spaceKicker: kicker,
-      onItemClick: openSpaceDetail,
-    });
-
-    if (space.characters?.length || getSections(spaceId).some((s) => s.id === 'characters')) {
-      renderCharactersPanel($(`#${spaceId}_characters`), {
-        characters: space.characters || [],
-        kicker,
-      });
-    }
-
-    if (space.codes?.length || getSections(spaceId).some((s) => s.id === 'codes')) {
-      renderCodesPanel($(`#${spaceId}_codes`), {
-        codes: space.codes || [],
-        kicker,
-      });
-    }
-
-    if (space.links?.length || getSections(spaceId).some((s) => s.id === 'links')) {
-      renderLinksPanel($(`#${spaceId}_links`), {
-        links: space.links || [],
-        kicker,
-      });
-    }
-
-    if (space.doujins?.length || getSections(spaceId).some((s) => s.id === 'r18')) {
-      renderDoujinPanel($(`#${spaceId}_r18`), {
-        doujins: space.doujins || [],
-        kicker,
-        title: 'R18',
-      });
-    }
+    if (renderedSpaces.has(spaceId)) renderOneContentSpace(spaceId);
   });
 }
 

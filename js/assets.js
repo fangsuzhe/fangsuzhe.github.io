@@ -33,15 +33,7 @@ const SiteAssets = (() => {
   function bindWallpaper(imgSelector, path = 'images/site/wallpaper.webp') {
     const img = document.querySelector(imgSelector);
     if (!img) return;
-    const url = cdnUrl(path);
-    const apply = () => {
-      img.src = url;
-    };
-    if ('requestIdleCallback' in window) {
-      requestIdleCallback(apply, { timeout: 2000 });
-    } else {
-      setTimeout(apply, 300);
-    }
+    img.src = cdnUrl(path);
   }
 
   function bindBrandAvatar(imgSelector, path = 'images/brand/avatar.webp') {
