@@ -1185,11 +1185,6 @@
     "rating": "4.0"
   },
   {
-    "id": "g_sudoku_universe",
-    "title": "Sudoku Universe",
-    "rating": "4.0"
-  },
-  {
     "id": "g_the_big_journey",
     "title": "The Big Journey",
     "rating": "4.0"
@@ -1355,11 +1350,6 @@
     "rating": "2.0"
   },
   {
-    "id": "g_sudoku_killer",
-    "title": "Sudoku Killer",
-    "rating": "2.0"
-  },
-  {
     "id": "g_the_mean_greens_plastic_warfare",
     "title": "The Mean Greens - Plastic Warfare",
     "rating": "2.0"
@@ -1460,18 +1450,8 @@
     "rating": "1.0"
   },
   {
-    "id": "g_snail_bob_2",
-    "title": "Snail Bob 2",
-    "rating": "1.0"
-  },
-  {
     "id": "g_streets_of_rogue",
     "title": "Streets of Rogue",
-    "rating": "1.0"
-  },
-  {
-    "id": "g_sudoku_jigsaw",
-    "title": "Sudoku Jigsaw",
     "rating": "1.0"
   },
   {
@@ -1485,33 +1465,8 @@
     "rating": "1.0"
   },
   {
-    "id": "g_wayout",
-    "title": "WayOut",
-    "rating": "1.0"
-  },
-  {
-    "id": "g_wayout_2_hex",
-    "title": "WayOut 2: Hex",
-    "rating": "1.0"
-  },
-  {
-    "id": "g_traveler_arena",
-    "title": "旅人竞技场",
-    "rating": "1.0"
-  },
-  {
-    "id": "g_castle_morihisa",
-    "title": "森久城物语",
-    "rating": "1.0"
-  },
-  {
     "id": "g_shawarma_legend",
     "title": "沙威玛传奇",
-    "rating": "1.0"
-  },
-  {
-    "id": "g_pleasure_puzzle_portrait",
-    "title": "趣拼拼：肖像画",
     "rating": "1.0"
   },
   {
