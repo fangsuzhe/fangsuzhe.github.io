@@ -1051,6 +1051,13 @@ const MovieShared = (() => {
       ...tiers.map((t) => ({ id: t.id, label: t.label })),
     ];
 
+    const query = String(options.query || '');
+    const hasQuery = query.trim().length > 0;
+    const searchable = options.searchable === true;
+    const prevInput = container.querySelector('.space-search-input');
+    const keepFocus = Boolean(prevInput && document.activeElement === prevInput);
+    const caret = keepFocus ? prevInput.selectionStart : null;
+
     const counts = countByTier(items, tiers);
     const tenTier = tiers.find((t) => t.id === '10');
     const tenMeaning = tenTier?.label?.includes('·')
@@ -1058,10 +1065,12 @@ const MovieShared = (() => {
       : '';
     const perfectLabel = tenMeaning ? `${tenMeaning} · 10 分` : '10 分';
     const tierMeta = FILTER_LABELS.find((f) => f.id === activeTier);
-    const filtered = activeTier === 'all'
-      ? [...items].sort((a, b) => getScore(b) - getScore(a))
-      : items.filter((item) => matchRatingTier(item, activeTier));
-    const showGrouped = activeTier === 'all';
+    const filtered = hasQuery
+      ? filterAndSort(items, query, 'rating-desc', activeTier)
+      : (activeTier === 'all'
+        ? [...items].sort((a, b) => getScore(b) - getScore(a))
+        : items.filter((item) => matchRatingTier(item, activeTier)));
+    const showGrouped = activeTier === 'all' && !hasQuery;
 
     const filterHtml = FILTER_LABELS.map(({ id, label }) => {
       const count = counts[id] ?? 0;
@@ -1079,7 +1088,7 @@ const MovieShared = (() => {
         <div class="empty-state visible">
           <div class="empty-icon">📂</div>
           <h2>没有符合条件的记录</h2>
-          <p>试试切换评分档位</p>
+          <p>${hasQuery ? '试试切换评分档位或清空搜索' : '试试切换评分档位'}</p>
         </div>`;
     } else if (showGrouped) {
       listHtml = groupByTier(items, tiers).map(({ tier, movies: list }) => `
@@ -1116,12 +1125,20 @@ const MovieShared = (() => {
           <div class="filter-panel-head">
             <div>
               <h2 class="panel-title">浏览与筛选</h2>
-              <p class="panel-desc">按评分档位浏览</p>
+              <p class="panel-desc">${searchable ? '按评分档位浏览，支持搜索' : '按评分档位浏览'}</p>
             </div>
           </div>
           <div class="rating-filters-scroll">
             <div class="rating-filters space-rating-filters">${filterHtml}</div>
           </div>
+          ${searchable ? `<div class="toolbar">
+            <div class="search-wrap">
+              <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+              <input type="search" class="space-search-input" placeholder="${escapeAttr(options.searchPlaceholder || '搜索…')}" value="${escapeAttr(query)}" autocomplete="off" aria-label="${escapeAttr(options.searchPlaceholder || '搜索')}">
+            </div>
+          </div>` : ''}
         </section>
       </section>
       <section class="catalog">
@@ -1139,6 +1156,22 @@ const MovieShared = (() => {
       container.querySelectorAll('.space-rating-filters .filter-chip:not([disabled])').forEach((btn) => {
         btn.addEventListener('click', () => onTierChange(btn.dataset.tier));
       });
+    }
+
+    const searchInput = container.querySelector('.space-search-input');
+    if (searchInput && typeof options.onQueryChange === 'function') {
+      let composing = false;
+      searchInput.addEventListener('compositionstart', () => { composing = true; });
+      searchInput.addEventListener('compositionend', () => { composing = false; });
+      searchInput.addEventListener('input', (e) => {
+        if (composing || e.isComposing) return;
+        options.onQueryChange(searchInput.value);
+      });
+      if (keepFocus) {
+        searchInput.focus();
+        const pos = Number.isInteger(caret) ? caret : searchInput.value.length;
+        try { searchInput.setSelectionRange(pos, pos); } catch (_) { /* 部分输入法不支持 */ }
+      }
     }
 
     bindSpaceItemClicks(container, onItemClick);

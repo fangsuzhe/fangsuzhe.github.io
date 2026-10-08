@@ -208,6 +208,7 @@ let activeTab = 'movies';
 let activeSubTabs = { movies: 'records' };
 
 const spaceTierState = {};
+const spaceQueryState = {};
 
 const FILTER_LABELS = [
   { id: 'all', label: '全部' },
@@ -541,24 +542,37 @@ function renderBest() {
   renderBestPanel(els.bestContent, siteConfig.best, movies, openDetail);
 }
 
+function renderSpaceRecords(spaceId) {
+  const space = getSpaceConfig(spaceId);
+  const items = space.items || [];
+  renderSpaceRecordsPanel($(`#${spaceId}_records`), {
+    items,
+    kicker: space.kicker || '',
+    statLabel: space.statLabel || '已记录',
+    tiers: spaceId === 'game' ? GAME_RATING_TIERS : RATING_TIERS,
+    activeTier: spaceTierState[spaceId] || 'all',
+    searchable: spaceId === 'game',
+    query: spaceQueryState[spaceId] || '',
+    searchPlaceholder: '搜索游戏名…',
+    onTierChange: (tierId) => {
+      spaceTierState[spaceId] = tierId;
+      renderSpaceRecords(spaceId);
+    },
+    onQueryChange: (value) => {
+      spaceQueryState[spaceId] = value;
+      renderSpaceRecords(spaceId);
+    },
+    onItemClick: openSpaceDetail,
+  });
+}
+
 function renderContentSpaces() {
   getContentSpaces().forEach((spaceId) => {
     const space = getSpaceConfig(spaceId);
     const items = space.items || [];
     const kicker = space.kicker || '';
 
-    renderSpaceRecordsPanel($(`#${spaceId}_records`), {
-      items,
-      kicker,
-      statLabel: space.statLabel || '已记录',
-      tiers: spaceId === 'game' ? GAME_RATING_TIERS : RATING_TIERS,
-      activeTier: spaceTierState[spaceId] || 'all',
-      onTierChange: (tierId) => {
-        spaceTierState[spaceId] = tierId;
-        renderContentSpaces();
-      },
-      onItemClick: openSpaceDetail,
-    });
+    renderSpaceRecords(spaceId);
 
     renderSpaceBestPanel($(`#${spaceId}_best`), space.best, items, {
       spaceKicker: kicker,
