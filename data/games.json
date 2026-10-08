@@ -65,16 +65,6 @@
     "rating": "10.0"
   },
   {
-    "id": "g_wallpaper_engine",
-    "title": "壁纸引擎",
-    "rating": "10.0"
-  },
-  {
-    "id": "g_call_of_duty_modern_warfare_ii",
-    "title": "使命召唤：现代战争 II 2022",
-    "rating": "10.0"
-  },
-  {
     "id": "g_nightreign",
     "title": "艾尔登法环 黑夜君临",
     "rating": "9.0"
@@ -335,6 +325,11 @@
     "rating": "8.0"
   },
   {
+    "id": "g_ds3",
+    "title": "黑暗之魂3",
+    "rating": "8.0"
+  },
+  {
     "id": "g_detroit",
     "title": "底特律：化身为人",
     "rating": "7.0"
@@ -351,7 +346,7 @@
   },
   {
     "id": "g_card_shop",
-    "title": "卡牌点模拟器多人联机版",
+    "title": "卡牌店模拟器多人联机版",
     "rating": "7.0"
   },
   {
@@ -530,16 +525,6 @@
     "rating": "7.0"
   },
   {
-    "id": "g_crime_scene_cleaner_prologue",
-    "title": "犯罪现场清洁工：序章",
-    "rating": "7.0"
-  },
-  {
-    "id": "g_dead_or_alive_6",
-    "title": "死或生6",
-    "rating": "7.0"
-  },
-  {
     "id": "g_repo",
     "title": "R.E.P.O.",
     "rating": "7.0"
@@ -685,11 +670,6 @@
     "rating": "6.0"
   },
   {
-    "id": "g_ds3",
-    "title": "黑暗之魂3",
-    "rating": "6.0"
-  },
-  {
     "id": "g_ddnet",
     "title": "ddnet",
     "rating": "6.0"
@@ -776,7 +756,7 @@
   },
   {
     "id": "g_tbh",
-    "title": "tbh：塔斯克吧英雄",
+    "title": "tbh：塔斯克巴英雄",
     "rating": "6.0"
   },
   {
@@ -822,11 +802,6 @@
   {
     "id": "g_rebirth_mr_wang",
     "title": "Rebirth:Mr Wang",
-    "rating": "6.0"
-  },
-  {
-    "id": "g_tmodloader",
-    "title": "tModLoader",
     "rating": "6.0"
   },
   {
@@ -886,7 +861,7 @@
   },
   {
     "id": "g_shark_duel",
-    "title": "猎鲨对决",
+    "title": "猎杀对决",
     "rating": "5.0"
   },
   {
@@ -1412,16 +1387,6 @@
   {
     "id": "g_absolver",
     "title": "Absolver",
-    "rating": "1.0"
-  },
-  {
-    "id": "g_achievement_hunter_pharaoh",
-    "title": "Achievement Hunter: Pharaoh",
-    "rating": "1.0"
-  },
-  {
-    "id": "g_crap_attack",
-    "title": "Crap Attack",
     "rating": "1.0"
   },
   {
