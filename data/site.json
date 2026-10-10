@@ -146,7 +146,9 @@
         { "id": "a_ousama", "title": "国王排名", "rating": "6.0" },
         { "id": "a_shield_hero", "title": "盾之勇者成名录", "rating": "5.0" },
         { "id": "a_sao", "title": "刀剑神域", "rating": "5.0" },
-        { "id": "a_sakamoto", "title": "在下坂本，有何贵干？", "rating": "5.0" }
+        { "id": "a_sakamoto", "title": "在下坂本，有何贵干？", "rating": "5.0" },
+        { "id": "a_mayoiga", "title": "迷家", "rating": "1.0" },
+        { "id": "a_zenin_akuyaku", "title": "全员恶玉", "rating": "1.0" }
       ],
       "characters": [
         {
