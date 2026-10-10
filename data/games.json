@@ -71,6 +71,11 @@
     "rating": "10.0"
   },
   {
+    "id": "g_zelda_botw",
+    "title": "塞尔达旷野之息",
+    "rating": "10.0"
+  },
+  {
     "id": "g_nightreign",
     "title": "艾尔登法环 黑夜君临",
     "rating": "9.0"
@@ -331,6 +336,11 @@
     "rating": "8.0"
   },
   {
+    "id": "g_escape_trial",
+    "title": "逃生试炼",
+    "rating": "8.0"
+  },
+  {
     "id": "g_detroit",
     "title": "底特律：化身为人",
     "rating": "7.0"
@@ -553,11 +563,6 @@
   {
     "id": "g_dw_origins",
     "title": "真三国无双起源",
-    "rating": "6.0"
-  },
-  {
-    "id": "g_escape_trial",
-    "title": "逃生试炼",
     "rating": "6.0"
   },
   {
