@@ -76,6 +76,11 @@
     "rating": "10.0"
   },
   {
+    "id": "g_ddtank",
+    "title": "弹弹堂",
+    "rating": "10.0"
+  },
+  {
     "id": "g_nightreign",
     "title": "艾尔登法环 黑夜君临",
     "rating": "9.0"
@@ -138,6 +143,11 @@
   {
     "id": "g_detention",
     "title": "返校",
+    "rating": "9.0"
+  },
+  {
+    "id": "g_lol",
+    "title": "英雄联盟",
     "rating": "9.0"
   },
   {
@@ -553,6 +563,11 @@
   {
     "id": "g_dead_island_2",
     "title": "死亡岛2",
+    "rating": "7.0"
+  },
+  {
+    "id": "g_marvel_rivals",
+    "title": "漫威争锋",
     "rating": "7.0"
   },
   {
