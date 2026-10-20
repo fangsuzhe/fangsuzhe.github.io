@@ -1,5 +1,18 @@
 [
   {
+    "id": "m_raiders3",
+    "createdAt": 1792467120000,
+    "title": "夺宝奇兵3",
+    "director": "史蒂文·斯皮尔伯格",
+    "year": "1989",
+    "watchDate": "2026-10-20",
+    "genre": "动作, 冒险",
+    "poster": "",
+    "rating": "6.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_raiders2",
     "createdAt": 1792380720000,
     "title": "夺宝奇兵2",
