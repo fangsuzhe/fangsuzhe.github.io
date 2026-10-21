@@ -1,5 +1,18 @@
 [
   {
+    "id": "m_sting",
+    "createdAt": 1792553520000,
+    "title": "骗中骗",
+    "director": "乔治·罗伊·希尔",
+    "year": "1973",
+    "watchDate": "2026-10-21",
+    "genre": "犯罪, 喜剧, 剧情",
+    "poster": "",
+    "rating": "8.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_raiders3",
     "createdAt": 1792467120000,
     "title": "夺宝奇兵3",
