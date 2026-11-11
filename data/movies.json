@@ -1,5 +1,18 @@
 [
   {
+    "id": "m_metropolis",
+    "createdAt": 1794367920000,
+    "title": "大都会",
+    "director": "弗里茨·朗",
+    "year": "1927",
+    "watchDate": "2026-11-11",
+    "genre": "科幻, 剧情",
+    "poster": "",
+    "rating": "9.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_wolf_wall",
     "createdAt": 1794195120000,
     "title": "华尔街之狼",
