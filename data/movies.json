@@ -1,5 +1,18 @@
 [
   {
+    "id": "m_bicycle_thieves",
+    "createdAt": 1794540720000,
+    "title": "偷自行车的人",
+    "director": "维托里奥·德·西卡",
+    "year": "1948",
+    "watchDate": "2026-11-13",
+    "genre": "剧情",
+    "poster": "",
+    "rating": "9.0",
+    "review": "",
+    "hiddenIndex": 10000
+  },
+  {
     "id": "m_metropolis",
     "createdAt": 1794367920000,
     "title": "大都会",
